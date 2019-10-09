@@ -1,0 +1,59 @@
+PODS:
+  - AMScrollingNavbar (5.4.0)
+  - BTNavigationDropdownMenu (0.5)
+  - CalculateCalendarLogic (0.3.0)
+  - collection-view-layouts/Core (0.2.2)
+  - collection-view-layouts/InstagramLayout (0.2.2):
+    - collection-view-layouts/Core
+  - Expression (0.13.2)
+  - FMPhotoPicker (0.8.2)
+  - FSCalendar (2.8.0)
+  - GoogleMaps (3.4.0):
+    - GoogleMaps/Maps (= 3.4.0)
+  - GoogleMaps/Base (3.4.0)
+  - GoogleMaps/Maps (3.4.0):
+    - GoogleMaps/Base
+  - GooglePlaces (3.4.0):
+    - GoogleMaps/Base (= 3.4.0)
+  - SnapLikeCollectionView (1.1.0)
+
+DEPENDENCIES:
+  - AMScrollingNavbar
+  - BTNavigationDropdownMenu
+  - CalculateCalendarLogic
+  - collection-view-layouts/InstagramLayout
+  - Expression
+  - FMPhotoPicker (~> 0.8)
+  - FSCalendar
+  - GoogleMaps
+  - GooglePlaces
+  - SnapLikeCollectionView
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AMScrollingNavbar
+    - BTNavigationDropdownMenu
+    - CalculateCalendarLogic
+    - collection-view-layouts
+    - Expression
+    - FMPhotoPicker
+    - FSCalendar
+    - GoogleMaps
+    - GooglePlaces
+    - SnapLikeCollectionView
+
+SPEC CHECKSUMS:
+  AMScrollingNavbar: 5fcd5b20cec965115b36e350509e0dbd84f9679b
+  BTNavigationDropdownMenu: ba3a26fdb6a56c4721c31df8a0875106c259663a
+  CalculateCalendarLogic: cd5b2c706a8628bb924c5ee9d05c4f61bdbaf390
+  collection-view-layouts: 474ec4cce601a26247737227a97fa6a4eb30213f
+  Expression: d701814068e202209e82c3e4d7cc573d3028e6e8
+  FMPhotoPicker: abc6559e4cdcb84cc2fc2f62dcdbdeca7cacbf6c
+  FSCalendar: 3a5ed3636e2ba1b83ebebfcf0c2603105a6f5efe
+  GoogleMaps: 67f4a604f80dd6a22d09c2a507a3a395b9f23060
+  GooglePlaces: 7547289e3fffc8980f4a027be99888e29d59b15d
+  SnapLikeCollectionView: b6f46ad57d104f94d91ce78b721afa43fd2b444b
+
+PODFILE CHECKSUM: 156bf040e0cfcbbbcbe1d028fcd5d7b2260b9ca3
+
+COCOAPODS: 1.5.3
