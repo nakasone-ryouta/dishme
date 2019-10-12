@@ -149,6 +149,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Expression/Expression.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FMPhotoPicker/FMPhotoPicker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapLikeCollectionView/SnapLikeCollectionView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/collection-view-layouts/collection_view_layouts.framework"
 fi
@@ -159,6 +160,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Expression/Expression.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FMPhotoPicker/FMPhotoPicker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapLikeCollectionView/SnapLikeCollectionView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/collection-view-layouts/collection_view_layouts.framework"
 fi

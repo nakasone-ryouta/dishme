@@ -1,14 +1,8 @@
+//保存
 
-
-//
-//  ListViewController.swift
-//  dishme
-//
-//  Created by 中曽根　涼太 on 2019/09/20.
-//  Copyright © 2019年 中曽根　涼太. All rights reserved.
-//
 
 import UIKit
+import SnapKit
 
 class ListViewController: UIViewController {
     
@@ -46,12 +40,26 @@ class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.frame = CGRect(x: 0, y: 0, width: 375, height: 812)
-        view.addSubview(tableView)
+        tablesettings()
+        
     }
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func tablesettings(){
+        
+        let maxheight = view.frame.size.height
+        let maxwidth = view.frame.size.width
+        
+        let BarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
+        let tableheight = maxheight - tableView.frame.origin.y * 2 - BarHeight
+        print(tableheight)
+        
+        
+        tableView.frame = CGRect(x: 0, y: 0, width: Int(maxwidth), height: Int(tableheight))
+        view.addSubview(tableView)
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }

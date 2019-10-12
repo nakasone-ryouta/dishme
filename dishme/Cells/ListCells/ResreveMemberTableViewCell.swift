@@ -21,6 +21,10 @@ class ResreveMemberTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    
+        
+        acountImage.frame.origin.x = 30
+        acountname.textAlignment = .center
     }
     @IBAction func callAction(_ sender: Any) {
     }

@@ -66,6 +66,7 @@
 		6AC526292337F86300A7A680 /* EditSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC526282337F86300A7A680 /* EditSettingViewController.swift */; };
 		6AC5262D23387A0E00A7A680 /* YouserAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC5262C23387A0E00A7A680 /* YouserAcountViewController.swift */; };
 		6AC526322338922F00A7A680 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC526312338922F00A7A680 /* SignInViewController.swift */; };
+		6AFBB525234F5B77000276D4 /* Search3CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFBB524234F5B77000276D4 /* Search3CollectionViewCell.swift */; };
 		912F721B724B44894D212F89 /* Pods_dishme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A198832A69CB0E6E02DF9C4E /* Pods_dishme.framework */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +134,7 @@
 		6AC526282337F86300A7A680 /* EditSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingViewController.swift; sourceTree = "<group>"; };
 		6AC5262C23387A0E00A7A680 /* YouserAcountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouserAcountViewController.swift; sourceTree = "<group>"; };
 		6AC526312338922F00A7A680 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		6AFBB524234F5B77000276D4 /* Search3CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search3CollectionViewCell.swift; sourceTree = "<group>"; };
 		6CA8D9885CF179EB5252581A /* Pods-dishme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dishme.release.xcconfig"; path = "Pods/Target Support Files/Pods-dishme/Pods-dishme.release.xcconfig"; sourceTree = "<group>"; };
 		A198832A69CB0E6E02DF9C4E /* Pods_dishme.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dishme.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -216,6 +218,9 @@
 			children = (
 				6A6AE06223291A9900D776AD /* dishCell.swift */,
 				6A6AE0602329184E00D776AD /* menubarCell.swift */,
+				6AFBB524234F5B77000276D4 /* Search3CollectionViewCell.swift */,
+				6A09606E2348702700846ABF /* Search4TableViewCell.swift */,
+				6A09606F2348702700846ABF /* Search4TableViewCell.xib */,
 			);
 			path = SearchCells;
 			sourceTree = "<group>";
@@ -241,8 +246,6 @@
 				6A9A825F23349A7B00507C1C /* List2TableViewCell.xib */,
 				6A2CA97223466ED600CA35CC /* ResreveMemberTableViewCell.swift */,
 				6A2CA97423467F1C00CA35CC /* HistoryMemberCell.swift */,
-				6A09606E2348702700846ABF /* Search4TableViewCell.swift */,
-				6A09606F2348702700846ABF /* Search4TableViewCell.xib */,
 			);
 			path = ListCells;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				"${BUILT_PRODUCTS_DIR}/Expression/Expression.framework",
 				"${BUILT_PRODUCTS_DIR}/FMPhotoPicker/FMPhotoPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapLikeCollectionView/SnapLikeCollectionView.framework",
 				"${BUILT_PRODUCTS_DIR}/collection-view-layouts/collection_view_layouts.framework",
 			);
@@ -528,6 +532,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Expression.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMPhotoPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapLikeCollectionView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/collection_view_layouts.framework",
 			);
@@ -551,6 +556,7 @@
 				6A9A827A2334D04500507C1C /* PhotosBigViewCell.swift in Sources */,
 				6A9A825A23348EEC00507C1C /* ListTableViewCell.swift in Sources */,
 				6A40A544232A898C0096CC28 /* Search3ViewController.swift in Sources */,
+				6AFBB525234F5B77000276D4 /* Search3CollectionViewCell.swift in Sources */,
 				6A2CA97523467F1C00CA35CC /* HistoryMemberCell.swift in Sources */,
 				6A6AE0612329184E00D776AD /* menubarCell.swift in Sources */,
 				6A7C62FC2331433000B0B898 /* Filtering.swift in Sources */,

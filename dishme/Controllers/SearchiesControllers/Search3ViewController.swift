@@ -15,6 +15,9 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
     //サインイン(企業orユーザ)
     var acountResister = "企業"
     
+    //[おすすめ][メニュー][雰囲気]を判断する
+    var controllerjudge = "おすすめ"
+    
     //次の画面に渡す値
     var firstindex: IndexPath? = nil
     
@@ -32,7 +35,10 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
     var pageMenu: PageMenuViewinit!
     
     //メニューのcollectionview
-    var collectionView: UICollectionView!
+    var collectionView1: UICollectionView!
+    var collectionView2: UICollectionView!
+    var collectionView3: UICollectionView!
+
     
     //料理
     var dishes:[UIImage] = [UIImage(named: "meat1")!,
@@ -45,26 +51,46 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
                             UIImage(named: "meat8")!,
                             UIImage(named: "meat9")!,
                             UIImage(named: "meat10")!,
-                            UIImage(named: "meat11")!,
-                            UIImage(named: "meat12")!,
-                            UIImage(named: "meat13")!,
-                            UIImage(named: "meat14")!,
-                            UIImage(named: "meat15")!,
-                            UIImage(named: "meat1")!,
-                            UIImage(named: "meat2")!,
-                            UIImage(named: "meat3")!,
-                            UIImage(named: "meat4")!,
-                            UIImage(named: "meat5")!,
-                            UIImage(named: "meat6")!,
-                            UIImage(named: "meat7")!,
-                            UIImage(named: "meat8")!,
-                            UIImage(named: "meat9")!,
-                            UIImage(named: "meat10")!,
-                            UIImage(named: "meat11")!,
-                            UIImage(named: "meat12")!,
-                            UIImage(named: "meat13")!,
-                            UIImage(named: "meat14")!,
-                            UIImage(named: "meat15")!,]
+                            ]
+    
+    //料理
+    var sidemenus:[UIImage] = [UIImage(named: "sidemenu1")!,
+                            UIImage(named: "sidemenu2")!,
+                            UIImage(named: "sidemenu3")!,
+                            UIImage(named: "sidemenu4")!,
+                            UIImage(named: "sidemenu5")!,
+                            UIImage(named: "sidemenu6")!,
+                            UIImage(named: "sidemenu7")!,
+                            UIImage(named: "sidemenu8")!,
+                            UIImage(named: "sidemenu9")!,
+                            UIImage(named: "sidemenu10")!,
+                            ]
+    
+    //料理
+    var softdrink:[UIImage] = [UIImage(named: "softdrink1")!,
+                               UIImage(named: "softdrink2")!,
+                               UIImage(named: "softdrink3")!,
+                               UIImage(named: "softdrink4")!,
+                               UIImage(named: "softdrink5")!,
+                               UIImage(named: "softdrink6")!,
+                               UIImage(named: "softdrink7")!,
+                               UIImage(named: "softdrink8")!,
+                               UIImage(named: "softdrink9")!,
+                               UIImage(named: "softdrink10")!,
+                               ]
+    
+    var appearance:[UIImage] = [UIImage(named: "appearance1")!,
+                                UIImage(named: "appearance2")!,
+                                UIImage(named: "appearance3")!,
+                                UIImage(named: "appearance4")!,
+                                UIImage(named: "appearance5")!,
+                                UIImage(named: "appearance6")!,
+                                UIImage(named: "appearance7")!,
+                                UIImage(named: "appearance8")!,
+                                UIImage(named: "appearance9")!,
+                                UIImage(named: "appearance10")!,
+                                ]
+    
     
     //レストラン情報
     var tableView: UITableView  =   UITableView()
@@ -239,18 +265,6 @@ extension Search3ViewController{
         self.acountview.addSubview(button)
         
     }
-//    func messageButton(){
-//        // UIButtonのインスタンスを作成する
-//        let button = UIButton(type: .custom)
-//        button.addTarget(self, action: #selector(good), for: UIControl.Event.touchUpInside)
-//        button.frame = CGRect(x: 164,
-//                              y: 188,
-//                              width: 195,
-//                              height: 29);
-//        button.setImage(UIImage(named: "messagebar"), for: UIControl.State())
-//        acountview.addSubview(button)
-//    }
-    
 //yummyボタン周り
     func Yummylabel(){
         let label = UILabel()
@@ -420,33 +434,37 @@ extension Search3ViewController:PageMenuViewDelegateinit{
     func willMoveToPage(_ pageMenu: PageMenuViewinit, from viewController: UIViewController, index currentViewControllerIndex: Int) {
         print("---------")
         print(viewController.title!)
+        controllerjudge = viewController.title!
     }
     
     func didMoveToPage(_ pageMenu: PageMenuViewinit, to viewController: UIViewController, index currentViewControllerIndex: Int) {
         print(viewController.title!)
+        controllerjudge = viewController.title!
     }
     
     func pagesettings(){
         // Init View Contollers
+      
+        // Init View Contollers
         let viewController1 = UIViewController()
         viewController1.view.backgroundColor = .blue
-        viewController1.title = "メインメニュー"
+        viewController1.title = "おすすめ"
         
         let viewController2 = UIViewController()
         viewController2.view.backgroundColor = .green
-        viewController2.title = "サイドメニュー"
+        viewController2.title = "メニュー"
         
         let viewController3 = UIViewController()
         viewController3.view.backgroundColor = .yellow
-        viewController3.title = "ドリンク"
+        viewController3.title = "雰囲気"
         
         // Add to array
         let viewControllers = [viewController1, viewController2, viewController3]
         
         //メニュー写真の追加
         collectionsettings(viewcontroller: viewController1)
-        collectionsettings(viewcontroller: viewController2)
-        collectionsettings(viewcontroller: viewController3)
+        collection2settings(viewcontroller: viewController2)
+        collection3settings(viewcontroller: viewController3)
 
         
         // Init Page Menu with view controllers and UI option
@@ -498,7 +516,43 @@ extension Search3ViewController:PageMenuViewDelegateinit{
     
 }
 
-extension Search3ViewController: UICollectionViewDelegate {
+//料理たちを表示するcollectionview
+extension Search3ViewController: UICollectionViewDataSource ,UICollectionViewDelegate{
+    // セルの数を返す
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch collectionView {
+        case collectionView1:
+            return dishes.count
+        case collectionView2:
+            return softdrink.count
+        case collectionView3:
+            return appearance.count
+        default:
+            return sidemenus.count
+        }
+    }
+    
+    
+    // セルの設定
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",for: indexPath as IndexPath) as! Search3CollectionViewCell
+
+        switch  collectionView{
+        case collectionView1:
+            let cellImage = dishes[indexPath.row]
+            cell.setUpContents(image: cellImage)
+        case collectionView2://メニュー
+            let cellImage = sidemenus[indexPath.row]
+            cell.setUpContents(image: cellImage)
+        case collectionView3://雰囲気
+            let cellImage = appearance[indexPath.row]
+            cell.setUpContents(image: cellImage)
+        default:
+            break;
+        }
+        return cell
+    }
+    
     // セル選択時の処理
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         firstindex = indexPath
@@ -510,24 +564,10 @@ extension Search3ViewController: UICollectionViewDelegate {
         if segue.identifier == "toSearch4" {
             let nextView = segue.destination as! Search4ViewController
             nextView.firstindex = firstindex
+            nextView.controllerjudge = controllerjudge
         }
     }
-}
-
-extension Search3ViewController: UICollectionViewDataSource {
-    // セルの数を返す
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dishes.count
-    }
     
-    
-    // セルの設定
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",for: indexPath as IndexPath) as! Search3CollectionViewCell
-        let cellImage = dishes[indexPath.row]
-        cell.setUpContents(image: cellImage)
-        return cell
-    }
     //レイアウト周り
     func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout:UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -539,51 +579,58 @@ extension Search3ViewController: UICollectionViewDataSource {
 
 }
 
+//料理たちを表示するcollectionview
 extension Search3ViewController:  UICollectionViewDelegateFlowLayout {
     
-    
     func collectionsettings(viewcontroller: UIViewController){
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 750), collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = UIColor.white
-        collectionView.register(Search3CollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView1 = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 750), collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView1.backgroundColor = UIColor.white
+        collectionView1.register(Search3CollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        collectionView1.delegate = self
+        collectionView1.dataSource = self
         
         // レイアウト設定
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 1
         layout.minimumLineSpacing = 1
-        collectionView.collectionViewLayout = layout
+        collectionView1.collectionViewLayout = layout
         
-        viewcontroller.view.addSubview(collectionView)
+        viewcontroller.view.addSubview(collectionView1)
+    }
+    
+    func collection2settings(viewcontroller: UIViewController){
+        collectionView2 = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 750), collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView2.backgroundColor = UIColor.white
+        collectionView2.register(Search3CollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        
+        collectionView2.delegate = self
+        collectionView2.dataSource = self
+        
+        // レイアウト設定
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 1
+        layout.minimumLineSpacing = 1
+        collectionView2.collectionViewLayout = layout
+        
+        viewcontroller.view.addSubview(collectionView2)
+    }
+    
+    func collection3settings(viewcontroller: UIViewController){
+        collectionView3 = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 750), collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView3.backgroundColor = UIColor.white
+        collectionView3.register(Search3CollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        
+        collectionView3.delegate = self
+        collectionView3.dataSource = self
+        
+        // レイアウト設定
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 1
+        layout.minimumLineSpacing = 1
+        collectionView3.collectionViewLayout = layout
+        
+        viewcontroller.view.addSubview(collectionView3)
     }
 
-}
-
-// CollectionViewのセル設定
-class Search3CollectionViewCell: UICollectionViewCell {
-    
-    private let cellImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.frame = CGRect(x: 0, y: 0, width: 125, height: 125)
-        return imageView
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setup() {
-        contentView.addSubview(cellImageView)
-    }
-    
-    func setUpContents(image: UIImage) {
-        cellImageView.image = image
-    }
 }

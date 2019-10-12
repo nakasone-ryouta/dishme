@@ -6,14 +6,14 @@ class Search4ViewController: UIViewController {
     //次の画面に渡す値
     var firstindex: IndexPath? = nil
     
+    //渡されてきた値
+    var controllerjudge = ""
+    
     //メニューのページ
     var pageMenu: PageMenuViewinit!
     
     //ページメニューのview
     let backview = UIView()
-    
-    //メニューのcollectionview
-    var collectionView: UICollectionView!
     
     //お金
     var money:[Int] = [3200,
@@ -26,14 +26,9 @@ class Search4ViewController: UIViewController {
                        112,
                        9986,
                        3200,
-                       2000,
-                       7655,
-                       1234,
-                       2344,
-                       9876,
                        ]
     
-    //料理
+    //おすすめ
     var dishes:[UIImage] = [UIImage(named: "meat1")!,
                             UIImage(named: "meat2")!,
                             UIImage(named: "meat3")!,
@@ -44,14 +39,35 @@ class Search4ViewController: UIViewController {
                             UIImage(named: "meat8")!,
                             UIImage(named: "meat9")!,
                             UIImage(named: "meat10")!,
-                            UIImage(named: "meat11")!,
-                            UIImage(named: "meat12")!,
-                            UIImage(named: "meat13")!,
-                            UIImage(named: "meat14")!,
-                            UIImage(named: "meat15")!,
                             ]
     
-    //料理
+    //メニュー
+    var sidemenus:[UIImage] = [UIImage(named: "sidemenu1")!,
+                               UIImage(named: "sidemenu2")!,
+                               UIImage(named: "sidemenu3")!,
+                               UIImage(named: "sidemenu4")!,
+                               UIImage(named: "sidemenu5")!,
+                               UIImage(named: "sidemenu6")!,
+                               UIImage(named: "sidemenu7")!,
+                               UIImage(named: "sidemenu8")!,
+                               UIImage(named: "sidemenu9")!,
+                               UIImage(named: "sidemenu10")!,
+                               ]
+
+    //雰囲気
+    var appearance:[UIImage] = [UIImage(named: "appearance1")!,
+                                UIImage(named: "appearance2")!,
+                                UIImage(named: "appearance3")!,
+                                UIImage(named: "appearance4")!,
+                                UIImage(named: "appearance5")!,
+                                UIImage(named: "appearance6")!,
+                                UIImage(named: "appearance7")!,
+                                UIImage(named: "appearance8")!,
+                                UIImage(named: "appearance9")!,
+                                UIImage(named: "appearance10")!,
+                                ]
+    
+    //おすすめ
     var name:[String] = ["meat1",
                          "meat2",
                          "meat3",
@@ -62,158 +78,124 @@ class Search4ViewController: UIViewController {
                          "meat8",
                          "meat9",
                          "meat10",
-                         "meat11",
-                         "meat12",
-                         "meat13",
-                         "meat14",
-                         "meat15",
                          ]
+    
+    //メニュー
+    var sidemenuname:[String] = ["デザート１",
+                         "デザート１",
+                         "デザート２",
+                         "デザート３",
+                         "デザート４",
+                         "デザート５",
+                         "デザート６",
+                         "デザート７",
+                         "デザート８",
+                         "デザート９",
+                         "デザート１０",
+                         ]
+    
+    //雰囲気
+    var appearancename:[String] = ["外観",
+                         "外観",
+                         "外観",
+                         "外観",
+                         "外観",
+                         "外観",
+                         "店内",
+                         "店内",
+                         "店内",
+                         "外観",
+                         ]
+    
+    //インスタンス化
+    var tableView1: UITableView  =   UITableView()
+    var tableView2: UITableView  =   UITableView()
+    var tableView3: UITableView  =   UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //pageviewの下に敷くview
-        background()
 
         //メニューの設定
-        pagesettings()
+        tableview1settings()
+        
+        //navigationの基本設定
+        setupNavigation()
     }
-    
-    func background(){
-        backview.frame = CGRect(x: 0,
-                                y: 88,
-                                width: view.frame.size.width,
-                                height: view.frame.size.height)
-        backview.backgroundColor = UIColor.init(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
-        self.view.addSubview(backview)
-    }
-
 
 }
-
-//メニューのレイアウト
-extension Search4ViewController:PageMenuViewDelegateinit{
-    func willMoveToPage(_ pageMenu: PageMenuViewinit, from viewController: UIViewController, index currentViewControllerIndex: Int) {
-        print("---------")
-        print(viewController.title!)
+extension Search4ViewController{
+    func setupNavigation(){
+        navigationItem.title = controllerjudge
     }
-    
-    func didMoveToPage(_ pageMenu: PageMenuViewinit, to viewController: UIViewController, index currentViewControllerIndex: Int) {
-        print(viewController.title!)
-    }
-    
-    func pagesettings(){
-        // Init View Contollers
-        let viewController1 = UIViewController()
-        viewController1.view.backgroundColor = .blue
-        viewController1.title = "メインメニュー"
-        
-        let viewController2 = UIViewController()
-        viewController2.view.backgroundColor = .green
-        viewController2.title = "サイドメニュー"
-        
-        let viewController3 = UIViewController()
-        viewController3.view.backgroundColor = .yellow
-        viewController3.title = "ドリンク"
-        
-        // Add to array
-        let viewControllers = [viewController1, viewController2, viewController3]
-        
-        //メニュー写真の追加
-
-        tableviewsettings(controller: viewController1)
-        tableviewsettings(controller: viewController2)
-        tableviewsettings(controller: viewController3)
-        
-        
-        // Init Page Menu with view controllers and UI option
-        pageMenu = PageMenuViewinit(viewControllers: viewControllers, option: optionview())
-        pageMenu.delegate = self
-        backview.addSubview(pageMenu)
-    }
-    
-    func optionview() ->PageMenuOption{
-        // Page menu UI option
-        var option = PageMenuOption(frame: CGRect(
-            x: 0, y: 20, width: view.frame.size.width, height: view.frame.size.height - 20))
-        
-        // ページメニュー
-        option = PageMenuOption(
-            frame: CGRect(x: 0, y: 20, width: view.frame.size.width, height: view.frame.size.height - 100))
-        option.menuItemWidth = view.frame.size.width / 3
-        option.menuTitleMargin = 0
-        
-        //ページメニュー
-        option = PageMenuOption(frame: CGRect(
-            x: 0, y: 20, width: view.frame.size.width, height: view.frame.size.height - 20))
-        option.menuItemWidth = view.frame.size.width / 3
-        //ここ
-        option.menuItemBackgroundColorNormal = UIColor.init(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
-        option.menuItemBackgroundColorSelected = UIColor.init(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
-        option.menuTitleMargin = 0
-        option.menuTitleColorNormal = .black
-        option.menuTitleFont = UIFont.init(name: "HelveticaNeue-Bold", size: 15)!
-        option.menuTitleColorSelected = .black
-        option.menuIndicatorHeight = 3
-        option.menuIndicatorColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
-        
-        return option
-    }
-    
-    
-    //pageの全体位置を決めている
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        if UIDevice.current.orientation == .portrait {
-            pageMenu.frame = CGRect(
-                x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height - 100)
-        } else {
-            pageMenu.frame = CGRect(
-                x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
-        }
-    }
-    
 }
+
+//テーブルview
 extension Search4ViewController: UITableViewDataSource, UITableViewDelegate{
     
-    func tableviewsettings(controller: UIViewController){
+    func tableview1settings(){
         
         //インスタンス化
-        let tableView: UITableView  =   UITableView()
+        tableView1 =  UITableView()
         
         //下から出てくるtableview
-        tableView.frame = CGRect(
+        tableView1.frame = CGRect(
             x: 0.0,
             y: 0,
             width: self.view.frame.width,
-            height: 690
+            height: 812
         )
         
-        tableView.delegate      =   self
-        tableView.dataSource    =   self
-        tableView.separatorStyle = .none
+        tableView1.delegate      =   self
+        tableView1.dataSource    =   self
+        tableView1.separatorStyle = .none
         
-        tableView.backgroundColor = UIColor.init(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
-        tableView.register (UINib(nibName: "Search4TableViewCell", bundle: nil),forCellReuseIdentifier:"Search4TableViewCell")
-        tableView.contentMode = .scaleAspectFit
+        tableView1.backgroundColor = UIColor.init(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
+        tableView1.register (UINib(nibName: "Search4TableViewCell", bundle: nil),forCellReuseIdentifier:"Search4TableViewCell")
+        tableView1.contentMode = .scaleAspectFit
         
         DispatchQueue.main.async {
-            tableView.scrollToRow(at: self.firstindex!, at: UITableView.ScrollPosition.top, animated: false)
+            self.tableView1.scrollToRow(at: self.firstindex!, at: UITableView.ScrollPosition.top, animated: false)
         }
         
-        controller.view.addSubview(tableView)
+        view.addSubview(tableView1)
     }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch controllerjudge {
+        case "おすすめ":
+            return dishes.count
+        case "メニュー":
+            return sidemenus.count
+        case "雰囲気":
+            return appearance.count
+        default:
+            break;
+        }
         return dishes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Search4TableViewCell") as! Search4TableViewCell
         
-        cell.dishImage.image = dishes[indexPath.row]
-        cell.dishName.text = name[indexPath.row]
-        cell.money.text = "\(money[indexPath.row])/人"
+        switch controllerjudge {
+        case "おすすめ":
+            cell.dishImage.image = dishes[indexPath.row]
+            cell.dishName.text = name[indexPath.row]
+            cell.money.text = "\(money[indexPath.row])円/人"
+            
+        case "メニュー":
+            cell.dishImage.image = sidemenus[indexPath.row]
+            cell.dishName.text = sidemenuname[indexPath.row]
+            cell.money.text = "\(money[indexPath.row])円/人"
+            
+        case "雰囲気":
+            cell.dishImage.image = appearance[indexPath.row]
+            cell.dishName.text = appearancename[indexPath.row]
+            cell.money.text = ""
+        default:
+            break;
+        }
         
         //選択不可
         cell.selectionStyle = UITableViewCell.SelectionStyle.none

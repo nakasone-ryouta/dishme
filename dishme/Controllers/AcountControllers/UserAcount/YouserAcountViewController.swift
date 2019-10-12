@@ -52,7 +52,7 @@ class YouserAcountViewController: UIViewController, UICollectionViewDelegate, UI
     var point = "¥17200"
     var email = "sone.to.soccer@icloud.com"
     var acountimage = UIImage(named: "acount1")
-    var sectionTitle:[String] = ["dishstore","ribface","焼肉大地","焼肉Narasino"]
+    var sectionTitle:[String] = ["dishstore","ribface","新規追加",]
     var image:[UIImage] = [UIImage(named: "meat1")!,
                            UIImage(named: "meat2")!,
                            UIImage(named: "meat3")!,
@@ -62,7 +62,8 @@ class YouserAcountViewController: UIViewController, UICollectionViewDelegate, UI
                            UIImage(named: "meat7")!,
                            UIImage(named: "meat8")!,
                            UIImage(named: "meat9")!,
-                           UIImage(named: "meat5")!,]
+                           UIImage(named: "meat10")!,
+                           ]
     
     var setting:[String] = ["ログアウト","アカウント切り替え","お知らせ","振込口座の変更","写真を非公開にする","問題を管理者に報告"]
     
@@ -100,6 +101,8 @@ class YouserAcountViewController: UIViewController, UICollectionViewDelegate, UI
         myCollectionView.dataSource = self
         
         myCollectionView.backgroundColor = .white
+        
+        myCollectionView.frame = CGRect(x: 0, y: 0, width: 375, height: 570)
         
         self.backview.addSubview(myCollectionView)
         
@@ -140,17 +143,17 @@ class YouserAcountViewController: UIViewController, UICollectionViewDelegate, UI
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch(section){
         case 0:
-            return 5
+            return 10
             
         case 1:
             return 8
             
         case 2:
-            return 10
+            return 0
             
         default:
             print("error")
-            return 0
+            return 1
         }
     }
     
@@ -261,12 +264,13 @@ extension YouserAcountViewController{
         acountImageChange()
     }
     func acountbackView(){
-        acountbackview.frame = CGRect(x: 0, y: 0, width: 375, height: 160)
+        
+        acountbackview.frame = CGRect(x: 0, y: 0, width: 375, height: 500)
         acountbackview.backgroundColor = UIColor.init(red: 249/255, green: 247/255, blue: 246/255, alpha: 1)
         view.addSubview(acountbackview)
     }
     func backView(){
-        backview.frame = CGRect(x: 0, y: 155, width: 375, height: 577)
+        backview.frame = CGRect(x: 0, y: 155, width: 375, height: 500)
         view.addSubview(backview)
     }
     
@@ -354,7 +358,7 @@ extension YouserAcountViewController{
     }
 }
 
-//下から
+//==========================================各種設定=====================================================
 extension YouserAcountViewController: UITableViewDataSource,UITableViewDelegate{
     
     func tablesettings(){

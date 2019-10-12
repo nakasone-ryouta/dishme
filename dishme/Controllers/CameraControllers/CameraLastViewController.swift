@@ -24,6 +24,8 @@ class CameraLastViewController: UIViewController {
     
     let textfield = CustomTextField()
     
+    var alerttitle = ""
+    
     //渡されてくる値
     var searchstore = ""
 
@@ -33,10 +35,31 @@ class CameraLastViewController: UIViewController {
         self.textfield.delegate = self
 
        view.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.6)
-        addview()
+        
+        if alerttitle == "品名を決める"{
+            moneydicide()
+        }
+        else if alerttitle == "価格を決める"{
+            dishnamedicide()
+        }
     }
     
-    func addview(){
+    //価格を決める
+    func moneydicide(){
+        backview()
+        lineview()
+        valuelabel()
+        valuetextfield()
+        addButton()
+        backButton()
+        
+        textfield.frame = CGRect(x: 56, y: 414, width: 290, height: 42)
+        textfield.center.x = view.center.x
+        textfield.keyboardType = .default
+        textfield.font = UIFont.init(name: "HelveticaNeue-Light", size: 20)!
+    }
+    //品名を決める
+    func dishnamedicide(){
         backview()
         lineview()
         valuelabel()
@@ -44,6 +67,8 @@ class CameraLastViewController: UIViewController {
         valuetextfield()
         addButton()
         backButton()
+        textfield.center.x = view.center.x
+        textfield.keyboardType = .numberPad
     }
     
     func backview(){
@@ -64,7 +89,6 @@ class CameraLastViewController: UIViewController {
     
     func valuetextfield(){
         textfield.frame = CGRect(x: 56, y: 414, width: 226, height: 42)
-        textfield.keyboardType = UIKeyboardType.numberPad
         textfield.font = UIFont.init(name: "HelveticaNeue-Light", size: 41)!
         textfield.textAlignment  = .center
         textfield.center.x = view.center.x
@@ -74,7 +98,7 @@ class CameraLastViewController: UIViewController {
     func valuelabel(){
         let label = UILabel()
         label.frame = CGRect(x: 136, y: 285, width: 0, height: 0)
-        label.text = "値段を決める"
+        label.text = alerttitle
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 17)!
         label.sizeToFit()
         label.textAlignment = .center
@@ -132,6 +156,19 @@ class CameraLastViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
+}
+extension CameraLastViewController{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // 入力を反映させたテキストを取得する
+        let resultText: String = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        if resultText.count <= 15 && alerttitle == "品名を決める"{
+            return true
+        }
+        else if resultText.count <= 6{
+            return true
+        }
+        return false
+    }
 }
 
 class CustomTextField: UITextField {

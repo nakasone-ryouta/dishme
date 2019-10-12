@@ -51,6 +51,7 @@
                 <outlet property="dishImage" destination="sX5-er-Lua" id="WpK-Z7-Elg"/>
                 <outlet property="dishName" destination="1ai-fn-p8a" id="wWn-ub-mvB"/>
                 <outlet property="money" destination="qL9-80-MxS" id="QAU-ja-xtY"/>
+                <outlet property="throughView" destination="1T7-Ru-SCu" id="tcF-8D-Lhm"/>
             </connections>
             <point key="canvasLocation" x="181.59999999999999" y="302.6986506746627"/>
         </tableViewCell>

@@ -60,14 +60,31 @@ class ResreveMemberViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        tableView.dataSource = self
-        tableView.delegate = self
+        tablesettings()
+        
     }
 
 }
 
 extension ResreveMemberViewController: UITableViewDataSource,UITableViewDelegate{
+    
+    func tablesettings(){
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        let maxheight = view.frame.size.height
+        let maxwidth = view.frame.size.width
+        
+        let BarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
+        let tableheight = maxheight - tableView.frame.origin.y * 2 - BarHeight * 10
+        print("bbbbbb",BarHeight)
+        print("aaaaaaa",tableheight)
+        
+        
+        tableView.frame = CGRect(x: 0, y: 0, width: Int(maxwidth), height: 360)
+    }
+    
     // Section数
     func numberOfSections(in tableView: UITableView) -> Int {
         return date.count
@@ -89,6 +106,10 @@ extension ResreveMemberViewController: UITableViewDataSource,UITableViewDelegate
         let cell = tableView.dequeueReusableCell(withIdentifier: "ResreveMemberTableViewCell", for: indexPath) as! ResreveMemberTableViewCell
         
         cell.acountname.text = acountname[indexPath.row]
+        cell.acountname.frame.origin.x = cell.acountImage.frame.origin.x
+        cell.acountname.sizeToFit()
+        
+        
         cell.acountImage.image = acountimage[indexPath.row]
         cell.acountImage.circle()
         cell.time.text = listtime[indexPath.row]

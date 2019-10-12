@@ -48,6 +48,8 @@ class PhotoSelectViewController: UIViewController{
     
     var value:[Int] = [4000,1234,5000,3000,5120,3000,12000,2000,4000,9888,1000,3000,2000,1000]
     
+    var alerttitle = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,46 +115,50 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
                 
                 //[コメント]の非表示ラベル
                 cell.commentView.text = ""
-                cell.commentLabel.text = ""
+                cell.commentmoji.text = ""
+                cell.valuemoji.text = "価格"
                 
-                //[4000円]の表示ラベル
-                cell.moneyLabel.text = "¥\(value[indexPath.row])円"
-                cell.moneyLabel.backgroundColor = UIColor.init(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
+                //[4000円]の表示ボタン
+                cell.productBtn.setTitle("\(dishname[indexPath.row])", for: UIControl.State.normal)
+                cell.productBtn.backgroundColor = UIColor.init(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
                 
                 
-                //[商品名]の表示ラベル
-                cell.dishname.text = dishname[indexPath.row]
-                cell.dishname.font = UIFont.init(name: "HelveticaNeue-Bold", size: 15)
+                //[商品名]の表示ボタン
+               cell.moneyBtn.setTitle("\(value[indexPath.row])円", for: UIControl.State.normal)
+               cell.moneyBtn.backgroundColor = UIColor.init(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
+                
+                //アカウント選択
+                cell.productBtn.addTarget(self, action: #selector(tomoney(sender:)), for: .touchUpInside)
+                cell.moneyBtn.addTarget(self, action: #selector(todish(sender:)), for: .touchUpInside)
     
             }
             else{
+                cell.commentmoji.text = "口コミ"
+                cell.dishmoji.text = ""
+                cell.valuemoji.text = ""
+                cell.productBtn.removeFromSuperview()
+                cell.moneyBtn.removeFromSuperview()
+                
                 // Section毎にCellのプロパティを変える.
                 switch(indexPath.section){
                 case 0:
                     cell.imageView.image = originalimages[indexPath.row]
                     cell.commentView.text = comment
-                    cell.moneyLabel.text = ""
-                    cell.dishLabel.text = ""
+
                     
                 case 1:
-                    cell.backgroundColor = UIColor.white
                     cell.imageView.image = originalimages[indexPath.row]
                     cell.commentView.text = comment
-                    cell.moneyLabel.text = ""
-                    cell.dishLabel.text = ""
-                    
+
                 case 2:
-                    cell.backgroundColor = UIColor.blue
                     cell.imageView.image = originalimages[indexPath.row]
                     cell.commentView.text = comment
-                    cell.moneyLabel.text = ""
-                    cell.dishLabel.text = ""
+
                     
                 default:
                     cell.imageView.image = originalimages[indexPath.row]
                     cell.commentView.text = comment
-                    cell.moneyLabel.text = ""
-                    cell.dishLabel.text = ""
+
                 }
             }
             return cell
@@ -164,6 +170,35 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
             default:
                 performSegue(withIdentifier: "toPhotoComment", sender: nil)
             }
+    }
+    
+}
+
+extension PhotoSelectViewController{
+    //ボタンから取得する
+    @objc func tomoney(sender: UIButton){
+        
+        if let indexPath = collectionView2.indexPath(for: sender.superview!.superview as! UICollectionViewCell) {
+            alerttitle = "品名を決める"
+            performSegue(withIdentifier: "toCameraLast", sender: nil)
+
+        }
+    }
+    //ボタンから取得する
+    @objc func todish(sender: UIButton){
+        
+        if let indexPath = collectionView2.indexPath(for: sender.superview!.superview as! UICollectionViewCell) {
+            alerttitle = "価格を決める"
+            performSegue(withIdentifier: "toCameraLast", sender: nil)
+        }
+    }
+    
+    //画面に渡す値
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toCameraLast" {
+            let nextView = segue.destination as! CameraLastViewController
+            nextView.alerttitle = alerttitle
+        }
     }
 }
 
@@ -224,6 +259,15 @@ extension PhotoSelectViewController{
         savephotoBtn()
         setupNavigation()
     }
+    //価格を決める
+    func dicidemoney(){
+        
+    }
+    //品名を決める
+    func dicidename(){
+        
+    }
+    
     func userAcount(){
         
     }
@@ -340,3 +384,4 @@ extension PhotoSelectViewController:FMImageEditorViewControllerDelegate{
         self.dismiss(animated: true, completion: nil)
     }
 }
+

@@ -77,3 +77,25 @@ extension UITextField {
         self.layer.addSublayer(border)
     }
 }
+
+extension Array where Element: Equatable {
+    mutating func remove(value: Element) {
+        if let i = self.index(of: value) {
+            self.remove(at: i)
+        }
+    }
+    
+    func safeRange(startIndex: Int, range: Int) -> ArraySlice<Element> {
+        return self.dropFirst(startIndex).prefix(range)
+    }
+}
+
+//
+//extension UITabBar {
+//    override open func sizeThatFits(_ size: CGSize) -> CGSize {
+//        var size = super.sizeThatFits(size)
+//        
+//        size.height = 79
+//        return size
+//    }
+//}

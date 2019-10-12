@@ -52,15 +52,29 @@ class HistoryMemberViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        tableView.delegate = self
-        tableView.dataSource = self
+        tablesettings()
     }
 
 
 }
 
 extension HistoryMemberViewController: UITableViewDataSource,UITableViewDelegate{
+    
+    func tablesettings(){
+
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        let maxheight = view.frame.size.height
+        let maxwidth = view.frame.size.width
+        
+        let BarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
+        let tableheight = maxheight - tableView.frame.origin.y * 2 - BarHeight
+        print(tableheight)
+        
+        
+        tableView.frame = CGRect(x: 0, y: 0, width: Int(maxwidth), height: Int(tableheight))
+    }
     
     // Section数
     func numberOfSections(in tableView: UITableView) -> Int {

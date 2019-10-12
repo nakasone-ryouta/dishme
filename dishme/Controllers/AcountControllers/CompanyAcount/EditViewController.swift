@@ -22,7 +22,7 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
     
     //pagecollection
     var myCollectionView : UICollectionView!
-    var sectionTitle:[String] = ["メインメニュー","サイドメニュー","ドリンク","Narasino"]
+    var sectionTitle:[String] = ["おすすめ","メニュー","外観",]
     let backview = UIView()
     
     //アカウントアイコンの写真
@@ -39,7 +39,7 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
     //メニューのcollectionview
     var collectionView: UICollectionView!
     
-    //料理
+    //おすすめ
     var dishes:[UIImage] = [UIImage(named: "meat1")!,
                             UIImage(named: "meat2")!,
                             UIImage(named: "meat3")!,
@@ -50,26 +50,33 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
                             UIImage(named: "meat8")!,
                             UIImage(named: "meat9")!,
                             UIImage(named: "meat10")!,
-                            UIImage(named: "meat11")!,
-                            UIImage(named: "meat12")!,
-                            UIImage(named: "meat13")!,
-                            UIImage(named: "meat14")!,
-                            UIImage(named: "meat15")!,
-                            UIImage(named: "meat1")!,
-                            UIImage(named: "meat2")!,
-                            UIImage(named: "meat3")!,
-                            UIImage(named: "meat4")!,
-                            UIImage(named: "meat5")!,
-                            UIImage(named: "meat6")!,
-                            UIImage(named: "meat7")!,
-                            UIImage(named: "meat8")!,
-                            UIImage(named: "meat9")!,
-                            UIImage(named: "meat10")!,
-                            UIImage(named: "meat11")!,
-                            UIImage(named: "meat12")!,
-                            UIImage(named: "meat13")!,
-                            UIImage(named: "meat14")!,
-                            UIImage(named: "meat15")!,]
+                            ]
+    
+    //メニュー
+    var sidemenus:[UIImage] = [UIImage(named: "sidemenu1")!,
+                               UIImage(named: "sidemenu2")!,
+                               UIImage(named: "sidemenu3")!,
+                               UIImage(named: "sidemenu4")!,
+                               UIImage(named: "sidemenu5")!,
+                               UIImage(named: "sidemenu6")!,
+                               UIImage(named: "sidemenu7")!,
+                               UIImage(named: "sidemenu8")!,
+                               UIImage(named: "sidemenu9")!,
+                               UIImage(named: "sidemenu10")!,
+                               ]
+    
+    //雰囲気
+    var appearance:[UIImage] = [UIImage(named: "appearance1")!,
+                                UIImage(named: "appearance2")!,
+                                UIImage(named: "appearance3")!,
+                                UIImage(named: "appearance4")!,
+                                UIImage(named: "appearance5")!,
+                                UIImage(named: "appearance6")!,
+                                UIImage(named: "appearance7")!,
+                                UIImage(named: "appearance8")!,
+                                UIImage(named: "appearance9")!,
+                                UIImage(named: "appearance10")!,
+                                ]
     
     //レストラン情報
     var tableView: UITableView  =   UITableView()
@@ -253,6 +260,9 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 8
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.sectionTitle[section]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -438,6 +448,7 @@ extension EditViewController: UICollectionViewDelegate , UICollectionViewDataSou
         myCollectionView.delegate = self
         myCollectionView.dataSource = self
         
+        myCollectionView.frame = CGRect(x: 0, y: 0, width: 375, height: 570)
         myCollectionView.backgroundColor = .white
         
         self.backview.addSubview(myCollectionView)
@@ -464,9 +475,6 @@ extension EditViewController: UICollectionViewDelegate , UICollectionViewDataSou
             return 0
         }
     }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.sectionTitle[section]
-    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PhotosCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath as IndexPath) as! PhotosCollectionViewCell
@@ -481,12 +489,12 @@ extension EditViewController: UICollectionViewDelegate , UICollectionViewDataSou
         case 1:
             cell.backgroundColor = UIColor.green
             cell.textLabel?.text = "1"
-            cell.imageView?.image = dishes[indexPath.row]
+            cell.imageView?.image = sidemenus[indexPath.row]
             
         case 2:
             cell.backgroundColor = UIColor.blue
             cell.textLabel?.text = "2"
-            cell.imageView?.image = dishes[indexPath.row]
+            cell.imageView?.image = appearance[indexPath.row]
             
         default:
             print("section error")

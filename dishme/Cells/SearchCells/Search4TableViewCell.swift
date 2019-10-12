@@ -13,6 +13,7 @@ class Search4TableViewCell: UITableViewCell {
     @IBOutlet var dishImage: UIImageView!
     @IBOutlet var dishName: UILabel!
     @IBOutlet var money: UILabel!
+    @IBOutlet var throughView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

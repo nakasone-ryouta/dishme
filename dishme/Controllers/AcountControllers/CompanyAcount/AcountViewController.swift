@@ -58,7 +58,9 @@ class AcountViewController: UIViewController,ScrollingNavigationControllerDelega
     var pageMenu: PageMenuViewinit!
     
     //メニューのcollectionview
-    var collectionView: UICollectionView!
+    var collectionView1: UICollectionView!
+    var collectionView2: UICollectionView!
+    var collectionView3: UICollectionView!
     
     //下から出てくるview
     let tableView2:UITableView = UITableView()
@@ -74,26 +76,45 @@ class AcountViewController: UIViewController,ScrollingNavigationControllerDelega
                             UIImage(named: "meat8")!,
                             UIImage(named: "meat9")!,
                             UIImage(named: "meat10")!,
-                            UIImage(named: "meat11")!,
-                            UIImage(named: "meat12")!,
-                            UIImage(named: "meat13")!,
-                            UIImage(named: "meat14")!,
-                            UIImage(named: "meat15")!,
-                            UIImage(named: "meat1")!,
-                            UIImage(named: "meat2")!,
-                            UIImage(named: "meat3")!,
-                            UIImage(named: "meat4")!,
-                            UIImage(named: "meat5")!,
-                            UIImage(named: "meat6")!,
-                            UIImage(named: "meat7")!,
-                            UIImage(named: "meat8")!,
-                            UIImage(named: "meat9")!,
-                            UIImage(named: "meat10")!,
-                            UIImage(named: "meat11")!,
-                            UIImage(named: "meat12")!,
-                            UIImage(named: "meat13")!,
-                            UIImage(named: "meat14")!,
-                            UIImage(named: "meat15")!,]
+                            ]
+    
+    //料理
+    var sidemenus:[UIImage] = [UIImage(named: "sidemenu1")!,
+                               UIImage(named: "sidemenu2")!,
+                               UIImage(named: "sidemenu3")!,
+                               UIImage(named: "sidemenu4")!,
+                               UIImage(named: "sidemenu5")!,
+                               UIImage(named: "sidemenu6")!,
+                               UIImage(named: "sidemenu7")!,
+                               UIImage(named: "sidemenu8")!,
+                               UIImage(named: "sidemenu9")!,
+                               UIImage(named: "sidemenu10")!,
+                               ]
+    
+    //料理
+    var softdrink:[UIImage] = [UIImage(named: "softdrink1")!,
+                               UIImage(named: "softdrink2")!,
+                               UIImage(named: "softdrink3")!,
+                               UIImage(named: "softdrink4")!,
+                               UIImage(named: "softdrink5")!,
+                               UIImage(named: "softdrink6")!,
+                               UIImage(named: "softdrink7")!,
+                               UIImage(named: "softdrink8")!,
+                               UIImage(named: "softdrink9")!,
+                               UIImage(named: "softdrink10")!,
+                               ]
+    
+    var appearance:[UIImage] = [UIImage(named: "appearance1")!,
+                                UIImage(named: "appearance2")!,
+                                UIImage(named: "appearance3")!,
+                                UIImage(named: "appearance4")!,
+                                UIImage(named: "appearance5")!,
+                                UIImage(named: "appearance6")!,
+                                UIImage(named: "appearance7")!,
+                                UIImage(named: "appearance8")!,
+                                UIImage(named: "appearance9")!,
+                                UIImage(named: "appearance10")!,
+                                ]
     
     var setting:[String] = ["ログアウト","アカウント切り替え","お知らせ","振込口座の変更","写真を非公開にする","問題を管理者に報告"]
     
@@ -471,15 +492,36 @@ extension AcountViewController{
 extension AcountViewController: UICollectionViewDataSource ,UICollectionViewDelegate{
     // セルの数を返す
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dishes.count
+        switch collectionView {
+        case collectionView1:
+            return dishes.count
+        case collectionView2:
+            return softdrink.count
+        case collectionView3:
+            return appearance.count
+        default:
+            return sidemenus.count
+        }
     }
     
     
     // セルの設定
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",for: indexPath as IndexPath) as! AcountCollectionViewCell
-        let cellImage = dishes[indexPath.row]
-        cell.setUpContents(image: cellImage)
+        
+        switch  collectionView{
+        case collectionView1:
+            let cellImage = dishes[indexPath.row]
+            cell.setUpContents(image: cellImage)
+        case collectionView2://メニュー
+            let cellImage = sidemenus[indexPath.row]
+            cell.setUpContents(image: cellImage)
+        case collectionView3://雰囲気
+            let cellImage = appearance[indexPath.row]
+            cell.setUpContents(image: cellImage)
+        default:
+            break;
+        }
         return cell
     }
     //レイアウト周り
@@ -496,21 +538,55 @@ extension AcountViewController: UICollectionViewDataSource ,UICollectionViewDele
 extension AcountViewController:  UICollectionViewDelegateFlowLayout {
     
     
-    func collectionsettings(viewcontroller: UIViewController){
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 750), collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = UIColor.white
-        collectionView.register(AcountCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+    func collection1settings(viewcontroller: UIViewController){
+        collectionView1 = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 750), collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView1.backgroundColor = UIColor.white
+        collectionView1.register(AcountCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        collectionView1.delegate = self
+        collectionView1.dataSource = self
         
         // レイアウト設定
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 1
         layout.minimumLineSpacing = 1
-        collectionView.collectionViewLayout = layout
+        collectionView1.collectionViewLayout = layout
         
-        viewcontroller.view.addSubview(collectionView)
+        viewcontroller.view.addSubview(collectionView1)
+    }
+    
+    func collection2settings(viewcontroller: UIViewController){
+        collectionView2 = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 750), collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView2.backgroundColor = UIColor.white
+        collectionView2.register(AcountCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        
+        collectionView2.delegate = self
+        collectionView2.dataSource = self
+        
+        // レイアウト設定
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 1
+        layout.minimumLineSpacing = 1
+        collectionView2.collectionViewLayout = layout
+        
+        viewcontroller.view.addSubview(collectionView2)
+    }
+    
+    func collection3settings(viewcontroller: UIViewController){
+        collectionView3 = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 750), collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView3.backgroundColor = UIColor.white
+        collectionView3.register(AcountCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        
+        collectionView3.delegate = self
+        collectionView3.dataSource = self
+        
+        // レイアウト設定
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 1
+        layout.minimumLineSpacing = 1
+        collectionView3.collectionViewLayout = layout
+        
+        viewcontroller.view.addSubview(collectionView3)
     }
     
 }
@@ -531,23 +607,23 @@ extension AcountViewController:PageMenuViewDelegateinit{
         // Init View Contollers
         let viewController1 = UIViewController()
         viewController1.view.backgroundColor = .blue
-        viewController1.title = "メインメニュー"
+        viewController1.title = "おすすめ"
         
         let viewController2 = UIViewController()
         viewController2.view.backgroundColor = .green
-        viewController2.title = "サイドメニュー"
+        viewController2.title = "メニュー"
         
         let viewController3 = UIViewController()
         viewController3.view.backgroundColor = .yellow
-        viewController3.title = "ドリンク"
+        viewController3.title = "雰囲気"
         
         // Add to array
         let viewControllers = [viewController1, viewController2, viewController3]
         
         //メニュー写真の追加
-        collectionsettings(viewcontroller: viewController1)
-        collectionsettings(viewcontroller: viewController2)
-        collectionsettings(viewcontroller: viewController3)
+        collection1settings(viewcontroller: viewController1)
+        collection2settings(viewcontroller: viewController2)
+        collection3settings(viewcontroller: viewController3)
         
         
         // Init Page Menu with view controllers and UI option

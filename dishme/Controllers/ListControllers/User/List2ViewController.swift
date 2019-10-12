@@ -1,16 +1,7 @@
-
-
-
-
-//
-//  List2ViewController.swift
-//  dishme
-//
-//  Created by 中曽根　涼太 on 2019/09/20.
-//  Copyright © 2019年 中曽根　涼太. All rights reserved.
-//
+//予約リスト
 
 import UIKit
+import SnapKit
 
 class List2ViewController: UIViewController {
     
@@ -19,26 +10,36 @@ class List2ViewController: UIViewController {
     
     let acountimage:[UIImage] = [UIImage(named: "acount1")!,
                                  UIImage(named: "acount2")!,
+                                 UIImage(named: "acount2")!,
                                  UIImage(named: "acount3")!,
+                                 UIImage(named: "acount4")!,
                                  UIImage(named: "acount4")!,
                                  UIImage(named: "acount5")!,]
     let time:[String] = ["13:00〜",
                          "12:00〜",
+                         "12:00〜",
                          "13:00〜",
+                         "15:00〜",
                          "15:00〜",
                          "19:00〜"]
     let acountname:[String] = ["焼肉大地",
                                "Ribface",
                                "Faceligh",
+                               "Faceligh",
+                               "timemeat",
                                "timemeat",
                                "grilmow",]
     let date:[String] = ["５月３０日(火曜日)",
                          "５月１０日(木曜日)",
                          "５月２０日(水曜日)",
                          "５月３１日(金曜日)",
+                         "５月３１日(金曜日)",
+                         "５月３１日(金曜日)",
                          "５月２４日(火曜日)",]
     let position:[String] = ["basywater Sydny",
                              "三島みなみ店",
+                             "八千代台緑ヶ丘",
+                             "america gassyu",
                              "八千代台緑ヶ丘",
                              "america gassyu",
                              "america misisipi",]
@@ -70,14 +71,21 @@ class List2ViewController: UIViewController {
 }
 extension List2ViewController{
     func backView(){
-        backview.frame = CGRect(x: 0, y: 80, width: 375, height: 812)
+        
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        
+        let maxwidth = view.frame.size.width
+        let maxheight = view.frame.size.height
+        
+        backview.frame = CGRect(x: 0, y: navBarHeight! + navBarHeight!, width: maxwidth, height: maxheight)
         view.addSubview(backview)
     }
 }
 
 extension List2ViewController: UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 7
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -129,7 +137,7 @@ extension List2ViewController:PageMenuViewDelegateinit{
             
         default:
             let viewcontroller = UIViewController()
-            viewcontroller.view.backgroundColor = .blue
+            viewcontroller.view.backgroundColor = .white
             viewcontroller.title = "保存"
             addSubviewSettings(controller: viewcontroller)
             return viewcontroller
@@ -153,6 +161,9 @@ extension List2ViewController:PageMenuViewDelegateinit{
     
     func optionview() ->PageMenuOption{
         // Page menu UI option
+        //navigationの高さ
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        
         var option = PageMenuOption(frame: CGRect(
             x: 0, y: 20, width: view.frame.size.width, height: view.frame.size.height - 20))
         
@@ -166,7 +177,7 @@ extension List2ViewController:PageMenuViewDelegateinit{
         option = PageMenuOption(frame: CGRect(
             x: 0, y: 20, width: view.frame.size.width, height: view.frame.size.height - 20))
         option.menuItemWidth = view.frame.size.width / 2
-        //ここ
+        option.menuItemHeight = navBarHeight!
         option.menuItemBackgroundColorNormal = .white
         option.menuItemBackgroundColorSelected = .white
         option.menuTitleMargin = 0
@@ -180,7 +191,14 @@ extension List2ViewController:PageMenuViewDelegateinit{
     }
     
     func addSubviewSettings(controller: UIViewController){
-        tableView.frame = CGRect(x: 0, y: 0, width: 375, height: 812)
+        let maxwidth = view.frame.size.width
+        let maxheight = view.frame.size.height
+        
+        let BarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        
+        let tableheight = maxheight - BarHeight - navBarHeight! * 4
+        tableView.frame = CGRect(x: 0, y: 0, width: Int(maxwidth), height: Int(tableheight))
         controller.view.addSubview(tableView)
         
     }

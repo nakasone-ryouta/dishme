@@ -14,6 +14,8 @@ import UIKit
 
 class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+     var firstindex:IndexPath? = nil //初期位置
+    
     @IBOutlet weak var tableView: UITableView!
     
     var cellTexts = ["Rib Face",
@@ -54,10 +56,9 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
     var bads:[Int] = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]
     var isOpens = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,]
     
-    var firstindex:IndexPath? = nil //初期位置
     
-    var alreadygood = false
-    var alreadybad = false
+    var alreadygoods:[Bool] = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,]
+    var alreadybads:[Bool] = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +101,7 @@ extension Search2ViewController{
         cell.commentLabel.numberOfLines = 0
         cell.commentLabel.sizeToFit()
         cell.commentLabel.lineBreakMode = .byWordWrapping
+        
         
         //アカウント選択
         cell.acountButton.addTarget(self, action: #selector(self.toSearch3), for: .touchUpInside)
@@ -153,8 +155,8 @@ extension Search2ViewController{
             let cell = tableView.cellForRow(at: indexPath) as! TableViewCell
             
             //押されていなかった時の処理
-            if alreadygood == false{
-                alreadygood = true
+            if alreadygoods[indexPath.row] == false{
+                alreadygoods[indexPath.row] = true
                 goods[indexPath.row] =  goods[indexPath.row] + 1
                 cell.goodlabel.text! = "\(goods[indexPath.row])"
                 
@@ -163,7 +165,7 @@ extension Search2ViewController{
                 cell.goodButton.tintColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
             //押されていた時の処理
             }else{
-                alreadygood = false
+                alreadygoods[indexPath.row] = false
                 goods[indexPath.row] =  goods[indexPath.row] - 1
                 cell.goodlabel.text! = "\(goods[indexPath.row])"
                 
@@ -183,8 +185,8 @@ extension Search2ViewController{
         let cell = tableView.cellForRow(at: indexPath!) as! TableViewCell
             
             //押されていなかった時の処理
-            if alreadybad == false{
-                alreadybad = true
+        if alreadybads[(indexPath?.row)!] == false{
+            alreadybads[(indexPath?.row)!] = true
                 bads[indexPath!.row] =  bads[indexPath!.row] + 1
                 cell.badlabel.text! = "\(bads[indexPath!.row])"
                 
@@ -194,7 +196,7 @@ extension Search2ViewController{
                 
             //押されていた時の処理
             }else{
-                alreadybad = false
+            alreadybads[(indexPath?.row)!] = false
                 bads[indexPath!.row] =  bads[indexPath!.row] - 1
                 cell.badlabel.text! = "\(bads[indexPath!.row])"
                 

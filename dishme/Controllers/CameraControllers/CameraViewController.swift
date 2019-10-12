@@ -688,16 +688,3 @@ extension CameraViewController{
     }
 
 }
-
-
-extension Array where Element: Equatable {
-    mutating func remove(value: Element) {
-        if let i = self.index(of: value) {
-            self.remove(at: i)
-        }
-    }
-    
-    func safeRange(startIndex: Int, range: Int) -> ArraySlice<Element> {
-        return self.dropFirst(startIndex).prefix(range)
-    }
-}
