@@ -34,6 +34,7 @@ class EditHolidayViewController: UIViewController {
     }
 
 }
+//navigation周り
 extension EditHolidayViewController{
     func setupNavigation(){
         let selectBtn = UIBarButtonItem(title: "保存", style: .done, target: self, action: #selector(save))
@@ -47,6 +48,7 @@ extension EditHolidayViewController{
     }
 }
 
+//カレンダー周り
 extension EditHolidayViewController:FSCalendarDelegate,FSCalendarDataSource,FSCalendarDelegateAppearance{
     
     func calendersettings(){

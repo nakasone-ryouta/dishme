@@ -23,7 +23,7 @@ class SearchMapViewController: UIViewController {
     //CLLocationManagerの入れ物を用意
     var myLocationManager:CLLocationManager!
     
-    //
+    //住所を渡す
     var passlocation:CLLocation? = nil
 
 
@@ -38,15 +38,17 @@ class SearchMapViewController: UIViewController {
         myLocationManager = CLLocationManager()
         myLocationManager.requestWhenInUseAuthorization()
     }
-    func setupNavigation(){
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationItem.title = companyname
-        
-        //右のボタン
-        let selectBtn = UIBarButtonItem(title: "経路", style: .done, target: self, action: #selector(passmap))
-        self.navigationItem.rightBarButtonItems = [selectBtn]
-    }
     
+    
+    //位置情報取得に失敗したときに呼び出されるメソッド
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error")
+    }
+
+}
+
+//住所を探す
+extension SearchMapViewController{
     func searchAdress(){
         self.view.endEditing(true)
         
@@ -83,12 +85,18 @@ class SearchMapViewController: UIViewController {
             }
         })
     }
-    
-    //位置情報取得に失敗したときに呼び出されるメソッド
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error")
-    }
+}
 
+//navigation周り
+extension SearchMapViewController{
+    func setupNavigation(){
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationItem.title = companyname
+        
+        //右のボタン
+        let selectBtn = UIBarButtonItem(title: "経路", style: .done, target: self, action: #selector(passmap))
+        self.navigationItem.rightBarButtonItems = [selectBtn]
+    }
 }
 
 extension SearchMapViewController{

@@ -17,7 +17,7 @@ class AcountViewController: UIViewController,ScrollingNavigationControllerDelega
     
     var alert = Alert()
     // Constant
-    let commentViewHeight: CGFloat = 64.0
+    let commentViewHeight: CGFloat = 50.0
     let animatorDuration: TimeInterval = 1
     
     // UI
@@ -42,15 +42,12 @@ class AcountViewController: UIViewController,ScrollingNavigationControllerDelega
     //=========================================下から=====================================================
     
     
-    var tableJudges = TableSettings()
+    var tablesettings = TableSettings()
     
-    
-    //tabbar
-    let tabBar : UITabBar = UITabBar(frame: CGRect(x: 0, y: 360, width: 375, height: 200))
     
     //スクロールview
     let scrollView = UIScrollView()
-    let menuview = UIView()
+    let backview = UIView()
     let acountview = UIView()
     
     
@@ -116,7 +113,7 @@ class AcountViewController: UIViewController,ScrollingNavigationControllerDelega
                                 UIImage(named: "appearance10")!,
                                 ]
     
-    var setting:[String] = ["ログアウト","アカウント切り替え","お知らせ","振込口座の変更","写真を非公開にする","問題を管理者に報告"]
+    var setting:[String] = ["ログアウト","振込口座の変更","お知らせ","写真を非公開にする","問題を管理者に報告","利用規約","会員規約"," プライバシーポリシー"]
     
     //レストラン情報
     var tableView1: UITableView  =   UITableView()
@@ -132,10 +129,11 @@ class AcountViewController: UIViewController,ScrollingNavigationControllerDelega
     var yummynumber = 237
     var yuckynumber = 37
 
-    var comment = "春の旬のふきのとうや新鮮なリブステーキを兼ね揃えてお\nります。今ご来場していただいた方には次回からお使いい\nただけるクーポンも配布中です。"
+    var comment = "春の旬のふきのとうや新鮮なリブステーキを兼ね揃えております。今ご来場していただいた方には次回からお使いいただけるクーポンも配布中です。"
     var avaragemoney = "¥6,280〜¥10,000"
     var holiday = "毎週水曜日"
     var temporaryClosed = "2019/8/24"
+    var category = "和食"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,25 +146,32 @@ class AcountViewController: UIViewController,ScrollingNavigationControllerDelega
         //メニューの設定
         pagesettings()
         
-        setupNavifation()
+        //navigationの基本設定
+        setupNavigation()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //=========================================下から=====================================================
-        view.bringSubviewToFront(blurEffectView)
-        self.initSubViews()
-        self.addGestures()
-        table2settings()
-        //=========================================下から=====================================================
+        //各種設定の基本設定
+        variousSettings()
     }
     
-    
-    // Enable the navbar scrolling
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        scrollDownsettings()
+    }
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
+        scrollStopsettings()
+    }
+    
+}
+//スクロールまわり
+extension AcountViewController{
+    //スクロールした時tabbarを引っ込める
+    func scrollDownsettings(){
         if let navigationController = self.navigationController as? ScrollingNavigationController {
             if let tabBarController = tabBarController {
                 navigationController.followScrollView(scrollView, delay: 0, scrollSpeedFactor: 2, followers: [NavigationBarFollower(view: tabBarController.tabBar, direction: .scrollDown)])
@@ -177,26 +182,23 @@ class AcountViewController: UIViewController,ScrollingNavigationControllerDelega
             navigationController.expandOnActive = false
         }
     }
-    override open func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
+    //
+    func scrollStopsettings(){
         if let navigationController = self.navigationController as? ScrollingNavigationController {
             navigationController.stopFollowingScrollView()
         }
     }
-    
     open func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         if let navigationController = self.navigationController as? ScrollingNavigationController {
             navigationController.showNavbar(animated: true)
         }
         return true
     }
-    
 }
 
 //右上のボタンの設定
 extension AcountViewController{
-    func setupNavifation(){
+    func setupNavigation(){
         self.navigationItem.hidesBackButton = true
         
         
@@ -215,8 +217,11 @@ extension AcountViewController{
 //スクロールviewの基本設定
 extension AcountViewController{
     func scrollbackview(){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+
         scrollView.frame = self.view.frame
-        scrollView.contentSize = CGSize(width:375, height:1150)
+        scrollView.contentSize = CGSize(width:width, height:height * 2)
         self.view.addSubview(scrollView)
         
         acountview.frame = CGRect(x: 0,
@@ -225,11 +230,11 @@ extension AcountViewController{
                                   height: scrollView.frame.size.height)
         self.scrollView.addSubview(acountview)
         
-        menuview.frame = CGRect(x: 0,
-                                y:600,
+        backview.frame = CGRect(x: 0,
+                                y:690,
                                 width: scrollView.frame.size.width,
                                 height: scrollView.frame.size.height)
-        self.scrollView.addSubview(menuview)
+        self.scrollView.addSubview(backview)
         
         
     }
@@ -246,15 +251,25 @@ extension AcountViewController{
         
         //yummyボタン
         goodButton()
-        Yummylabel()
-        Yummynumber()
-        
         //yuckyボタン
         badButton()
-        Yuckylabel()
-        Yuckynumber()
         
     }
+    func messageButton(){
+        
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        let width = view.frame.size.width
+        // UIButtonのインスタンスを作成する
+        let button = UIButton(type: .custom)
+        button.addTarget(self, action: #selector(editsegue), for: UIControl.Event.touchUpInside)
+        button.frame = CGRect(x: width / 2.286,
+                              y: navBarHeight! + 150,
+                              width: width / 1.923,
+                              height: width / 12.93);
+        button.setImage(UIImage(named: "editbar"), for: UIControl.State())
+        acountview.addSubview(button)
+    }
+    
     func acountimageview(){
         let image = UIImageView()
         image.image = acountimage
@@ -264,14 +279,15 @@ extension AcountViewController{
         
     }
     func comentview(){
+        let maxwidth = view.frame.size.width
+        let maxheight = view.frame.size.height
         let label = UILabel()
-        label.frame =  CGRect(x: 17, y: 232, width: 0, height: 0)
+        label.frame =  CGRect(x: 17, y: 232, width: maxwidth / 1.1, height: maxheight / 12.5)
         label.text = comment
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Thin", size: 13)
+        label.font = UIFont.init(name: "HelveticaNeue-Light", size: 13)
         label.textAlignment = NSTextAlignment.left
-        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.numberOfLines = 3
+        label.numberOfLines = 4
         label.sizeToFit()
         acountview.addSubview(label)
     }
@@ -287,11 +303,15 @@ extension AcountViewController{
     }
     
     func goodButton(){
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        let maxwidth = view.frame.size.width
+        
         // UIButtonのインスタンスを作成する
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(good), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 212,
-                              y: 124,
+        button.frame = CGRect(x: maxwidth / 1.74,
+                              y: navBarHeight! + 100,
                               width: 22,
                               height: 20);
         button.setImage(UIImage(named: "good"), for: UIControl.State())
@@ -299,63 +319,97 @@ extension AcountViewController{
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
         self.acountview.addSubview(button)
         
+        //継承する
+        Yummynumber(button: button)
+        
     }
-    func messageButton(){
-        // UIButtonのインスタンスを作成する
-        let button = UIButton(type: .custom)
-        button.addTarget(self, action: #selector(editsegue), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 164,
-                              y: 188,
-                              width: 195,
-                              height: 29);
-        button.setImage(UIImage(named: "editbar"), for: UIControl.State())
-        acountview.addSubview(button)
-    }
-    //yummyボタン周り
-    func Yummylabel(){
+    
+    func Yummynumber(button: UIButton){
+        
         let label = UILabel()
-        label.frame =  CGRect(x: 169, y: 151, width: 0, height: 0)
-        label.text = "Yummy!"
-        label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 10)
-        label.textAlignment = NSTextAlignment.center
-        label.sizeToFit()
-        acountview.addSubview(label)
-    }
-    func Yummynumber(){
-        let label = UILabel()
-        label.frame =  CGRect(x: 176, y: 130, width: 0, height: 0)
+        label.frame =  CGRect(x: 0, y: 0, width: 50, height: 30)
+        label.frame.origin.x = button.frame.origin.x - 60
+        label.frame.origin.y = button.frame.origin.y - 5
         label.text = "\(yummynumber)"
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
         label.textAlignment = NSTextAlignment.center
-        label.sizeToFit()
+        acountview.addSubview(label)
+        
+        //継承する
+        Yummylabel(button: button, label: label)
+    }
+    
+    func Yummylabel(button :UIButton ,label: UILabel){
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        
+        let label = UILabel()
+        label.frame =  CGRect(x: 0, y: 0, width: 50, height: 30)
+        label.frame.origin.x = button.frame.origin.x - 60
+        label.frame.origin.y = button.frame.origin.y + 20
+        label.text = "Yummy!"
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 10)
+        label.textAlignment = NSTextAlignment.center
         acountview.addSubview(label)
     }
     
     @objc func good(){
         
     }
-    @objc func editsegue(){
-        performSegue(withIdentifier: "toEdit", sender: nil)
-    }
     //yuckyボタン周り
     func badButton(){
+        
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        let maxwidth = view.frame.size.width
+        
         // UIButtonのインスタンスを作成する
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(good), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 327,
-                              y: 131,
+        button.frame = CGRect(x: maxwidth / 1.14,
+                              y: navBarHeight! + 100,
                               width: 22,
                               height: 20);
         button.setImage(UIImage(named: "bad"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
         acountview.addSubview(button)
+        
+        
+        Yuckynumber(button: button)
+        Yuckylabel(button: button)
+        
     }
-    func Yuckylabel(){
+    
+    func Yuckynumber(button : UIButton){
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        
         let label = UILabel()
-        label.frame =  CGRect(x: 285, y: 151, width: 0, height: 0)
+        label.frame =  CGRect(x: 0, y: navBarHeight! + 100, width: 50, height: 30)
+        label.frame.origin.x = button.frame.origin.x - 50
+        label.frame.origin.y = button.frame.origin.y
+        label.text = "\(yuckynumber)"
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
+        label.textAlignment = NSTextAlignment.center
+        label.sizeToFit()
+        acountview.addSubview(label)
+        
+        Yuckylabel(button: button)
+    }
+    
+    func Yuckylabel(button :UIButton){
+        
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        
+        let label = UILabel()
+        label.frame =  CGRect(x: 0, y: navBarHeight! + 120, width: 50, height: 30)
+        label.frame.origin.x = button.frame.origin.x - 50
+        label.frame.origin.y = button.frame.origin.y + 28
         label.text = "Yucky"
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 10)
@@ -364,18 +418,12 @@ extension AcountViewController{
         acountview.addSubview(label)
         
     }
-    func Yuckynumber(){
-        let label = UILabel()
-        label.frame =  CGRect(x: 293, y: 130, width: 0, height: 0)
-        label.text = "\(yuckynumber)"
-        label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
-        label.textAlignment = NSTextAlignment.center
-        label.sizeToFit()
-        acountview.addSubview(label)
-    }
+    
     @objc func bad(){
         
+    }
+    @objc func editsegue(){
+        performSegue(withIdentifier: "toEdit", sender: nil)
     }
 }
 
@@ -384,12 +432,13 @@ extension AcountViewController{
     
     //レストラン情報のテーブル
     func restaurantInfo(){
+        
         //下から出てくるtableview
         tableView1.frame = CGRect(
             x: 0.0,
-            y: 290,
+            y: 295,
             width: self.view.frame.width,
-            height: 440
+            height: 500
         )
         
         tableView1.delegate      =   self
@@ -408,12 +457,16 @@ extension AcountViewController{
     
     //各種設定のテーブル
     func table2settings(){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
         tableView2.delegate = self
         tableView2.dataSource = self
-        tableView2.frame = CGRect(x: 0, y: 70, width: 375, height: 500)
+        
+        tableView2.frame = CGRect(x: 0, y: 70, width: width, height: height/1.624)
         tableView2.register(UITableViewCell.self, forCellReuseIdentifier: "Info")
         tableView2.contentMode = .scaleAspectFit
         tableView2.tableFooterView = UIView(frame: .zero)
+        tableView2.isScrollEnabled = false
         commentView.addSubview(tableView2)
     }
     
@@ -421,7 +474,7 @@ extension AcountViewController{
         
         switch tableView {
         case tableView1: //レストラン情報のテーブル
-            return 8
+            return 10
         default:        //各種設定のテーブル
             return setting.count
         }
@@ -433,7 +486,7 @@ extension AcountViewController{
         if tableView == tableView1{
         let cell:UITableViewCell = UITableViewCell(style: .subtitle, reuseIdentifier: "Home")
             
-        tableJudges.cellForRowAt(cell: cell, indexPath: indexPath, opentitle: opentitle, opentime: opentime, congestion: congestion, congestiontime: congestiontime, position: position, phonenumber: phonenumber, maxnumber: maxnumber, holiday: holiday, temporaryClosed: temporaryClosed)
+            tablesettings.AcountTableCellForRowAt(cell: cell, indexPath: indexPath, opentitle: opentitle, opentime: opentime, congestion: congestion, congestiontime: congestiontime, position: position, phonenumber: phonenumber, maxnumber: maxnumber, holiday: holiday, temporaryClosed: temporaryClosed, avaragemoney: avaragemoney, category: category)
         return cell
         }
             
@@ -451,7 +504,7 @@ extension AcountViewController{
         //各種設定のテーブル
         switch tableView {
         case tableView2:
-            tableJudges.didSelectRowAt(indexPath: indexPath)
+            tablesettings.AcountTableDidSelectRowAt(indexPath: indexPath)
             if indexPath.row == 2{
                 performSegue(withIdentifier: "toNotice", sender: nil)
             }
@@ -470,7 +523,8 @@ extension AcountViewController{
         }
         //各種設定のテーブル
         else{
-            return 55
+            let layout = Layouting()
+            return CGFloat(layout.acountTableCellHeighting(view: view))
         }
     }
     //[レストラン情報]と表示するヘッダー
@@ -479,7 +533,7 @@ extension AcountViewController{
         
         switch tableView {
         case tableView1:  //レストラン情報のテーブル
-            let header = tableJudges.hederInSection()
+            let header = tablesettings.hederInSection()
             return header
         default:          //各種設定のテーブル
             let header = UIView()
@@ -509,16 +563,18 @@ extension AcountViewController: UICollectionViewDataSource ,UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",for: indexPath as IndexPath) as! AcountCollectionViewCell
         
+        let size = Int(view.frame.size.width / 3)
+        
         switch  collectionView{
         case collectionView1:
             let cellImage = dishes[indexPath.row]
-            cell.setUpContents(image: cellImage)
+            cell.setUpContents(image: cellImage, size: size)
         case collectionView2://メニュー
             let cellImage = sidemenus[indexPath.row]
-            cell.setUpContents(image: cellImage)
+            cell.setUpContents(image: cellImage, size: size)
         case collectionView3://雰囲気
             let cellImage = appearance[indexPath.row]
-            cell.setUpContents(image: cellImage)
+            cell.setUpContents(image: cellImage, size: size)
         default:
             break;
         }
@@ -629,7 +685,7 @@ extension AcountViewController:PageMenuViewDelegateinit{
         // Init Page Menu with view controllers and UI option
         pageMenu = PageMenuViewinit(viewControllers: viewControllers, option: optionview())
         pageMenu.delegate = self
-        menuview.addSubview(pageMenu)
+        backview.addSubview(pageMenu)
     }
     
     func optionview() ->PageMenuOption{
@@ -680,6 +736,13 @@ extension AcountViewController:PageMenuViewDelegateinit{
 //===================================ここから下から出てくる各種設定=================================================
 extension AcountViewController :UITableViewDelegate,UITableViewDataSource{
     
+    func variousSettings(){
+        view.bringSubviewToFront(blurEffectView)
+        self.initSubViews()
+        self.addGestures()
+        table2settings()
+    }
+    
     private func initSubViews() {
         self.blurEffectView.effect = nil
         
@@ -700,7 +763,7 @@ extension AcountViewController :UITableViewDelegate,UITableViewDataSource{
             x: 0.0,
             y: commentViewHeight,
             width: self.view.frame.width,
-            height: self.view.frame.height - commentViewHeight - self.headerView.frame.height
+            height: self.view.frame.height - self.headerView.frame.height
         )
         commentDummyView.image = UIImage(named: "comments")
         commentDummyView.contentMode = .scaleAspectFit
@@ -746,11 +809,7 @@ extension AcountViewController :UITableViewDelegate,UITableViewDataSource{
             return .collapsed
         }
     }
-    
-    // MARK: Gesture
-    //    @objc private func handleTapGesture(_ recognizer: UITapGestureRecognizer) {
-    //        self.animateOrReverseRunningTransition(state: self.nextState(), duration: animatorDuration)
-    //    }
+
     
     @objc private func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: commentView)
@@ -952,8 +1011,9 @@ class AcountCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(cellImageView)
     }
     
-    func setUpContents(image: UIImage) {
+    func setUpContents(image: UIImage ,size: Int) {
         cellImageView.image = image
+        cellImageView.frame = CGRect(x: 0, y: 0, width: size, height: size)
     }
 }
 

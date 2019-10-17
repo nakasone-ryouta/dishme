@@ -21,7 +21,8 @@ class Search3CollectionViewCell: UICollectionViewCell {
         contentView.addSubview(cellImageView)
     }
     
-    func setUpContents(image: UIImage) {
+    func setUpContents(image: UIImage , size: Int) {
         cellImageView.image = image
+        cellImageView.frame = CGRect(x: 0, y: 0, width: size, height: size)
     }
 }

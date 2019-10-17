@@ -123,6 +123,7 @@ class Search4ViewController: UIViewController {
     }
 
 }
+//navigation周り
 extension Search4ViewController{
     func setupNavigation(){
         navigationItem.title = controllerjudge
@@ -153,11 +154,15 @@ extension Search4ViewController: UITableViewDataSource, UITableViewDelegate{
         tableView1.register (UINib(nibName: "Search4TableViewCell", bundle: nil),forCellReuseIdentifier:"Search4TableViewCell")
         tableView1.contentMode = .scaleAspectFit
         
+        view.addSubview(tableView1)
+        
+        //選択のcellが一番最初に来る
+        topcell()
+    }
+    func topcell(){
         DispatchQueue.main.async {
             self.tableView1.scrollToRow(at: self.firstindex!, at: UITableView.ScrollPosition.top, animated: false)
         }
-        
-        view.addSubview(tableView1)
     }
 
     

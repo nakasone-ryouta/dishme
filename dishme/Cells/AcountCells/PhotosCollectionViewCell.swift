@@ -35,6 +35,9 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(textLabel!)
         self.contentView.addSubview(imageView!)
     }
+    func setImage(size: Int){
+        imageView?.frame = CGRect(x: 0, y: 0, width: size, height: size)
+    }
 }
 
 class SectionHeader: UICollectionReusableView {
@@ -66,6 +69,5 @@ class SectionHeader: UICollectionReusableView {
     }
     
     func setImage(image: UIImage){
-        
     }
 }

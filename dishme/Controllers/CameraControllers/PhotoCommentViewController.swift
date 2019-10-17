@@ -11,7 +11,7 @@
 import UIKit
 
 class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
-
+    
     
     //[ユーザのメニュー追加],[企業のメニュー追加],[口コミの追加]
     var cameratarget = ""
@@ -45,23 +45,32 @@ class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
     }
     
     func backview(){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        
         let backview = UIView()
         backview.backgroundColor = .white
-        backview.frame = CGRect(x: 6, y: 269, width: 363, height: 290)
+        backview.frame = CGRect(x: width / 62.5, y: height / 3.01, width: width / 1.033, height: height / 2.8)
         backview.layer.masksToBounds = true
         backview.layer.cornerRadius = 10
         view.addSubview(backview)
     }
     
     func lineview(){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        
         let lineview = UIView()
-        lineview.frame = CGRect(x: 6.5, y: 317, width: 363, height: 1)
+        lineview.frame = CGRect(x: width / 62.5, y: height / 2.56, width: width / 1.033, height: 1)
         lineview.backgroundColor = UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1)
         view.addSubview(lineview)
     }
     
     func valuetextfield(){
-        textfield.frame = CGRect(x: 32, y: 320, width: 328, height: 240)
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        
+        textfield.frame = CGRect(x: width / 11.7, y: height / 2.53, width: width / 1.14, height: height / 3.38)
         textfield.placeHolder = "口コミを書く"
         textfield.font = UIFont.init(name: "HelveticaNeue-Light", size: 16)!
         textfield.textAlignment  = .left
@@ -70,8 +79,11 @@ class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
     }
     
     func valuelabel(){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        
         let label = UILabel()
-        label.frame = CGRect(x: 136, y: 285, width: 0, height: 0)
+        label.frame = CGRect(x: width / 2.75, y: height / 2.84, width: 0, height: 0)
         label.text = "口コミを書く"
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 17)!
         label.sizeToFit()
@@ -92,12 +104,15 @@ class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
         
     }
     func backButton(){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(back), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 19,
-                              y: 284,
-                              width: 20,
-                              height: 20);
+        button.frame = CGRect(x: width / 19.7,
+                              y: height / 2.85,
+                              width: width / 18.75,
+                              height: width / 18.75);
         button.setImage(UIImage(named: "backbutton"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
@@ -105,13 +120,17 @@ class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
     }
     
     func addButton(){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(segue), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 316,
-                              y: 284,
-                              width: 34,
-                              height: 17);
-        button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 17)!
+        button.frame = CGRect(x: width / 1.18,
+                              y: height / 2.85,
+                              width: width / 11.02,
+                              height: height / 47.76);
+        button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)!
+        button.titleLabel?.sizeToFit()
         button.setTitle("決定", for: UIControl.State.normal)
         button.setTitleColor(UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1), for: UIControl.State.normal)
         view.addSubview(button)

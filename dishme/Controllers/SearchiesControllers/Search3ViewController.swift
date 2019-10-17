@@ -9,16 +9,17 @@
 import UIKit
 import Expression
 import AMScrollingNavbar
+import SnapKit
 
 class Search3ViewController: UIViewController,ScrollingNavigationControllerDelegate{
     
     //サインイン(企業orユーザ)
-    var acountResister = "企業"
+    var acountResister = "企業a"
     
     //[おすすめ][メニュー][雰囲気]を判断する
     var controllerjudge = "おすすめ"
     
-    //次の画面に渡す値
+    //次の画面で選択されたcellを最初に渡すための引数
     var firstindex: IndexPath? = nil
     
     var alert = SweetAlert()
@@ -53,7 +54,7 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
                             UIImage(named: "meat10")!,
                             ]
     
-    //料理
+    //オススメの写真
     var sidemenus:[UIImage] = [UIImage(named: "sidemenu1")!,
                             UIImage(named: "sidemenu2")!,
                             UIImage(named: "sidemenu3")!,
@@ -66,7 +67,7 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
                             UIImage(named: "sidemenu10")!,
                             ]
     
-    //料理
+    //softdrinkじゃなくてメニューの写真
     var softdrink:[UIImage] = [UIImage(named: "softdrink1")!,
                                UIImage(named: "softdrink2")!,
                                UIImage(named: "softdrink3")!,
@@ -78,7 +79,7 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
                                UIImage(named: "softdrink9")!,
                                UIImage(named: "softdrink10")!,
                                ]
-    
+    //雰囲気
     var appearance:[UIImage] = [UIImage(named: "appearance1")!,
                                 UIImage(named: "appearance2")!,
                                 UIImage(named: "appearance3")!,
@@ -102,8 +103,8 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
     var congestion = "混雑時間"
     var congestiontime = "AM 13:00〜AM 14:00"
     var yummynumber = 237
-    var yuckynumber = 37
-    var comment = "春の旬のふきのとうや新鮮なリブステーキを兼ね揃えてお\nります。今ご来場していただいた方には次回からお使いい\nただけるクーポンも配布中です。"
+    var yuckynumber = 237
+    var comment = "春の旬のふきのとうや新鮮なリブステーキを兼ね揃えております。今ご来場していただいた方には次回からお使いいただけるクーポンも配布中です。"
     var avaragemoney = "¥6,280〜¥10,000"
     
     //電話番号
@@ -126,25 +127,14 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
     // Enable the navbar scrolling
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let navigationController = self.navigationController as? ScrollingNavigationController {
-            navigationController.followScrollView(scrollView, delay: 10.0, followers: [NavigationBarFollower(view: blackView, direction: .scrollDown)])
-            
-        }
+        scrollUpsettings()
     }
+    
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
-        if let navigationController = self.navigationController as? ScrollingNavigationController {
-            navigationController.stopFollowingScrollView()
-        }
+        scrollStopsettings()
     }
-
-    open func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        if let navigationController = self.navigationController as? ScrollingNavigationController {
-            navigationController.showNavbar(animated: true)
-        }
-        return true
-    }
+    
     @IBAction func ReservaionButton(_ sender: Any) {
         switch acountResister {
         case "企業":
@@ -159,6 +149,27 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
             performSegue(withIdentifier: "toReservation", sender: nil)
         }
     }
+}
+//スクロールまわり
+extension Search3ViewController{
+    func scrollUpsettings(){
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(scrollView, delay: 10.0, followers: [NavigationBarFollower(view: blackView, direction: .scrollDown)])
+        }
+
+    }
+    func scrollStopsettings(){
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.stopFollowingScrollView()
+        }
+        
+    }
+    open func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
+        return true
+    }
     
     
 }
@@ -166,8 +177,10 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
 //スクロールviewの基本設定
 extension Search3ViewController{
     func scrollbackview(){
+        let maxwidth = view.frame.size.width
+        let maxheight = view.frame.size.height
+        scrollView.contentSize = CGSize(width:maxwidth, height:maxheight * 2)
         scrollView.frame = self.view.frame
-        scrollView.contentSize = CGSize(width:375, height:1150)
         self.view.addSubview(scrollView)
         
         acountview.frame = CGRect(x: 0,
@@ -183,6 +196,14 @@ extension Search3ViewController{
         self.scrollView.addSubview(menuview)
         
 
+    }
+}
+extension Search3ViewController{
+    @objc func good(){
+        
+    }
+    @objc func bad(){
+        
     }
 }
 
@@ -202,16 +223,13 @@ extension Search3ViewController{
         
         //yummyボタン
         goodButton()
-        Yummylabel()
-        Yummynumber()
         
         //yuckyボタン
         badButton()
-        Yuckylabel()
-        Yuckynumber()
         
         //平均使用額
         avarageMoneyLabel.text = avaragemoney
+        avarageMoneyLabel.adjustsFontSizeToFitWidth = true
         
     }
     func setupNavigation(){
@@ -229,14 +247,16 @@ extension Search3ViewController{
         
     }
     func comentview(){
+        let maxwidth = view.frame.size.width
+        let maxheight = view.frame.size.height
         let label = UILabel()
-        label.frame =  CGRect(x: 17, y: 232, width: 0, height: 0)
+        label.frame =  CGRect(x: 17, y: 232, width: maxwidth / 1.1, height: maxheight / 12.5)
         label.text = comment
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Thin", size: 13)
         label.textAlignment = NSTextAlignment.left
-        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.numberOfLines = 3
+//        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.numberOfLines = 4
         label.sizeToFit()
         acountview.addSubview(label)
     }
@@ -252,11 +272,15 @@ extension Search3ViewController{
     }
     
     func goodButton(){
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        let maxwidth = view.frame.size.width
+        
         // UIButtonのインスタンスを作成する
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(good), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 212,
-                              y: 124,
+        button.frame = CGRect(x: maxwidth / 1.74,
+                              y: navBarHeight! + 100,
                               width: 22,
                               height: 20);
         button.setImage(UIImage(named: "good"), for: UIControl.State())
@@ -264,49 +288,93 @@ extension Search3ViewController{
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
         self.acountview.addSubview(button)
         
+        //継承する
+        Yummynumber(button: button)
+        
     }
-//yummyボタン周り
-    func Yummylabel(){
+
+    func Yummynumber(button: UIButton){
+        
         let label = UILabel()
-        label.frame =  CGRect(x: 169, y: 151, width: 0, height: 0)
-        label.text = "Yummy!"
-        label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 10)
-        label.textAlignment = NSTextAlignment.center
-        label.sizeToFit()
-        acountview.addSubview(label)
-    }
-    func Yummynumber(){
-        let label = UILabel()
-        label.frame =  CGRect(x: 176, y: 130, width: 0, height: 0)
+        label.frame =  CGRect(x: 0, y: 0, width: 50, height: 30)
+        label.frame.origin.x = button.frame.origin.x - 60
+        label.frame.origin.y = button.frame.origin.y - 5
         label.text = "\(yummynumber)"
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
         label.textAlignment = NSTextAlignment.center
-        label.sizeToFit()
         acountview.addSubview(label)
-    }
-
-    @objc func good(){
         
+        //継承する
+        Yummylabel(button: button, label: label)
+    }
+    
+    func Yummylabel(button :UIButton ,label: UILabel){
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        
+        let label = UILabel()
+        label.frame =  CGRect(x: 0, y: 0, width: 50, height: 30)
+        label.frame.origin.x = button.frame.origin.x - 60
+        label.frame.origin.y = button.frame.origin.y + 20
+        label.text = "Yummy!"
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 10)
+        label.textAlignment = NSTextAlignment.center
+        acountview.addSubview(label)
     }
 //yuckyボタン周り
     func badButton(){
+        
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        let maxwidth = view.frame.size.width
+        
         // UIButtonのインスタンスを作成する
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(good), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 327,
-                              y: 131,
+        button.frame = CGRect(x: maxwidth / 1.14,
+                              y: navBarHeight! + 100,
                               width: 22,
                               height: 20);
         button.setImage(UIImage(named: "bad"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
         acountview.addSubview(button)
+        
+        
+        Yuckynumber(button: button)
+        Yuckylabel(button: button)
+        
     }
-    func Yuckylabel(){
+
+    func Yuckynumber(button : UIButton){
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        
         let label = UILabel()
-        label.frame =  CGRect(x: 285, y: 151, width: 0, height: 0)
+        label.frame =  CGRect(x: 0, y: navBarHeight! + 100, width: 50, height: 30)
+        label.frame.origin.x = button.frame.origin.x - 50
+        label.frame.origin.y = button.frame.origin.y
+        label.text = "\(yuckynumber)"
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
+        label.textAlignment = NSTextAlignment.center
+        label.sizeToFit()
+        acountview.addSubview(label)
+        
+        Yuckylabel(button: button)
+    }
+    
+    func Yuckylabel(button :UIButton){
+        
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        
+        let label = UILabel()
+        label.frame =  CGRect(x: 0, y: navBarHeight! + 120, width: 50, height: 30)
+        label.frame.origin.x = button.frame.origin.x - 50
+        label.frame.origin.y = button.frame.origin.y + 28
         label.text = "Yucky"
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 10)
@@ -315,24 +383,12 @@ extension Search3ViewController{
         acountview.addSubview(label)
         
     }
-    func Yuckynumber(){
-        let label = UILabel()
-        label.frame =  CGRect(x: 293, y: 130, width: 0, height: 0)
-        label.text = "\(yuckynumber)"
-        label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
-        label.textAlignment = NSTextAlignment.center
-        label.sizeToFit()
-        acountview.addSubview(label)
-    }
-    @objc func bad(){
-        
-    }
 }
 
-//レストラン情報のtableview
+//tableview周り
 extension Search3ViewController:UITableViewDataSource,UITableViewDelegate{
     
+    //レストラン情報の基本設定
     func restaurantInfo(){
         //下から出てくるtableview
         tableView.frame = CGRect(
@@ -536,17 +592,19 @@ extension Search3ViewController: UICollectionViewDataSource ,UICollectionViewDel
     // セルの設定
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",for: indexPath as IndexPath) as! Search3CollectionViewCell
+        //セルのサイズを調節する
+        let size = Int(view.frame.size.width / 3)
 
         switch  collectionView{
         case collectionView1:
             let cellImage = dishes[indexPath.row]
-            cell.setUpContents(image: cellImage)
+            cell.setUpContents(image: cellImage, size: size)
         case collectionView2://メニュー
             let cellImage = sidemenus[indexPath.row]
-            cell.setUpContents(image: cellImage)
+            cell.setUpContents(image: cellImage, size: size)
         case collectionView3://雰囲気
             let cellImage = appearance[indexPath.row]
-            cell.setUpContents(image: cellImage)
+            cell.setUpContents(image: cellImage, size: size)
         default:
             break;
         }

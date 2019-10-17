@@ -49,11 +49,11 @@ class ResreveMemberViewController: UIViewController {
                        09069539797,]
     var call = ""
     
-    let date:[String] = ["１０月７日(火曜日)",
+    let date:[String] = ["１０月５日(火曜日)",
                          "１０月６日(木曜日)",
-                         "１０月５日(水曜日)",
-                         "１０月４日(金曜日)",
-                         "１０月３日(火曜日)",]
+                         "１０月７日(水曜日)",
+                         "１０月８日(金曜日)",
+                         "１０月９日(火曜日)",]
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -61,6 +61,10 @@ class ResreveMemberViewController: UIViewController {
         super.viewDidLoad()
 
         tablesettings()
+        
+        //テーブルのレイアウト
+        let tablelayout = Layouting()
+        tablelayout.tableLayouting(tableview: tableView, view: view)
         
     }
 
@@ -76,13 +80,14 @@ extension ResreveMemberViewController: UITableViewDataSource,UITableViewDelegate
         let maxheight = view.frame.size.height
         let maxwidth = view.frame.size.width
         
+//        let target = 
+//        print("aaaaaaa",target)
+        
         let BarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
-        let tableheight = maxheight - tableView.frame.origin.y * 2 - BarHeight * 10
-        print("bbbbbb",BarHeight)
-        print("aaaaaaa",tableheight)
+        let tableheight = maxheight / 1.2 - BarHeight - BarHeight
         
         
-        tableView.frame = CGRect(x: 0, y: 0, width: Int(maxwidth), height: 360)
+        tableView.frame = CGRect(x: 0, y: 0, width: Int(maxwidth), height: 600)
     }
     
     // Section数

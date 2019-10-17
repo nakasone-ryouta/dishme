@@ -56,34 +56,37 @@ class List2ViewController: UIViewController {
         backView()
         
         pagesettings()
-
-        // Do any additional setup after loading the view.
-        tableView.delegate = self
-        tableView.dataSource = self
         
-        self.tableView.register(UINib(nibName: "List2TableViewCell", bundle: nil), forCellReuseIdentifier: "List2TableViewCell")
-    }
-    //画面遷移(保存controller)
-    func toList(){
-        performSegue(withIdentifier: "toChangeReserve", sender: nil)
+        tablesettings()
+        
+        //navigationの基本設定
+        setupNavigation()
     }
 
 }
 extension List2ViewController{
+    func setupNavigation(){
+        self.navigationController?.navigationBar.tintColor = .black
+    }
+}
+extension List2ViewController{
     func backView(){
         
-        // ナビゲーションバーの高さを取得
-        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
-        
-        let maxwidth = view.frame.size.width
-        let maxheight = view.frame.size.height
-        
-        backview.frame = CGRect(x: 0, y: navBarHeight! + navBarHeight!, width: maxwidth, height: maxheight)
+        let layout = Layouting()
+        layout.list2backview(view: view, backview: backview)
         view.addSubview(backview)
     }
 }
 
+//tableview周り
 extension List2ViewController: UITableViewDataSource,UITableViewDelegate{
+    func tablesettings(){
+        tableView.register (UINib(nibName: "List2TableViewCell", bundle: nil),forCellReuseIdentifier:"List2TableViewCell")
+        //テーブルのレイアウト
+        let tablelayout = Layouting()
+        tablelayout.tableLayouting(tableview: tableView, view: view)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 7
     }
@@ -93,6 +96,8 @@ extension List2ViewController: UITableViewDataSource,UITableViewDelegate{
         cell.acountName.text = acountname[indexPath.row]
         cell.acountImage.image = acountimage[indexPath.row]
         cell.acountImage.circle()
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -191,14 +196,14 @@ extension List2ViewController:PageMenuViewDelegateinit{
     }
     
     func addSubviewSettings(controller: UIViewController){
-        let maxwidth = view.frame.size.width
-        let maxheight = view.frame.size.height
         
-        let BarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
-        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        tableView.delegate = self
+        tableView.dataSource = self
         
-        let tableheight = maxheight - BarHeight - navBarHeight! * 4
-        tableView.frame = CGRect(x: 0, y: 0, width: Int(maxwidth), height: Int(tableheight))
+        self.tableView.register(UINib(nibName: "List2TableViewCell", bundle: nil), forCellReuseIdentifier: "List2TableViewCell")
+        
+        
+        tableView.frame = CGRect(x: 0, y: 0, width: 375, height: 0)
         controller.view.addSubview(tableView)
         
     }

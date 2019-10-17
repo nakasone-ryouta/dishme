@@ -7,14 +7,13 @@ class ReservationViewController: UIViewController,ScrollingNavigationControllerD
     
     //電話のview
     @IBOutlet weak var callbarView: UIView!
-    
     //カレンダー
     @IBOutlet weak var calendar: FSCalendar!
     
     var getdates = GetDates()
     
-    var text_view1 = UITextField()
-    var text_view2 = UITextField()
+    @IBOutlet var textField_time: UnderLineTextField!
+    @IBOutlet var textField_number: UnderLineTextField!
     var pickerView: UIPickerView = UIPickerView()
     var pickerView_number: UIPickerView = UIPickerView()
     
@@ -60,6 +59,7 @@ class ReservationViewController: UIViewController,ScrollingNavigationControllerD
         
         //電話番号
         callnumberLabel.text = callnumber
+        callnumberLabel.adjustsFontSizeToFitWidth = true
         
         
         pickersettings()    //pickerviewの基本設定
@@ -69,30 +69,6 @@ class ReservationViewController: UIViewController,ScrollingNavigationControllerD
         
         setupNavigation()
         
-        //各ラベルインスタンス化
-        addlabel()
-        
-    }
-    func setupNavigation(){
-        let selectBtn = UIBarButtonItem(title: "予約", style: .done, target: self, action: #selector(savereservation))
-        self.navigationItem.rightBarButtonItems = [selectBtn]
-    }
-    @objc func savereservation(){
-        
-        let text_view3 = text_view1.text! + text_view2.text!
-        
-        switch "" {
-            
-        case text_view3:
-            return _ = SweetAlert().showAlert("予約できません", subTitle: "時間と人数を入力してください", style: AlertStyle.error)
-            
-        case text_view1.text:
-            return _ = SweetAlert().showAlert("予約できません", subTitle: "時間を入力してください", style: AlertStyle.error)
-        case text_view2.text:
-            return _ = SweetAlert().showAlert("予約できません", subTitle: "人数を入力してください", style: AlertStyle.error)
-        default:
-            _ = SweetAlert().showAlert("予約しました", subTitle: "予約リストを見るには「予約」から見れます。", style: AlertStyle.success)
-        }
     }
     
     @IBAction func callButton(_ sender: Any) {
@@ -104,14 +80,38 @@ class ReservationViewController: UIViewController,ScrollingNavigationControllerD
         }
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
 }
+//navigation周り
+extension ReservationViewController{
+    func setupNavigation(){
+        let selectBtn = UIBarButtonItem(title: "予約", style: .done, target: self, action: #selector(savereservation))
+        self.navigationItem.rightBarButtonItems = [selectBtn]
+    }
+    
+    @objc func savereservation(){
+        
+        let text_view3 = textField_time.text! + textField_number.text!
+        
+        switch "" {
+            
+        case text_view3:
+            return _ = SweetAlert().showAlert("予約できません", subTitle: "時間と人数を入力してください", style: AlertStyle.error)
+            
+        case textField_time.text:
+            return _ = SweetAlert().showAlert("予約できません", subTitle: "時間を入力してください", style: AlertStyle.error)
+        case textField_number.text:
+            return _ = SweetAlert().showAlert("予約できません", subTitle: "人数を入力してください", style: AlertStyle.error)
+        default:
+            _ = SweetAlert().showAlert("予約しました", subTitle: "予約リストを見るには「予約」から見れます。", style: AlertStyle.success)
+        }
+    }
+}
+
+//カレンダー周り
 extension ReservationViewController:FSCalendarDelegate,FSCalendarDataSource,FSCalendarDelegateAppearance{
     
     func calendarsettings(){
@@ -146,16 +146,16 @@ extension ReservationViewController:FSCalendarDelegate,FSCalendarDataSource,FSCa
 //pickerviewの基本設定
 extension ReservationViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     @objc func done(){
-        text_view1.resignFirstResponder()
-        text_view2.resignFirstResponder()
+        textField_time.resignFirstResponder()
+        textField_number.resignFirstResponder()
     }
     
     //pickerviewの中のレイアウト
     func setKeyboardAccessory() {
         let keyboardAccessory = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 36))
         keyboardAccessory.backgroundColor = UIColor.white
-        text_view1.inputAccessoryView = keyboardAccessory
-        text_view2.inputAccessoryView = keyboardAccessory
+        textField_time.inputAccessoryView = keyboardAccessory
+        textField_number.inputAccessoryView = keyboardAccessory
         
         //pickerviewの一番上の線
         let topBorder = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 0.5))
@@ -201,22 +201,18 @@ extension ReservationViewController : UIPickerViewDelegate, UIPickerViewDataSour
     //textの基本設定
     func textfiledsettings(){
         //時間帯
-        text_view1.inputView = pickerView
-        text_view1.frame = CGRect(x: 135, y: 491, width: 211, height: 50)
-        text_view1.textAlignment = .right
-        text_view1.font = UIFont.systemFont(ofSize: 17)
-        text_view1.placeholder = "時間を決める"
-        text_view1.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        view.addSubview(text_view1)
+        textField_time.inputView = pickerView
+        textField_time.textAlignment = .right
+        textField_time.font = UIFont.systemFont(ofSize: 17)
+        textField_time.placeholder = "時間を決める"
+        view.addSubview(textField_time)
         
         //人数
-        text_view2.inputView = pickerView_number
-        text_view2.frame = CGRect(x: 135, y: 569, width: 211, height: 50)
-        text_view2.textAlignment = .right
-        text_view2.font = UIFont.systemFont(ofSize: 17)
-        text_view2.placeholder = "人数を決める"
-        text_view2.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        view.addSubview(text_view2)
+        textField_number.inputView = pickerView_number
+        textField_number.textAlignment = .right
+        textField_number.font = UIFont.systemFont(ofSize: 17)
+        textField_number.placeholder = "人数を決める"
+        view.addSubview(textField_number)
     }
     
     // ドラムロールの列数
@@ -247,35 +243,9 @@ extension ReservationViewController : UIPickerViewDelegate, UIPickerViewDataSour
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView{
         case pickerView_number:
-            text_view2.text = "\(number[pickerView.selectedRow(inComponent: 0)])"
+            textField_number.text = "\(number[pickerView.selectedRow(inComponent: 0)])"
         default:
-            text_view1.text = "\(time[pickerView.selectedRow(inComponent: 0)])"
+            textField_time.text = "\(time[pickerView.selectedRow(inComponent: 0)])"
         }
-    }
-}
-
-
-extension ReservationViewController{
-    
-    func addlabel(){
-        timeLabel()
-        numberLabel()
-    }
-    
-    func timeLabel(){
-        let label = UILabel()
-        label.frame = CGRect(x: 136, y: 505, width: 0, height: 0)
-        label.text = "時間帯"
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
-        label.sizeToFit()
-        view.addSubview(label)
-    }
-    func numberLabel(){
-        let label = UILabel()
-        label.frame = CGRect(x: 136, y: 585, width: 0, height: 0)
-        label.text = "人数"
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
-        label.sizeToFit()
-        view.addSubview(label)
     }
 }

@@ -13,8 +13,10 @@ struct CommonStructure {
 
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
-    //[ユーザのメニュー追加],[企業のメニュー追加],[口コミの追加]
-    var cameratarget = "口コミの追加"
+    //[ユーザ][企業]
+    var acountResister = "企業a"
+    //[新規ユーザ][企業]
+    var cameratarget = "新規ユーザ"
     
     //アルバムカメラロール
     @IBOutlet weak var albumimageView: UIImageView!
@@ -42,8 +44,14 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        //カメラの基本設定
         aVC.initscreen()
-        cameraView.frame = view.frame
+        
+        
+        cameraPosition() //カメラの位置調整
+        zoomcamera()    //カメラのズーム設定
+        
         
         //撮り溜めてくcollectionview
         collectionsettings()
@@ -54,8 +62,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         //ページのbackviewのセット
         pagesettings()
         
-        
-        zoomcamera()
+        //navigationの基本設定
         navigation()
         
         //カメラロール
@@ -63,152 +70,15 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         libraryRequestAuthorization()
     }
     
-    // フォトライブラリへの保存メソッド
-    func photoOutput(_ output: AVCapturePhotoOutput,
-                     didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        
-        let photoData = photo.fileDataRepresentation()
-        guard photoData != nil else { return }
-        // フォトライブラリに保存
-        let image = UIImage(data: photoData!)!.cropping2square() //正方形に加工
-//        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-        
-        //collecitonviewに表示
-        originalimages.append(image!)
-        collectionView.reloadData()
-    }
-    
 }
-
-
-class AVCinSideOutSideObject: NSObject {
-    
-    //キャプチャセッションに入力（オーディオやビデオなど）を提供し、ハードウェア固有のキャプチャ機能のコントロールを提供するデバイス。
-    var captureDevice  = AVCaptureDevice.default(for: .video)
-    var stillImageOutput: AVCapturePhotoOutput? //静止画、ライブ写真、その他の写真ワークフローの出力をキャプチャします。
-    
-    private var baseZoomFanctor: CGFloat = 1.0
-    
-    
-    func cameraWithPosition(_ position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        let deviceDescoverySession =
-            
-            AVCaptureDevice.DiscoverySession.init(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera],
-                                                  mediaType: AVMediaType.video,
-                                                  position: AVCaptureDevice.Position.unspecified)
+extension CameraViewController{
+    func cameraPosition(){
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        let width = view.frame.size.width
         
-        for device in deviceDescoverySession.devices {
-            if device.position == position {
-                return device
-            }
-        }
-        return nil
-    }
-    func initscreen(){
-        self.captureDevice = self.cameraWithPosition(.front)!
-    }
-    
-    func inSideOutSideCameraSet(cameraView: UIImageView ) -> UIImageView {
-        //キャプチャデバイスからキャプチャセッションにメディアを提供するキャプチャ入力。
-        var input: AVCaptureDeviceInput!
-        stillImageOutput = AVCapturePhotoOutput()
-        // キャプチャアクティビティを管理し、入力デバイスからキャプチャ出力へのデータフローを調整するオブジェクト。
-        let captureSesion = AVCaptureSession()
-        // 解像度の設定
-        captureSesion.sessionPreset = AVCaptureSession.Preset.hd1920x1080
-        
-        if cameraView.frame.width != 0 {
-            //一連の構成変更の開始を示します。
-            captureSesion.beginConfiguration()
-            //一連の構成変更をコミットします。
-            captureSesion.commitConfiguration()
-        }
-        
-        if captureDevice?.position == .front {
-            UIView.transition(with: cameraView, duration: 0.5, options: .transitionFlipFromLeft, animations: {
-                self.captureDevice = self.cameraWithPosition(.back)!
-            }, completion: nil)
-        } else {
-            UIView.transition(with: cameraView, duration: 0.5, options: .transitionFlipFromRight, animations: {
-                self.captureDevice = self.cameraWithPosition(.front)!
-            }, completion: nil)
-        }
-        
-        var deviceInput: AVCaptureDeviceInput!
-        do {
-            input = try AVCaptureDeviceInput(device: captureDevice!)
-            deviceInput = try AVCaptureDeviceInput(device: captureDevice!)
-            // 入力
-            if  captureSesion.canAddInput(deviceInput) {
-                captureSesion.removeInput(input)
-                captureSesion.addInput(deviceInput)
-                // 出力
-                if (captureSesion.canAddOutput(stillImageOutput!)) {
-                    captureSesion.addOutput(stillImageOutput!)
-                    // カメラ起動
-                    captureSesion.startRunning()
-                    
-                    //キャプチャされているときにビデオを表示できるコアアニメーションレイヤ-
-                    var previewLayer: AVCaptureVideoPreviewLayer?
-                    //キャプチャされているときにビデオを表示できるコアアニメーションレイヤ-
-                    previewLayer = AVCaptureVideoPreviewLayer(session: captureSesion)
-                    // アスペクトフィット
-                    previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-                    // カメラの向き
-                    previewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-                    cameraView.layer.addSublayer(previewLayer!)
-                    previewLayer?.frame =  cameraView.frame
-                    return cameraView
-                }
-            }
-        } catch {
-            print(error)
-            
-        }
-        return cameraView
-    }
-    
-    //シャッターを撮影するメソッド
-    func cameraAction (captureDelegate:AVCapturePhotoCaptureDelegate) {
-        // フラッシュとかカメラの設定
-        let settingsForMonitoring = AVCapturePhotoSettings()
-        settingsForMonitoring.flashMode = .auto
-        // キャプチャが自動イメージ安定化を使用するかどうかを指定するブール値。
-        settingsForMonitoring.isAutoStillImageStabilizationEnabled = true
-        // アクティブなデバイスでサポートされている最高解像度で静止画像をキャプチャするかどうかを指定するブール値。
-        settingsForMonitoring.isHighResolutionPhotoEnabled = false
-        // 撮影
-        stillImageOutput?.capturePhoto(with: settingsForMonitoring, delegate: captureDelegate)
-    }
-    
-    func setupPinchGestureRecognizer(addview: UIView) {
-        // pinch recognizer for zooming
-        let pinchGestureRecognizer: UIPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(self.onPinchGesture(_:)))
-        addview.addGestureRecognizer(pinchGestureRecognizer)
-    }
-    
-    @objc private func onPinchGesture(_ sender: UIPinchGestureRecognizer) {
-        if sender.state == .began {
-            self.baseZoomFanctor = (self.captureDevice?.videoZoomFactor)!
-        }
-        
-        let tempZoomFactor: CGFloat = self.baseZoomFanctor * sender.scale
-        let newZoomFactdor: CGFloat
-        if tempZoomFactor < (self.captureDevice?.minAvailableVideoZoomFactor)! {
-            newZoomFactdor = (self.captureDevice?.minAvailableVideoZoomFactor)!
-        } else if (self.captureDevice?.maxAvailableVideoZoomFactor)! < tempZoomFactor {
-            newZoomFactdor = (self.captureDevice?.maxAvailableVideoZoomFactor)!
-        } else {
-            newZoomFactdor = tempZoomFactor
-        }
-        
-        do {
-            try self.captureDevice?.lockForConfiguration()
-            self.captureDevice?.ramp(toVideoZoomFactor: newZoomFactdor, withRate: 32.0)
-            self.captureDevice?.unlockForConfiguration()
-        } catch {
-            print("Failed to change zoom factor.")
-        }
+        cameraView.frame = view.frame
+        cameraView.frame = CGRect(x: 0, y: navBarHeight!, width: width, height: width)
     }
 }
 
@@ -253,25 +123,6 @@ extension CameraViewController{
         backview.backgroundColor = .white
         return backview
     }
-
-    func navigation(){
-        
-        self.navigationController?.navigationBar.tintColor = .black
-        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        self.navigationController?.navigationBar.barTintColor = .white
-        
-        //背面カメラ前面カメラ切り替え
-        let change = UIBarButtonItem(title: "編集へ", style: .done, target: self, action: #selector(nextsegue))
-        self.navigationItem.rightBarButtonItems = [change]
-        
-        //closeボタン
-        let close = UIBarButtonItem(image: UIImage(named: "closebutton")?.withRenderingMode(.alwaysOriginal),
-                                     style: .plain,
-                                     target: self,
-                                     action: #selector(closebutton));
-        self.navigationItem.setLeftBarButtonItems([close], animated: true)
-        
-    }
     
     //写真を撮影する
     @objc func takepicture(){
@@ -286,7 +137,7 @@ extension CameraViewController{
         if originalimages == []{
              _ = SweetAlert().showAlert("写真がないため編集できません", subTitle: "写真をカメラで撮影するかライブラリから選択してください", style: AlertStyle.error)
         }else{
-            self.performSegue(withIdentifier: "toCameraEdit", sender: nil)
+            self.performSegue(withIdentifier: "toPhotoSelect", sender: nil)
         }
     }
     //closeボタン
@@ -299,17 +150,70 @@ extension CameraViewController{
     }
     //画面に渡す値
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toCameraEdit" {
-            let nextView = segue.destination as! CameraEditViewController
+        if segue.identifier == "toPhotoSelect"{
+            let nextView = segue.destination as! PhotoSelectViewController
             nextView.originalimages = originalimages
+            nextView.acountResister = acountResister
             nextView.cameratarget = cameratarget
         }
     }
-    
-    
 }
 
-extension CameraViewController: UICollectionViewDataSource {
+//navigation周り
+extension CameraViewController{
+    func navigation(){
+        
+        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = .white
+        
+        //背面カメラ前面カメラ切り替え
+        let change = UIBarButtonItem(title: "編集へ", style: .done, target: self, action: #selector(nextsegue))
+        self.navigationItem.rightBarButtonItems = [change]
+        
+        //closeボタン
+        let close = UIBarButtonItem(image: UIImage(named: "closebutton")?.withRenderingMode(.alwaysOriginal),
+                                    style: .plain,
+                                    target: self,
+                                    action: #selector(closebutton));
+        self.navigationItem.setLeftBarButtonItems([close], animated: true)
+    }
+}
+
+//photoライブラリ周り
+extension CameraViewController: UICollectionViewDataSource ,UICollectionViewDelegate{
+    
+    
+    // フォトライブラリへの保存メソッド
+    func photoOutput(_ output: AVCapturePhotoOutput,
+                     didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        
+        let photoData = photo.fileDataRepresentation()
+        guard photoData != nil else { return }
+        // フォトライブラリに保存
+        let image = UIImage(data: photoData!)!.cropping2square() //正方形に加工
+        //        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        
+        //collecitonviewに表示
+        originalimages.append(image!)
+        collectionView.reloadData()
+    }
+    
+    //collectionの基本設定
+    func collectionsettings(){
+        collectionView = UICollectionView(frame: CGRect(x: 10, y: 493, width: self.view.frame.size.width, height: 135), collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = UIColor.white
+        collectionView.register(CameraCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        //横スライド
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        collectionView.collectionViewLayout = layout
+        
+    }
     
     // セルの数を返す
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -332,7 +236,7 @@ extension CameraViewController: UICollectionViewDataSource {
             let option = PHImageRequestOptions()
             var thumbnail = UIImage()
             option.isSynchronous = true
-            manager.requestImage(for: photoAssets[indexPath.row], targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+            manager.requestImage(for: photoAssets[photoAssets.count - indexPath.row - 1], targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
                 thumbnail = result!
             })
             
@@ -407,73 +311,6 @@ extension CameraViewController: UICollectionViewDataSource {
     
 }
 
-extension CameraViewController:  UICollectionViewDelegateFlowLayout {
-    
-    
-    func collectionsettings(){
-        collectionView = UICollectionView(frame: CGRect(x: 10, y: 493, width: self.view.frame.size.width, height: 135), collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = UIColor.white
-        collectionView.register(CameraCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        //横スライド
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        collectionView.collectionViewLayout = layout
-        
-    }
-    
-}
-
-// CollectionViewのセル設定
-class CameraCollectionViewCell: UICollectionViewCell {
-    
-    //商品イメージ
-    private let cellImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        imageView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        imageView.layer.shadowColor = UIColor.black.cgColor
-        imageView.layer.shadowOpacity = 0.6
-        imageView.layer.shadowRadius = 4
-        return imageView
-    }()
-    
-    //商品イメージ
-    let deleteButton: UIButton = {
-        let button = UIButton()
-        button.frame = CGRect(x: 87, y: -13, width: 25, height: 25)
-        button.setImage(UIImage(named: "deleteimage"), for: .normal)
-        return button
-    }()
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        self.cellImageView.image = nil
-    }
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setup() {
-        contentView.addSubview(cellImageView)
-        contentView.addSubview(deleteButton)
-    }
-    
-    func setUpContents(image: UIImage) {
-        cellImageView.image = image
-    }
-}
 
 
 //ライブラリor写真を選ぶpage

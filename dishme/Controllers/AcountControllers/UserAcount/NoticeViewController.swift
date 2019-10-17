@@ -26,22 +26,30 @@ class NoticeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //tableviewの基本設定
+        tableviewsettings()
+        
+        //navigationの基本設定
+        setNavigation()
+    }
+    
+}
+
+//navigationの基本設定
+extension NoticeViewController{
+    func setNavigation(){
+        navigationItem.title = "お知らせ"
+    }
+}
+//tableviewの基本設定
+extension NoticeViewController: UITableViewDataSource, UITableViewDelegate{
+    func tableviewsettings(){
         tableView.dataSource = self
         tableView.delegate = self
         
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableView.automaticDimension
-        
-        setNavigation()
     }
-    
-    func setNavigation(){
-        navigationItem.title = "お知らせ"
-    }
-}
-
-extension NoticeViewController: UITableViewDataSource, UITableViewDelegate{
-    //UITableViewDataSourceプロトコルの必須メソッド
     //テーブルの行数を返す
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return textList.count

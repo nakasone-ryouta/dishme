@@ -13,8 +13,12 @@ import UIKit
 class EditSettingViewController: UIViewController {
     
     var text_view1 = UITextField()
+    var text_view2 = UITextField()
+    
     var pickerView: UIPickerView = UIPickerView()
     var pickerView_congestion: UIPickerView = UIPickerView()
+    var pickerView_number:UIPickerView = UIPickerView()
+    var pickerView_category:UIPickerView = UIPickerView()
     
     //予約OKな日
     let nodate:[String] = ["2019/9/22",
@@ -49,6 +53,10 @@ class EditSettingViewController: UIViewController {
                                "23:00",
                                "24:00",]
     
+    let selectnumber:[String] = ["予約不可","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"]
+    
+    var category = ["和食","居酒屋","洋食","イタリアン・フレンチ","焼き鳥・韓国料理","中華","バー","カフェ・スイーツ","ラーメン","アジアン","各国料理","その他",]
+    
     var setting = ""
     var fromtime = ""
     var totime = ""
@@ -64,7 +72,10 @@ class EditSettingViewController: UIViewController {
         
         setupNavigation()
     }
-    
+
+}
+//navigation周り
+extension EditSettingViewController{
     func setupNavigation(){
         
         // タイトルをセット
@@ -77,7 +88,6 @@ class EditSettingViewController: UIViewController {
         _ = SweetAlert().showAlert("変更を保存しました", subTitle: "", style: AlertStyle.success)
         self.navigationController?.popViewController(animated: true)
     }
-
 }
 
 //pickerviewの基本設定
@@ -132,17 +142,40 @@ extension EditSettingViewController : UIPickerViewDelegate, UIPickerViewDataSour
         pickerView_congestion.dataSource = self
         pickerView_congestion.showsSelectionIndicator = true
         pickerView_congestion.backgroundColor = .white
+        
+        // ピッカー設定
+        pickerView_number.delegate = self
+        pickerView_number.dataSource = self
+        pickerView_number.showsSelectionIndicator = true
+        pickerView_number.backgroundColor = .white
+        
+        // ピッカー設定
+        pickerView_category.delegate = self
+        pickerView_category.dataSource = self
+        pickerView_category.showsSelectionIndicator = true
+        pickerView_category.backgroundColor = .white
     }
     //textの基本設定
     func textfiledsettings(){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
         //時間帯
-        text_view1.frame = CGRect(x: 0, y: 119, width: 375, height: 50)
+        text_view1.frame = CGRect(x: 0, y: 120, width: width, height: height / 15)
         text_view1.textAlignment = .center
         text_view1.font = UIFont.systemFont(ofSize: 17)
         text_view1.placeholder = "時間を決める"
         text_view1.layer.borderColor = UIColor.black.cgColor
         text_view1.layer.borderWidth = 1
         view.addSubview(text_view1)
+        
+        //お金の平均
+        text_view2.frame = CGRect(x: 0, y: 230, width: width, height: height / 15)
+        text_view2.textAlignment = .center
+        text_view2.font = UIFont.systemFont(ofSize: 17)
+        text_view2.placeholder = "MAXの額"
+        text_view2.layer.borderColor = UIColor.black.cgColor
+        text_view2.layer.borderWidth = 1
+        
         
         switch setting {
         case "営業時間":
@@ -159,23 +192,48 @@ extension EditSettingViewController : UIPickerViewDelegate, UIPickerViewDataSour
             text_view1.inputView = pickerView
         case "定員人数":
             text_view1.placeholder = "１時間上限人数設定"
-            text_view1.keyboardType = UIKeyboardType.numberPad
+            text_view1.inputView = pickerView_number
         case "定休日":
             text_view1.placeholder = "定休日の設定"
+        case "平均使用額":
+            text_view1.placeholder = "MINの額"
+            text_view1.keyboardType = UIKeyboardType.numberPad
+            text_view2.keyboardType = UIKeyboardType.numberPad
+            view.addSubview(text_view2)
+            kara()
+        case "お店の料理ジャンル":
+            text_view1.placeholder = "料理ジャンルの設定"
+            text_view1.inputView = pickerView_category
+            
         default: break //地図を表示
         }
     }
     
     // ドラムロールの列数
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
+        switch pickerView {
+        case pickerView_number:
+            return 1
+        case pickerView_category:
+            return 1
+        default:
+            return 2
+        }
     }
     
     // ドラムロールの行数
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView {
+            
         case pickerView_congestion:
             return selecttime.count
+            
+        case pickerView_number:
+            return selectnumber.count
+            
+        case pickerView_category:
+            return category.count
+            
         default:
             return selecttime.count
         }
@@ -184,8 +242,14 @@ extension EditSettingViewController : UIPickerViewDelegate, UIPickerViewDataSour
     // ドラムロールの各タイトル
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
         switch pickerView {
+            
         case pickerView_congestion:
             return selecttime[row]
+            
+        case pickerView_number:
+            return selectnumber[row]
+        case pickerView_category:
+            return category[row]
         default:
             return selecttime[row]
         }
@@ -194,9 +258,28 @@ extension EditSettingViewController : UIPickerViewDelegate, UIPickerViewDataSour
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
     
+        switch pickerView {
+        case pickerView_number:
+            return text_view1.text = selectnumber[pickerView.selectedRow(inComponent: 0)]
+        case pickerView_category:
+            return text_view1.text = category[pickerView.selectedRow(inComponent: 0)]
+        default:
             totime = selecttime[pickerView.selectedRow(inComponent: 0)]
             fromtime = selecttime[pickerView.selectedRow(inComponent: 1)]
-            
             text_view1.text = totime + tofrom + fromtime
+        }
+    }
+}
+
+
+extension EditSettingViewController{
+    func kara(){
+        let label = UILabel()
+        label.frame = CGRect(x: view.frame.size.width / 2, y: 190, width: 50, height: 50)
+        label.text = "〜"
+        label.center.x = view.center.x
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 20)
+        label.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        view.addSubview(label)
     }
 }

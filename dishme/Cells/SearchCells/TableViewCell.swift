@@ -35,6 +35,7 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         if #available(iOS 10, *) {

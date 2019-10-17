@@ -13,7 +13,7 @@ import MessageUI
 class TableSettings :UIViewController{
     let alert = Alert()
     
-    func cellForRowAt(cell: UITableViewCell ,indexPath: IndexPath ,opentitle: String, opentime: String, congestion: String,congestiontime: String, position: String, phonenumber: Int, maxnumber: String, holiday: String, temporaryClosed: String){
+    func AcountTableCellForRowAt(cell: UITableViewCell ,indexPath: IndexPath ,opentitle: String, opentime: String, congestion: String,congestiontime: String, position: String, phonenumber: Int, maxnumber: String, holiday: String, temporaryClosed: String, avaragemoney: String , category: String){
         //営業中
         if indexPath.row == 0{
             cell.textLabel?.text = opentitle
@@ -49,7 +49,6 @@ class TableSettings :UIViewController{
             cell.textLabel?.text = "中休み"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
-            //営業時間
             cell.detailTextLabel?.text = opentime
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
@@ -58,7 +57,6 @@ class TableSettings :UIViewController{
             cell.textLabel?.text = "１時間予約上限人数"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
-            //営業時間
             cell.detailTextLabel?.text = maxnumber + "名"
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
@@ -66,7 +64,6 @@ class TableSettings :UIViewController{
             cell.textLabel?.text = "定休日"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
-            //営業時間
             cell.detailTextLabel?.text = holiday
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
@@ -75,8 +72,22 @@ class TableSettings :UIViewController{
             cell.textLabel?.text = "臨時休業"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
-            //営業時間
             cell.detailTextLabel?.text = temporaryClosed
+            cell.detailTextLabel?.textAlignment = NSTextAlignment.left
+        }
+        if indexPath.row == 8{
+            cell.textLabel?.text = "平均使用額"
+            cell.textLabel?.textAlignment = NSTextAlignment.right
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            cell.detailTextLabel?.text = avaragemoney
+            cell.detailTextLabel?.textAlignment = NSTextAlignment.left
+        }
+        if indexPath.row == 9{
+            cell.textLabel?.text = "お店の料理ジャンル"
+            cell.textLabel?.textAlignment = NSTextAlignment.right
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            //営業時間
+            cell.detailTextLabel?.text = category
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
         
@@ -85,29 +96,34 @@ class TableSettings :UIViewController{
     }
     
     
-    func didSelectRowAt(indexPath: IndexPath){
+    func AcountTableDidSelectRowAt(indexPath: IndexPath){
         switch indexPath.row {
         //ログアウト
         case 0:
             alert.infoAlert(Title: "ログアウトしますか？", subTitle: "", yes: "はい", no: "いいえ", yesTitle: "ログアウトしました", yessubTitle: "")
             break;
-        //アカウント切り替え
+        //振込口座の変更
         case 1:
-            alert.infoAlert(Title: "アカウントを切り替えますか？", subTitle: "現在あなたは企業アカウントです", yes: "はい", no: "いいえ", yesTitle: "アカウントを切り替えました", yessubTitle: "")
+            print("振込口座の変更")
             break;
         //お知らせ
         case 2:
             break;
-        //振込口座の変更
+        //写真を非公開にする
         case 3:
-            break;
-        //写真の公開非公開
-        case 4:
             alert.infoAlert(Title: "写真を非公開にしますか？", subTitle:"非公開にすると収入ははいりません", yes: "はい", no: "いいえ",yesTitle: "写真は非公開になりました", yessubTitle: "")
             break;
-        //問題を管理者に報告
+        //問題を管理者に報告する
+        case 4:
+            break;
+        //利用規約
         case 5:
-            emailbutton()
+            break;
+        //会員規約
+        case 6:
+            break;
+        //プライバシーポリシー
+        case 7:
             break;
             
         default:
@@ -132,41 +148,5 @@ class TableSettings :UIViewController{
         view.addSubview(headerLabel)
         
         return view
-    }
-}
-
-
-//メール
-extension TableSettings:MFMailComposeViewControllerDelegate{
-    func emailbutton(){
-        let mailComposeViewController = configureMailComposeViewController()
-        
-        if MFMailComposeViewController.canSendMail(){
-            
-            self.present(mailComposeViewController, animated: true, completion: nil)
-        }else{
-            self.showSendMailErrorAlert()
-        }
-    }
-    
-    func configureMailComposeViewController() -> MFMailComposeViewController{
-        let mailComposerVC = MFMailComposeViewController()
-        mailComposerVC.mailComposeDelegate = self
-        mailComposerVC.setToRecipients(["tsudoi0410@gmail.com"])
-        
-        mailComposerVC.setSubject("お問い合わせ")
-        mailComposerVC.setMessageBody("１．①〜④よりお問い合わせ内容をお選びください。\n①アプリの不具合\n②問題のアカウントを通報する\n③追加してほしい機能\n④その他\n\n2.返信用のメールアドレスを記載してください\n\n3.②をお選びいただいた方は問題のアカウント名と問題行動を記載してください\nお客様入力内容：", isHTML: false)
-        
-        return mailComposerVC
-        
-    }
-    
-    func showSendMailErrorAlert(){
-        _ = UIAlertView(title: "送信できませんでした", message: "your device must have an active mail account", delegate: self, cancelButtonTitle: "Ok")
-        
-    }
-    
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
     }
 }

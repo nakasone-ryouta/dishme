@@ -12,7 +12,7 @@ enum State {
     case expanded
 }
 
-class YouserAcountViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class YouserAcountViewController: UIViewController{
     
     //=========================================下から=====================================================
     
@@ -24,8 +24,6 @@ class YouserAcountViewController: UIViewController, UICollectionViewDelegate, UI
     // UI
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var blurEffectView: UIVisualEffectView!
-//    @IBOutlet weak var closeButton: UIButton!
-//    @IBOutlet weak var backButton: UIButton!
     
     
     var commentView = UIView()
@@ -42,12 +40,10 @@ class YouserAcountViewController: UIViewController, UICollectionViewDelegate, UI
     }
     //=========================================下から=====================================================
     
-    //[ユーザのメニュー追加],[企業のメニュー追加],[口コミの追加]
-    var cameratarget = "ユーザのメニュー追加"
     
-    //次の画面に渡す値
-    var firstindex:IndexPath? = nil
     
+    //====================================データベース使う値======================================================
+    var setting:[String] = ["ログアウト","振込口座の変更","お知らせ","写真を非公開にする","問題を管理者に報告","利用規約","会員規約"," プライバシーポリシー"]
     var name = "中曽根涼太"
     var point = "¥17200"
     var email = "sone.to.soccer@icloud.com"
@@ -64,27 +60,86 @@ class YouserAcountViewController: UIViewController, UICollectionViewDelegate, UI
                            UIImage(named: "meat9")!,
                            UIImage(named: "meat10")!,
                            ]
+     //==================================データベース使う値======================================================
+    //次の画面で指定したcellを最初に持ってくるindex
+    var firstindex:IndexPath? = nil
     
-    var setting:[String] = ["ログアウト","アカウント切り替え","お知らせ","振込口座の変更","写真を非公開にする","問題を管理者に報告"]
-    
-    
+    //写真を表示するcollectionview
     var myCollectionView : UICollectionView!
+    
+    //pageの下に引き、pageviewcontrollerの配置をしているview
     let backview = UIView()
-    let acountbackview = UIView()
+    
+    
     //アイコン画像
     let acountimageView = UIImageView()
     
     //[クレジット登録]の文字
     let creditbutton = UIButton(type: UIButton.ButtonType.system)
+    //acountのグレ-のview
+    let acountbackview = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //UI部品を配置
         setview()
+        
+        //collectionviewの基本設定
+        colletionsettings()
+        
+        //navigationの基本設定
+        setupNavigation()
+        
+        //したから出す各種設定の基本設定
+        upviewsettings()
+    }
+    
+    //画面に渡す値
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toCamera" {
+            let nextView = segue.destination as! CameraViewController
+            nextView.acountResister = "新規ユーザ"
+        }
+        if segue.identifier == "toPhotoSelect" {
+            let nextVC = segue.destination as! PhotoSelectViewController
+            nextVC.firstindex = firstindex
+            nextVC.acountResister = "ユーザ"
+        }
+    }
+    
+}
+
+//navigationの基本設定
+extension YouserAcountViewController{
+    func setupNavigation(){
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationItem.title = "アカウント"
+        self.navigationItem.hidesBackButton = true
+        
+        let button = UIBarButtonItem(image: UIImage(named: "settingitem")?.withRenderingMode(.alwaysOriginal),
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(settingaction));
+        self.navigationItem.rightBarButtonItem = button
+        
+        
+    }
+    @objc func settingaction(){
+        //したから設定のviewを出す
+        self.animateOrReverseRunningTransition(state: self.nextState(), duration: animatorDuration)
+    }
+}
+
+//collectionviewの設定
+extension YouserAcountViewController :UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    func colletionsettings(){
+        let width = Int(view.frame.size.width / 3 - 1)
         
         // CollectionViewのレイアウトを生成.
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width:124, height:124)
+        layout.itemSize = CGSize(width:width, height:width)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.headerReferenceSize = CGSize(width:100,height:60)
         
@@ -102,37 +157,15 @@ class YouserAcountViewController: UIViewController, UICollectionViewDelegate, UI
         
         myCollectionView.backgroundColor = .white
         
-        myCollectionView.frame = CGRect(x: 0, y: 0, width: 375, height: 570)
+        let maxwidth = view.frame.size.width
+        let maxheight = view.frame.size.height
+        
+        let BarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
+        print(BarHeight)
+        print(maxheight)
+        myCollectionView.frame = CGRect(x: 0, y: 0, width: maxwidth, height: 580)
         
         self.backview.addSubview(myCollectionView)
-        
-        setupNavigation()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //=========================================下から=====================================================
-        view.bringSubviewToFront(blurEffectView)
-        self.initSubViews()
-        self.addGestures()
-        tablesettings()
-        //=========================================下から=====================================================
-    }
-    func setupNavigation(){
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationItem.title = "アカウント"
-        self.navigationItem.hidesBackButton = true
-        
-        let button = UIBarButtonItem(image: UIImage(named: "settingitem")?.withRenderingMode(.alwaysOriginal),
-                                     style: .plain,
-                                     target: self,
-                                     action: #selector(settingaction));
-        self.navigationItem.rightBarButtonItem = button
-        
-        
-    }
-    @objc func settingaction(){
-        //したから設定のviewを出す
-        self.animateOrReverseRunningTransition(state: self.nextState(), duration: animatorDuration)
     }
     
     //セクションの数
@@ -199,7 +232,7 @@ class YouserAcountViewController: UIViewController, UICollectionViewDelegate, UI
         performSegue(withIdentifier: "toPhotoSelect", sender: nil)
         
     }
-
+    
     
     //collectionviewレイアウト周り
     func collectionView(_ collectionView: UICollectionView,
@@ -219,88 +252,89 @@ class YouserAcountViewController: UIViewController, UICollectionViewDelegate, UI
      Sectionに値を設定する
      */
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
-
+        
+        
         var view:SectionHeader?
         view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Section", for: indexPath) as? SectionHeader
-
+        
         if kind == UICollectionView.elementKindSectionHeader {
             view?.setTitle(title: sectionTitle[indexPath.section])
             view?.button.addTarget(self, action: #selector(menuadd), for: UIControl.Event.touchUpInside)
             return view!
         }
-
+        
         return UICollectionReusableView()
     }
     
     @objc func menuadd(){
         self.performSegue(withIdentifier: "toCamera", sender: nil)
     }
-    
-    //画面に渡す値
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toCamera" {
-            let nextView = segue.destination as! CameraViewController
-            nextView.cameratarget = cameratarget
-        }
-        if segue.identifier == "toPhotoSelect" {
-            let nextVC = segue.destination as! PhotoSelectViewController
-            nextVC.firstindex = firstindex
-        }
-    }
-    
 }
 
 
+//UI部品を配置
 extension YouserAcountViewController{
     func setview(){
         acountbackView()
         backView()
-        acountname()
-        acountemail()
         acountImage()
         line()
         initpointbutton()
         acountImageChange()
     }
     func acountbackView(){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
         
-        acountbackview.frame = CGRect(x: 0, y: 0, width: 375, height: 500)
+        acountbackview.frame = CGRect(x: 0, y: 0, width: width, height: height / 1.64)
         acountbackview.backgroundColor = UIColor.init(red: 249/255, green: 247/255, blue: 246/255, alpha: 1)
         view.addSubview(acountbackview)
     }
     func backView(){
-        backview.frame = CGRect(x: 0, y: 155, width: 375, height: 500)
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        backview.frame = CGRect(x: 0, y: 155, width: width, height: height)
         view.addSubview(backview)
     }
-    
-    func acountname(){
-        let label = UILabel()
-        label.frame = CGRect(x: 89, y: 94, width: 0, height: 0)
-        label.text = name
-        label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 15)
-        label.textAlignment = NSTextAlignment.left
-        label.sizeToFit()
-        view.addSubview(label)
-    }
-    func acountemail(){
-        let label = UILabel()
-        label.frame = CGRect(x: 89, y: 126, width: 0, height: 0)
-        label.text = email
-        label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 12)
-        label.textAlignment = NSTextAlignment.left
-        label.sizeToFit()
-        view.addSubview(label)
-    }
-    
     func acountImage(){
-        acountimageView.frame = CGRect(x: 15, y: 92, width: 55, height: 55)
+        let width = view.frame.size.width
+        
+        acountimageView.frame = CGRect(x: width / 22, y: 85, width: width / 6.8, height: width / 6.8)
         acountimageView.image = acountimage
         acountimageView.circle()
         view.addSubview(acountimageView)
+        
+        acountname(acountimage: acountimageView)
+        acountemail(acountimage: acountimageView)
     }
+    
+    func acountname(acountimage: UIImageView){
+        let width = view.frame.size.width
+        
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 94, width: 200, height: 0)
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: width / 25)
+        label.text = name
+        label.sizeToFit()
+        label.frame.origin.x = acountimageView.frame.origin.x + acountimageView.frame.size.width + 15
+        label.textColor = UIColor.black
+        label.textAlignment = NSTextAlignment.left
+        view.addSubview(label)
+    }
+    func acountemail(acountimage: UIImageView){
+        let width = view.frame.size.width
+        
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 126, width: 200, height: 0)
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: width / 31.25)
+        label.text = email
+        label.sizeToFit()
+        label.frame.origin.x = acountimageView.frame.origin.x + acountimageView.frame.size.width + 15
+        label.textColor = UIColor.black
+        label.textAlignment = NSTextAlignment.left
+        view.addSubview(label)
+    }
+    
     func acountImageChange(){
         let button = UIButton()
         button.addTarget(self, action: #selector(showAlbum), for: UIControl.Event.touchUpInside)
@@ -313,41 +347,50 @@ extension YouserAcountViewController{
     }
     
     func line(){
+        let width = view.frame.size.width
+        
         let line = UIView()
-        line.frame = CGRect(x: 275, y: 82, width: 1, height: 57)
+        line.frame = CGRect(x: width/1.3, y: 82, width: 1, height: 57)
         line.backgroundColor = UIColor.init(red: 226/255, green: 226/255, blue: 226/255, alpha: 1)
         view.addSubview(line)
     }
     
     @objc func pointlabel(){
+        let width = view.frame.size.width
+        
         let label = UILabel()
-        label.frame = CGRect(x: 300, y: 92, width: 0, height: 0)
+        label.frame = CGRect(x: width / 1.23, y: 92, width: 0, height: 0)
         label.text = point
         label.textColor = UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1)
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 15)
-        label.textAlignment = NSTextAlignment.left
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: width / 25)
+        label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
         view.addSubview(label)
     }
     
     func pointname(){
+        let width = view.frame.size.width
+        
         // UIButtonのインスタンスを作成する
         let button = UIButton(type: UIButton.ButtonType.system)
-        button.frame = CGRect(x: 290, y: 121, width: 0, height: 0)
+        button.frame = CGRect(x: width / 1.27, y: 121, width: 0, height: 0)
         button.setTitleColor(UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1), for: UIControl.State.normal)
         button.addTarget(self, action: #selector(creditRegister), for: UIControl.Event.touchUpInside)
         button.setTitle("ポイント換金", for: UIControl.State.normal)
-        button.titleLabel!.font = UIFont(name: "Helvetica-Bold",size: CGFloat(12))
+        button.titleLabel!.font = UIFont(name: "Helvetica-Bold",size: CGFloat(width / 31.25))
         button.sizeToFit()
         view.addSubview(button)
+        acountbackview.sendSubviewToBack(button)
     }
     func initpointbutton(){
+        let width = view.frame.size.width
+        
         // UIButtonのインスタンスを作成する
-        creditbutton.frame = CGRect(x: 289, y: 99, width: 0, height: 0)
+        creditbutton.frame = CGRect(x: width / 1.274, y: 99, width: 0, height: 0)
         creditbutton.setTitleColor(UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1), for: UIControl.State.normal)
         creditbutton.addTarget(self, action: #selector(creditRegister), for: UIControl.Event.touchUpInside)
         creditbutton.setTitle("振込口座登録", for: UIControl.State.normal)
-        creditbutton.titleLabel!.font = UIFont(name: "Helvetica-Bold",size: CGFloat(12))
+        creditbutton.titleLabel!.font = UIFont(name: "Helvetica-Bold",size: CGFloat(width / 31.25))
         creditbutton.sizeToFit()
         view.addSubview(creditbutton)
     }
@@ -355,17 +398,30 @@ extension YouserAcountViewController{
         pointlabel()
         pointname()
         creditbutton.removeFromSuperview()
+        
+        //各種設定をもう一回最前面に持ってくる
+        view.bringSubviewToFront(blurEffectView)
+        self.initSubViews()
+        self.addGestures()
     }
 }
 
 //==========================================各種設定=====================================================
 extension YouserAcountViewController: UITableViewDataSource,UITableViewDelegate{
     
+    func upviewsettings(){
+        view.bringSubviewToFront(blurEffectView)
+        self.initSubViews()
+        self.addGestures()
+        tablesettings()
+    }
+    
     func tablesettings(){
         let tableView:UITableView = UITableView()
+        let width = view.frame.size.width
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.frame = CGRect(x: 0, y: 70, width: 375, height: 500)
+        tableView.frame = CGRect(x: 0, y: 70, width: width, height: 700)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Home")
         tableView.contentMode = .scaleAspectFit
         tableView.tableFooterView = UIView(frame: .zero)
@@ -382,6 +438,8 @@ extension YouserAcountViewController: UITableViewDataSource,UITableViewDelegate{
         cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Thin", size: 15)
         return cell
     }
+   
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("aaaaaaaaa")
         switch indexPath.row {
@@ -389,32 +447,37 @@ extension YouserAcountViewController: UITableViewDataSource,UITableViewDelegate{
         case 0:
             alert.infoAlert(Title: "ログアウトしますか？", subTitle: "", yes: "はい", no: "いいえ", yesTitle: "ログアウトしました", yessubTitle: "")
             break;
-        //アカウント切り替え
+        //振込口座の変更
         case 1:
-            alert.infoAlert(Title: "アカウントを切り替えますか？", subTitle: "現在あなたは企業アカウントです", yes: "はい", no: "いいえ", yesTitle: "アカウントを切り替えました", yessubTitle: "")
             break;
         //お知らせ
         case 2:
             performSegue(withIdentifier: "toNotice", sender: nil)
             break;
-        //振込口座の変更
+        //写真を非公開にする
         case 3:
-            break;
-        //写真の公開非公開
-        case 4:
             alert.infoAlert(Title: "写真を非公開にしますか？", subTitle:"非公開にすると収入ははいりません", yes: "はい", no: "いいえ",yesTitle: "写真は非公開になりました", yessubTitle: "")
             break;
         //問題を管理者に報告
-        case 5:
+        case 4:
             emailbutton()
             break;
-            
+        //利用規約
+        case 5:
+            break;
+        //会員規約
+        case 6:
+            break;
+        //プライバシーポリシー
+        case 7:
+            break;
         default:
             break;
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
+        let layout = Layouting()
+        return CGFloat(layout.acountTableCellHeighting(view: view))
     }
     
     private func initSubViews() {
@@ -437,10 +500,11 @@ extension YouserAcountViewController: UITableViewDataSource,UITableViewDelegate{
             x: 0.0,
             y: commentViewHeight,
             width: self.view.frame.width,
-            height: self.view.frame.height - commentViewHeight - self.headerView.frame.height
+            height: self.view.frame.height - self.headerView.frame.height
         )
         commentDummyView.image = UIImage(named: "comments")
         commentDummyView.contentMode = .scaleAspectFit
+        view.bringSubviewToFront(commentDummyView)
         commentView.addSubview(commentDummyView)
     }
     
@@ -452,7 +516,7 @@ extension YouserAcountViewController: UITableViewDataSource,UITableViewDelegate{
         commentView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(_:))))
     }
     
-    // MARK: Util
+    //広がった時のview
     private func expandedFrame() -> CGRect {
         return CGRect(
             x: 0,
@@ -462,10 +526,11 @@ extension YouserAcountViewController: UITableViewDataSource,UITableViewDelegate{
         )
     }
     
+    //広がる前のview
     private func collapsedFrame() -> CGRect {
         return CGRect(
             x: 0,
-            y: self.view.frame.height - commentViewHeight,
+            y: self.view.frame.height,
             width: self.view.frame.width,
             height: commentViewHeight)
     }

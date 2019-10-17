@@ -42,6 +42,10 @@ class ListViewController: UIViewController {
         
         tablesettings()
         
+        //テーブルのレイアウト
+        let tablelayout = Layouting()
+        tablelayout.tableLayouting(tableview: tableView, view: view)
+        
     }
 }
 
@@ -54,8 +58,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource{
         
         let BarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
         let tableheight = maxheight - tableView.frame.origin.y * 2 - BarHeight
-        print(tableheight)
-        
+        print("保存",tableheight)
         
         tableView.frame = CGRect(x: 0, y: 0, width: Int(maxwidth), height: Int(tableheight))
         view.addSubview(tableView)
@@ -82,6 +85,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.backgroundColor = .white
     }
     
     @objc func change(){
@@ -90,8 +94,6 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource{
     @objc func cancelbutton(){
         _ = SweetAlert().showAlert("予約をキャンセルしますか？", subTitle: "当日のキャンセルは店舗に直接電話しないとキャンセルができません。", style: AlertStyle.warning, buttonTitle:"いいえ", buttonColor:UIColor.colorFromRGB(0xD0D0D0) , otherButtonTitle:  "はい", otherButtonColor: UIColor.colorFromRGB(0xDD6B55)) { (isOtherButton) -> Void in
             if isOtherButton == true {
-                
-                _ = SweetAlert().showAlert("キャンセルしませんでした", subTitle: "Your imaginary file is safe", style: AlertStyle.error)
             }
             else {
                 _ = SweetAlert().showAlert("予約がキャンセルされました", subTitle: "", style: AlertStyle.success)

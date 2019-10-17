@@ -20,24 +20,25 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
     //Photoselect画面に渡す値
     var firstindex:IndexPath? = nil
     
-    //pagecollection
+    //page周り
     var myCollectionView : UICollectionView!
-    var sectionTitle:[String] = ["おすすめ","メニュー","外観",]
+    var sectionTitle:[String] = ["おすすめ","メニュー","雰囲気",]
     let backview = UIView()
     
-    //アカウントアイコンの写真
+    //アカウントのUI周り
+    let acountview = UIView()//アカウントの下に引くview
     let acountimageView = UIImageView()
     
     //tabbar
     let tabBar : UITabBar = UITabBar(frame: CGRect(x: 0, y: 360, width: 375, height: 200))
     
-    //スクロールview
+    //下に引くview周り
     let scrollView = UIScrollView()
     let menuview = UIView()
-    let acountview = UIView()
     
-    //メニューのcollectionview
-    var collectionView: UICollectionView!
+    
+    //テキスト
+    let myTextView = UITextView()
     
     //おすすめ
     var dishes:[UIImage] = [UIImage(named: "meat1")!,
@@ -91,10 +92,11 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
     var congestiontime = "AM 13:00〜AM 14:00"
     var yummynumber = 237
     var yuckynumber = 37
-    var comment = "春の旬のふきのとうや新鮮なリブステーキを兼ね揃えてお\nります。今ご来場していただいた方には次回からお使いい\nただけるクーポンも配布中です。"
+    var comment = "春の旬のふきのとうや新鮮なリブステーキを兼ね揃えております。今ご来場していただいた方には次回からお使いいただけるクーポンも配布中です。"
     var avaragemoney = "¥6,280〜¥10,000"
     var holiday = "毎週水曜日"
     var temporaryClosed = "2019/8/24"
+    var category = "和食"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,8 +116,17 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
     // Enable the navbar scrolling
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
+        scrollUpsettings()
+    }
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        scrollStopsettings()
+    }
+}
+//スクロールまわり
+extension EditViewController{
+    //スクロールした時navigationを引っ込める
+    func scrollUpsettings(){
         if let navigationController = self.navigationController as? ScrollingNavigationController {
             if let tabBarController = tabBarController {
                 navigationController.followScrollView(scrollView, delay: 0, scrollSpeedFactor: 2, followers: [NavigationBarFollower(view: tabBarController.tabBar, direction: .scrollDown)])
@@ -126,38 +137,36 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
             navigationController.expandOnActive = false
         }
     }
-    override open func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
+    func scrollStopsettings(){
         if let navigationController = self.navigationController as? ScrollingNavigationController {
             navigationController.stopFollowingScrollView()
         }
     }
-    
     open func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         if let navigationController = self.navigationController as? ScrollingNavigationController {
             navigationController.showNavbar(animated: true)
         }
         return true
     }
-    
 }
 
 //スクロールviewの基本設定
 extension EditViewController{
     func scrollbackview(){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
         scrollView.frame = self.view.frame
-        scrollView.contentSize = CGSize(width:375, height:1150)
+        scrollView.contentSize = CGSize(width:width, height:height*2)
         self.view.addSubview(scrollView)
         
         acountview.frame = CGRect(x: 0,
                                   y: -80,
                                   width: scrollView.frame.size.width,
-                                  height: scrollView.frame.size.height)
+                                  height: scrollView.frame.size.height + 200)
         self.scrollView.addSubview(acountview)
         
         menuview.frame = CGRect(x: 0,
-                                y: 600,
+                                y: height,
                                 width: scrollView.frame.size.width,
                                 height: scrollView.frame.size.height)
         self.scrollView.addSubview(menuview)
@@ -166,85 +175,17 @@ extension EditViewController{
     }
 }
 
-//基本レイアウト周り
-extension EditViewController{
-    func backgroundcontroller(){
-        restaurantInfo()
-        acountimageview()
-        acountImageChange()
-        
-        //テキスト
-        textview()
-        nameLabel()
-        nameEditLabel()
-    }
-    func textview(){
-        let myTextView = UITextView()
-        myTextView.frame = CGRect(x: 17, y: 185, width: 337, height: 59)
-        myTextView.text = comment
-        myTextView.textAlignment = NSTextAlignment.left
-        acountview.addSubview(myTextView)
-    }
-    
-    func acountimageview(){
-        acountimageView.image = acountimage
-        acountimageView.frame = CGRect(x: 17, y: 98, width: 85, height: 85)
-        acountimageView.contentMode = .scaleAspectFill
-        acountimageView.circle()
-        self.acountview.addSubview(acountimageView)
-    }
-    
-    func acountImageChange (){
-        let button = UIButton()
-        button.addTarget(self, action: #selector(showAlbum), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 33,
-                              y: 50,
-                              width: 0,
-                              height: 0);
-        button.setTitle("写真を変更", for: .normal) // ボタンのタイトル
-        button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 11)
-        button.sizeToFit()
-        button.setTitleColor(UIColor.white, for: .normal)
-        scrollView.addSubview(button)
-    }
-    @objc func savephoto(){
-        print("呼び出されました")
-    }
-    
-    func nameLabel(){
-        //時間帯
-        let text_view1 = UITextField()
-        text_view1.frame = CGRect(x: 149, y: 115, width: 211, height: 50)
-        text_view1.textAlignment = .right
-        text_view1.font = UIFont.systemFont(ofSize: 17)
-        text_view1.placeholder = "焼肉大地"
-        text_view1.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        acountview.addSubview(text_view1)
-    }
-    
-    func nameEditLabel(){
-        let label = UILabel()
-        label.frame =  CGRect(x: 149, y: 134, width: 0, height: 0)
-        label.text = "名前"
-        label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
-        label.textAlignment = .center
-        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.sizeToFit()
-        acountview.addSubview(label)
-    }
-}
-
 //レストラン情報のtableview
 extension EditViewController:UITableViewDataSource,UITableViewDelegate{
     
     func restaurantInfo(){
+
         //下から出てくるtableview
         tableView.frame = CGRect(
             x: 0.0,
             y: 250,
             width: self.view.frame.width,
-            height: 420
+            height: self.view.frame.height
         )
         
         tableView.delegate      =   self
@@ -255,11 +196,12 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
         tableView.contentMode = .scaleAspectFit
         tableView.layer.borderWidth = 1
         tableView.layer.borderColor = UIColor(red: 208/255, green: 208/255, blue:208/255, alpha: 1).cgColor
+        tableView.isScrollEnabled = false
         acountview.addSubview(tableView)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 10
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.sectionTitle[section]
@@ -307,7 +249,6 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
             cell.textLabel?.text = "中休み"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
-            //営業時間
             cell.detailTextLabel?.text = opentime
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
@@ -316,7 +257,6 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
             cell.textLabel?.text = "１時間予約上限人数"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
-            //営業時間
             cell.detailTextLabel?.text = maxnumber + "名"
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
@@ -324,7 +264,6 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
             cell.textLabel?.text = "定休日"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
-            //営業時間
             cell.detailTextLabel?.text = holiday
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
@@ -333,8 +272,23 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
             cell.textLabel?.text = "臨時休業"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
-            //営業時間
             cell.detailTextLabel?.text = temporaryClosed
+            cell.detailTextLabel?.textAlignment = NSTextAlignment.left
+        }
+        //平均使用額
+        if indexPath.row == 8{
+            cell.textLabel?.text = "平均使用額"
+            cell.textLabel?.textAlignment = NSTextAlignment.right
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            cell.detailTextLabel?.text = avaragemoney
+            cell.detailTextLabel?.textAlignment = NSTextAlignment.left
+        }
+        //料理のジャンル
+        if indexPath.row == 9{
+            cell.textLabel?.text = "お店の料理ジャンル"
+            cell.textLabel?.textAlignment = NSTextAlignment.right
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            cell.detailTextLabel?.text = category
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
         
@@ -379,6 +333,14 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
             //臨時休業の設定
             performSegue(withIdentifier: "toEditHoliday", sender: nil)
         }
+        else if indexPath.row == 8{
+            setting = "平均使用額"
+            performSegue(withIdentifier: "toEditSetting", sender: nil)
+        }
+        else if indexPath.row == 9{
+            setting = "お店の料理ジャンル"
+            performSegue(withIdentifier: "toEditSetting", sender: nil)
+        }
     }
     //Mark: ヘッダーの大きさを設定する
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
@@ -414,25 +376,30 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
         }
         if segue.identifier == "toCamera" {
             let nextVC = segue.destination as! CameraViewController
-            nextVC.cameratarget = cameratarget
+            nextVC.acountResister = "企業"
         }
         if segue.identifier == "toPhotoSelect"{
             let nextVC = segue.destination as! PhotoSelectViewController
             nextVC.firstindex = firstindex
+            nextVC.acountResister = "企業"
         }
     }
 }
 
+
 extension EditViewController: UICollectionViewDelegate , UICollectionViewDataSource{
     
     func backView(){
-        backview.frame = CGRect(x: 0, y: 580, width: 375, height: 1000)
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        backview.frame = CGRect(x: 0, y: 680, width: width, height: height)
         scrollView.addSubview(backview)
     }
     func collectionSettings(){
         // CollectionViewのレイアウトを生成.
+        let size = Int(view.frame.size.width / 3 - 1)
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width:124, height:124)
+        layout.itemSize = CGSize(width:size, height:size)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.headerReferenceSize = CGSize(width:100,height:60)
         
@@ -448,7 +415,9 @@ extension EditViewController: UICollectionViewDelegate , UICollectionViewDataSou
         myCollectionView.delegate = self
         myCollectionView.dataSource = self
         
-        myCollectionView.frame = CGRect(x: 0, y: 0, width: 375, height: 570)
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        myCollectionView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         myCollectionView.backgroundColor = .white
         
         self.backview.addSubview(myCollectionView)
@@ -543,6 +512,79 @@ extension EditViewController: UICollectionViewDelegate , UICollectionViewDataSou
         performSegue(withIdentifier: "toCamera", sender: nil)
     }
 }
+
+//基本レイアウト周り
+extension EditViewController{
+    func backgroundcontroller(){
+        restaurantInfo()
+        acountimageview()
+        acountImageChange()
+        
+        //テキスト
+        textview()
+        nameLabel()
+        nameEditLabel()
+    }
+    func textview(){
+        let maxwidth = view.frame.size.width
+        
+        myTextView.frame =  CGRect(x: 17, y: 185, width: maxwidth / 1.1, height: 50)
+        myTextView.text = comment
+        myTextView.textAlignment = NSTextAlignment.left
+        acountview.addSubview(myTextView)
+    }
+    
+    func acountimageview(){
+        acountimageView.image = acountimage
+        acountimageView.frame = CGRect(x: 17, y: 98, width: 85, height: 85)
+        acountimageView.contentMode = .scaleAspectFill
+        acountimageView.circle()
+        self.acountview.addSubview(acountimageView)
+    }
+    
+    func acountImageChange (){
+        let button = UIButton()
+        button.addTarget(self, action: #selector(showAlbum), for: UIControl.Event.touchUpInside)
+        button.frame = CGRect(x: 33,
+                              y: 50,
+                              width: 0,
+                              height: 0);
+        button.setTitle("写真を変更", for: .normal) // ボタンのタイトル
+        button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 11)
+        button.sizeToFit()
+        button.setTitleColor(UIColor.white, for: .normal)
+        scrollView.addSubview(button)
+    }
+    @objc func savephoto(){
+        print("呼び出されました")
+    }
+    
+    func nameLabel(){
+        let widh = view.frame.width
+        //時間帯
+        let text_view1 = UITextField()
+        text_view1.frame = CGRect(x: widh / 2.5, y: 115, width: widh / 1.77, height: 50)
+        text_view1.textAlignment = .right
+        text_view1.font = UIFont.systemFont(ofSize: 17)
+        text_view1.placeholder = "焼肉大地"
+        text_view1.addBorderBottom(height: 1.0, color: UIColor.lightGray)
+        acountview.addSubview(text_view1)
+    }
+    
+    func nameEditLabel(){
+        let widh = view.frame.width
+        let label = UILabel()
+        label.frame =  CGRect(x: widh / 2.5, y: 134, width: 0, height: 0)
+        label.text = "名前"
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
+        label.textAlignment = .center
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.sizeToFit()
+        acountview.addSubview(label)
+    }
+}
+
 
 //カメラ機能
 extension EditViewController:UIImagePickerControllerDelegate,

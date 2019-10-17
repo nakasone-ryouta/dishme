@@ -11,10 +11,10 @@ import UIKit
 class PhotosBigViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet var commentView: UILabel!
-    @IBOutlet var commentmoji: UILabel!
     @IBOutlet var dishmoji: UILabel!
     @IBOutlet var valuemoji: UILabel!
     @IBOutlet var productBtn: UIButton!
     @IBOutlet var moneyBtn: UIButton!
-    
+    @IBOutlet var categoryBtn: UIButton!
+    @IBOutlet var categorymoji: UILabel!
 }

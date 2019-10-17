@@ -34,7 +34,9 @@ class EditRegularHolidayViewController: UIViewController {
         setupNavigation()
         
     }
-    
+}
+//navigation周り
+extension EditRegularHolidayViewController{
     func setupNavigation(){
         // タイトルをセット
         self.navigationItem.title = "定休日"
@@ -47,9 +49,9 @@ class EditRegularHolidayViewController: UIViewController {
         _ = SweetAlert().showAlert("変更保存しました", subTitle: "臨時休業になりました", style: AlertStyle.success)
         self.navigationController?.popViewController(animated: true)
     }
-
 }
 
+//tableviewの表示部分
 extension EditRegularHolidayViewController: UITableViewDataSource,UITableViewDelegate{
     func tablesettings(){
         tableView.tableFooterView = UIView(frame: .zero)

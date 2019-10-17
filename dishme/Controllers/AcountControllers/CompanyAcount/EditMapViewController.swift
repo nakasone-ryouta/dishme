@@ -38,6 +38,16 @@ class EditMapViewController: UIViewController {
         myLocationManager = CLLocationManager()
         myLocationManager.requestWhenInUseAuthorization()
     }
+    
+
+    
+    //位置情報取得に失敗したときに呼び出されるメソッド
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error")
+    }
+    
+}
+extension EditMapViewController{
     func setupNavigation(){
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.title = companyname
@@ -46,7 +56,10 @@ class EditMapViewController: UIViewController {
         let selectBtn = UIBarButtonItem(title: "保存", style: .done, target: self, action: #selector(save))
         self.navigationItem.rightBarButtonItems = [selectBtn]
     }
-    
+}
+
+//住所を探す
+extension EditMapViewController{
     func searchAdress(adress: String ,adressname: String){
         self.view.endEditing(true)
         
@@ -83,14 +96,9 @@ class EditMapViewController: UIViewController {
             }
         })
     }
-    
-    //位置情報取得に失敗したときに呼び出されるメソッド
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error")
-    }
-    
 }
 
+//
 extension EditMapViewController{
     //ボタン押下時の呼び出しメソッド
     @objc func save(){

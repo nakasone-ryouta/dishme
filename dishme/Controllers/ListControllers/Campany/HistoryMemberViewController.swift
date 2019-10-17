@@ -41,11 +41,11 @@ class HistoryMemberViewController: UIViewController {
                                 "09012345678",
                                 "09023859201",]
     
-    let date:[String] = ["１０月３日(火曜日)",
-                         "１０月４日(木曜日)",
+    let date:[String] = ["１０月７日(火曜日)",
+                         "１０月６日(木曜日)",
                          "１０月５日(水曜日)",
-                         "１０月６日(金曜日)",
-                         "１０月７日(火曜日)",]
+                         "１０月４日(金曜日)",
+                         "１０月３日(火曜日)",]
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -53,6 +53,10 @@ class HistoryMemberViewController: UIViewController {
         super.viewDidLoad()
 
         tablesettings()
+        
+        //テーブルのレイアウト
+        let tablelayout = Layouting()
+        tablelayout.tableLayouting(tableview: tableView, view: view)
     }
 
 
