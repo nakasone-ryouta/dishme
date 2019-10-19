@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FlexiblePageControl
 
 class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
     
@@ -24,7 +25,8 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
     //pagescroll
     @IBOutlet var photoBackView: UIView!
     private var scrollView: UIScrollView!
-    private var pageControl: UIPageControl!
+    @IBOutlet var pageControl: FlexiblePageControl!
+    let scrollSize: CGFloat = 300
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,15 +42,16 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
         photoBackView.addSubview(scrollView)
         
         // pageControlの表示位置とサイズの設定
-        pageControl = UIPageControl(frame: CGRect(x: 0, y: 380, width: 375, height: 30))
         pageControl.pageIndicatorTintColor = UIColor.init(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
-        pageControl.currentPageIndicatorTintColor = UIColor.init(red: 75/355, green: 149/355, blue: 233/255, alpha: 1)
+        pageControl.currentPageIndicatorTintColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
+        pageControl.center = CGPoint(x: scrollView.center.x, y: scrollView.frame.maxY + 16)
         photoBackView.addSubview(pageControl)
+
     }
     
     //スクロールする
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        pageControl.setProgress(contentOffsetX: scrollView.contentOffset.x, pageWidth: scrollView.bounds.width)
     }
     
     //写真を代入する
@@ -56,7 +59,7 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
         var imageView:[UIImageView] = []
         
         //ページのnumber
-        pageControl.numberOfPages = photonumber
+        setContent(numberOfPages: photonumber)
         
         //格写真を並べる
         scrollView.contentSize = CGSize(width: 375 * photonumber, height: 375)
@@ -73,6 +76,30 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
         let image = UIImage(named:  image)
         imageView.image = image
         return imageView
+    }
+    
+    func setContent(numberOfPages: Int) {
+        
+        scrollView.subviews.forEach { $0.removeFromSuperview() }
+        
+        scrollView.contentSize = CGSize(width: scrollSize * CGFloat(numberOfPages), height: scrollSize)
+        pageControl.numberOfPages = numberOfPages
+        
+        for index in  0..<numberOfPages {
+            
+            let view = UIImageView(
+                frame: .init(
+                    x: CGFloat(index) * scrollSize,
+                    y: 0,
+                    width: scrollSize,
+                    height: scrollSize
+                )
+            )
+            let imageNamed = NSString(format: "image%02d.jpg", index % 10) as String
+            view.image = UIImage(named: imageNamed)
+            scrollView.addSubview(view)
+        }
+        
     }
     
     

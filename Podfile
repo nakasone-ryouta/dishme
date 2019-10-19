@@ -18,5 +18,6 @@ target 'dishme' do
   pod 'GooglePlaces'
   pod 'FMPhotoPicker', '~> 0.8'
   pod 'SnapKit'
+  pod "FlexiblePageControl"
 
 end

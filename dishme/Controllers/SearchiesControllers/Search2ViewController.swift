@@ -14,7 +14,7 @@ import UIKit
 
 class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-     var acountRegister = "企業"
+     var acountRegister = "企業a"
      var firstindex:IndexPath? = nil //初期位置
     
     @IBOutlet weak var tableView: UITableView!
@@ -35,23 +35,9 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
                      "deliciase",
                      "deliciase",
                      ]
-    var dishes:[UIImage] = [UIImage(named: "meat1")!,
-                            UIImage(named: "meat2")!,
-                            UIImage(named: "meat3")!,
-                            UIImage(named: "meat4")!,
-                            UIImage(named: "meat5")!,
-                            UIImage(named: "meat6")!,
-                            UIImage(named: "meat7")!,
-                            UIImage(named: "meat8")!,
-                            UIImage(named: "meat9")!,
-                            UIImage(named: "meat10")!,
-                            UIImage(named: "meat11")!,
-                            UIImage(named: "meat12")!,
-                            UIImage(named: "meat13")!,
-                            UIImage(named: "meat14")!,
-                            UIImage(named: "meat15")!,]
+
     
-    var image:[[String]]? = [["meat1","meat2","meat4","meat5"],["meat2","meat3"],["meat3","meat4"]]
+    var image:[[String]]? = [["meat1","meat2","meat4","meat5","meat6","meat7","meat8","meat9","meat10"],["meat2","meat3"],["meat3","meat4"]]
     
     
     var acountimage = UIImage(named: "acount1")
@@ -110,15 +96,17 @@ extension Search2ViewController{
     //テーブルの行ごとのセルを返却するメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for:indexPath) as! TableViewCell
+        
+        //cellの表示
         cell.selectionStyle = .none
-        cell.label.text = cellTexts[indexPath.row]
         cell.isOpen = isOpens[indexPath.row]
         cell.acountButton.setBackgroundImage(UIImage(named: "acount3"), for: UIControl.State())
         cell.acountButton.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
-        
         cell.goodlabel.text = "\(goods[indexPath.row])"
         cell.badlabel.text = "\(bads[indexPath.row])"
         
+        
+        //写真の表示
         let tablenumber = indexPath.row
         let photonumber = image?[indexPath.row].count
         cell.setImage(image: image!, tablenumber: tablenumber, photonumber: photonumber!, view: view)
@@ -133,13 +121,21 @@ extension Search2ViewController{
             cell.resevebButton.isHidden = true
         }
         
+        //acountの名前の設定
+        cell.resevebButton.setTitle(cellTexts[indexPath.row] + "・保存", for: UIControl.State.normal)
+        cell.resevebButton.setTitleColor(UIColor.black, for: .normal)
+        let namerange = cellTexts[indexPath.row].count
+        let attrText = NSMutableAttributedString(string: cell.resevebButton.titleLabel!.text!)
+        attrText.addAttribute(.foregroundColor,
+                              value: UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), range: NSMakeRange(namerange, 3))
+        cell.resevebButton.setAttributedTitle(attrText, for: .normal)
+        
         //アカウント選択
         cell.acountButton.addTarget(self, action: #selector(self.toSearch3), for: .touchUpInside)
         cell.resevebButton.addTarget(self, action: #selector(self.saveacount), for: .touchUpInside)
         cell.goodButton.addTarget(self, action: #selector(self.goodbutton), for: .touchUpInside)
         cell.badButton.addTarget(self, action: #selector(self.badButton), for: .touchUpInside)
 
-        cell.backgroundColor = .white
         return cell
     }
 }
