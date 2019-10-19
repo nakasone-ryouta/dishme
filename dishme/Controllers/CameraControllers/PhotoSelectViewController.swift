@@ -54,11 +54,10 @@ class PhotoSelectViewController: UIViewController{
     //========================================検索に必要なもの(追加)======================================
     var searchController = UISearchController()//検索バー
     var tableView: UITableView!//検索テーブル
-    //オススメの検索候補
-    var favorite:[String] = ["和食レストランとんでん","パティスリーラパージュ","トンカツ坊","スーリール","道頓堀習志野台店","ガスト習志野台店","トントン拍子","ジョナサン習志野台","サンマルクパフェ習志野台"]
+
     //検索候補
     let suggestions:[String] = ["和食レストランとんでん","パティスリーラパージュ","トンカツ坊","スーリール","道頓堀習志野台店","ガスト習志野台店","トントン拍子","ジョナサン習志野台","サンマルクパフェ習志野台"]
-    var favoritejudge = "おすすめ"//おすすめをタッチするか検索されたものをタッチするか
+    
     var searchResults:[String] = []//検索結果
     var searchstore = ""
     var category = ["おすすめ","メニュー","雰囲気"]
@@ -79,17 +78,17 @@ class PhotoSelectViewController: UIViewController{
         //navigationの設定
         setupNavigation()
         
-        if cameratarget == "新規ユーザ"{
-            //検索バー(追加)
+        //検索バー(追加)
+        if acountResister == "ユーザ"{
             setupSearchcontroller()
-        }else{
-            setupNavigation()
         }
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         topcell()
+        kutikomimoji()
+        commentButton()
     }
 }
 
@@ -111,6 +110,25 @@ extension PhotoSelectViewController:UISearchResultsUpdating,UISearchBarDelegate{
         navigationItem.titleView = searchController.searchBar
     }
     
+    // 検索ボタンが押された時に呼ばれる
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
+        searchBar.showsCancelButton = true
+        self.searchResults = suggestions.filter{
+            // 大文字と小文字を区別せずに検索
+            $0.lowercased().contains(searchBar.text!.lowercased())
+        }
+        self.tableView.reloadData()
+    }
+    
+    // キャンセルボタンが押された時に呼ばれる
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        self.view.endEditing(true)
+        searchBar.text = ""
+        self.tableView.reloadData()
+    }
+    
     // 文字が入力される度に呼ばれる
     func updateSearchResults(for searchController: UISearchController) {
         self.searchResults = suggestions.filter{
@@ -122,9 +140,11 @@ extension PhotoSelectViewController:UISearchResultsUpdating,UISearchBarDelegate{
     // 編集が開始されたら、キャンセルボタンを有効にする
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         tablesettings()
-        selectBtn = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancel))
+        selectBtn = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItems = [selectBtn]
+        self.tableView.reloadData()
         return true
+        
     }
     
     @objc func cancel(){
@@ -140,13 +160,17 @@ extension PhotoSelectViewController:UISearchResultsUpdating,UISearchBarDelegate{
 
 //検索テーブル(追加)
 extension PhotoSelectViewController: UITableViewDelegate,UITableViewDataSource {
+    
+    //topcell
     func topcell(){
         let noindex = IndexPath(item: 0, section: 0)
         collectionView2.scrollToItem(at: firstindex ?? noindex, at: .right, animated: false)
     }
+    //tableの基本設定
     func tablesettings(){
-        let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
-        tableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: self.view.frame.width, height: self.view.frame.height))
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.delegate = self
@@ -154,10 +178,8 @@ extension PhotoSelectViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.searchBar.text == ""{
-            return favorite.count
-        }
-        else if searchController.isActive{
+        
+        if searchController.searchBar.text != "" {
             return searchResults.count
         } else {
             return suggestions.count
@@ -166,41 +188,68 @@ extension PhotoSelectViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath as IndexPath)
-        
         cell.textLabel!.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
         
-        if searchController.searchBar.text == ""{
-            cell.textLabel!.text = favorite[indexPath.row]
-            favoritejudge = "おすすめ"
-        }
-        else if searchController.isActive {
+        //検索
+        if searchController.searchBar.text != "" {
             cell.textLabel!.text = "\(searchResults[indexPath.row])"
-            favoritejudge = "検索"
-        } else {
+        }
+        //検索結果
+        else{
             cell.textLabel!.text = "\(suggestions[indexPath.row])"
-            favoritejudge = "検索"
         }
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        setupSearchcontroller()
-        searchController.searchBar.resignFirstResponder
         
         //検索されたものかおすすめに出てきているものをタッチしたのかの判別
-        if favoritejudge == "検索"{
-            searchController.searchBar.text = suggestions[indexPath.row]
-        }else{
-            searchController.searchBar.text = favorite[indexPath.row]
-        }
+        searchController.searchBar.text = suggestions[indexPath.row]
         tableView.removeFromSuperview()
         searchstore = searchController.searchBar.text!
+        
+        searchController.searchBar.resignFirstResponder
     }
     
 }
 
+extension PhotoSelectViewController{
+    func kutikomimoji(){
+        let label = UILabel()
+        label.frame =  CGRect(x: 23, y: 500, width: 0, height: 0)
+        label.text = "口コミ"
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
+        label.textAlignment = NSTextAlignment.right
+        label.sizeToFit()
+        view.addSubview(label)
+    }
+    
+    func commentButton(){
+        
+        // UIButtonのインスタンスを作成する
+        let button = UIButton(type: .custom)
+        button.addTarget(self, action: #selector(commentaction), for: UIControl.Event.touchUpInside)
+        button.frame = CGRect(x: 16,
+                              y: 370,
+                              width: 355,
+                              height: 365);
+        button.setTitle(comment, for: UIControl.State.normal)
+        button.setTitleColor(UIColor.darkGray, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.sizeToFit()
+        
+        view.addSubview(button)
+        
+    }
+    @objc func commentaction(){
+        performSegue(withIdentifier: "toPhotoComment", sender: nil)
+    }
+}
 
+//collection周り
 extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collection2setting(){
@@ -254,14 +303,8 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
             
             if acountResister == "企業"{
                 
-                view.sendSubviewToBack(cell.commentView)
-                
                 //写真
                 cell.imageView.image = originalimages[indexPath.row]
-                
-                //[コメント]の非表示ラベル
-                cell.commentView.text = ""
-                cell.commentView.numberOfLines = 0
                 cell.valuemoji.text = "価格"
                 
                 //カテゴリの表示ボタン
@@ -298,9 +341,9 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
             else{
                 
                 //ユーザの場合
-                cell.categorymoji.text = "口コミ"
                 cell.valuemoji.text = ""
                 cell.dishmoji.text = ""
+                cell.categorymoji.text = ""
                 cell.productBtn.removeFromSuperview()
                 cell.moneyBtn.removeFromSuperview()
                 cell.categoryBtn.removeFromSuperview()
@@ -309,22 +352,15 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
                 switch(indexPath.section){
                 case 0:
                     cell.imageView.image = originalimages[indexPath.row]
-                    cell.commentView.text = comment
 
-                    
                 case 1:
                     cell.imageView.image = originalimages[indexPath.row]
-                    cell.commentView.text = comment
 
                 case 2:
                     cell.imageView.image = originalimages[indexPath.row]
-                    cell.commentView.text = comment
 
-                    
                 default:
                     cell.imageView.image = originalimages[indexPath.row]
-                    cell.commentView.text = comment
-
                 }
             }
             return cell
@@ -334,7 +370,7 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
             case "企業":
                 break;
             default:
-                performSegue(withIdentifier: "toPhotoComment", sender: nil)
+                break;
             }
     }
     
@@ -426,6 +462,25 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
     
 }
 
+//navigation周り
+extension PhotoSelectViewController{
+    
+    func setupNavigation(){
+        let edititem = UIBarButtonItem(image: UIImage(named: "edititem")?.withRenderingMode(.alwaysOriginal),
+                                       style: .plain,
+                                       target: self,
+                                       action: #selector(filteraciton));
+        self.navigationItem.rightBarButtonItems = [edititem]
+    }
+    @objc func filteraciton(){
+        let config = FMPhotoPickerConfig()
+        let vc = FMImageEditorViewController(config: config, sourceImage: originalimages[0])
+        vc.delegate = self
+        
+        self.present(vc, animated: true)
+    }
+}
+
 //レイアウト
 extension PhotoSelectViewController{
     func tabbarcontroller(){
@@ -439,11 +494,6 @@ extension PhotoSelectViewController{
           savephotoBtn()
         }
         
-    }
-    
-    func setupNavigation(){
-        selectBtn = UIBarButtonItem(title: "編集", style: .done, target: self, action: #selector(editphotoAction))
-        self.navigationItem.rightBarButtonItems = [selectBtn]
     }
     func backview(){
         let backview = UIView()
@@ -557,7 +607,7 @@ extension PhotoSelectViewController{
         actionAlert.addAction(deleteAction)
         
         //UIAlertControllerにキャンセルのアクションを追加する
-        let cancelAction = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler: {
+        let cancelAction = UIAlertAction(title: "cancel", style: UIAlertAction.Style.cancel, handler: {
             (action: UIAlertAction!) in
         })
         actionAlert.addAction(cancelAction)

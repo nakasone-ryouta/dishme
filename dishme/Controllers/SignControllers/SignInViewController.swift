@@ -16,6 +16,12 @@ class SignInViewController: UIViewController {
     var pageMenu: PageMenuViewinit!
     var backview = UIView()
     
+    var selectedTextField:UITextField?
+    
+    //テキスト被らないためのview
+    var scrollView =  UIScrollView()
+    var scrollView2 = UIScrollView()
+    var scrollView3 = UIScrollView()
     //signinのtextfield
     let signin_email_textfield = UITextField()
     let signin_password_textfield = UITextField()
@@ -34,6 +40,7 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        textFieldInit()
         backView()
         pagesettings()
         comeagainLabel()
@@ -41,14 +48,37 @@ class SignInViewController: UIViewController {
         
         view.backgroundColor = UIColor.init(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        // キーボードイベントの監視開始
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillBeShown(notification:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+    }
 
 }
 
+//textfieldの基本設定
 extension SignInViewController{
+    
+    //textfieldの代入
+    func textFieldInit() {
+        // textfieldの条件わけ
+        self.selectedTextField = self.signup_password_textfield
+        
+    }
+    
+    // TextFieldが選択された時
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // 選択されているTextFieldを更新
+        self.selectedTextField = textField
+        print("aaaaa")
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // キーボードを閉じる
         signin_email_textfield.resignFirstResponder()
-        signin_email_textfield.text = signin_email_textfield.text
+        
         return true
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -56,12 +86,82 @@ extension SignInViewController{
         self.view.endEditing(true)
     }
 }
+
+//textfieldスクロールviewの基本設定
+extension SignInViewController{
+
+    func restoreScrollViewSize() {
+        // キーボードが閉じられた時に、スクロールした分を戻す
+        self.scrollView.contentInset = UIEdgeInsets.zero
+        self.scrollView.scrollIndicatorInsets = UIEdgeInsets.zero
+        
+        self.scrollView2.contentInset = UIEdgeInsets.zero
+        self.scrollView2.scrollIndicatorInsets = UIEdgeInsets.zero
+        
+        self.scrollView3.contentInset = UIEdgeInsets.zero
+        self.scrollView3.scrollIndicatorInsets = UIEdgeInsets.zero
+    }
+    
+    
+    // キーボードが表示された時に呼ばれる
+    @objc func keyboardWillBeShown(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue, let animationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
+                restoreScrollViewSize()
+                
+                //textfieldが被ったら位置を再配置
+                let convertedKeyboardFrame = scrollView2.convert(keyboardFrame, from: nil)
+                positionTextField(selectedTextField: selectedTextField!, keyframe: convertedKeyboardFrame, animate: animationDuration)
+            }
+        }
+    }
+    //positionを配置する処理
+    func positionTextField(selectedTextField: UITextField ,keyframe: CGRect ,animate: TimeInterval){
+        let offsetY: CGFloat = self.selectedTextField!.frame.maxY - keyframe.minY + 40
+        if offsetY < 0 { return }
+        updateScrollViewSize(moveSize: offsetY, duration: animate)
+        restoreScrollViewSize()
+    }
+    
+    // moveSize分Y方向にスクロールさせる
+    func updateScrollViewSize(moveSize: CGFloat, duration: TimeInterval) {
+        UIView.beginAnimations("ResizeForKeyboard", context: nil)
+        UIView.setAnimationDuration(duration)
+        
+        
+        //scrollviewの条件わけ
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: moveSize, right: 0)
+        
+        //sininの場合
+        if selectedTextField == signin_password_textfield || selectedTextField == signin_email_textfield{
+            scrollposition(moveSize: Int(moveSize), selectscrollView: scrollView, contentInsets: contentInsets)
+        }
+        else if selectedTextField == signup_password_textfield || selectedTextField == signup_email_textfield || selectedTextField == signup_name_textfield{
+            scrollposition(moveSize: Int(moveSize), selectscrollView: scrollView2, contentInsets: contentInsets)
+        }
+        else{
+            scrollposition(moveSize: Int(moveSize), selectscrollView: scrollView3, contentInsets: contentInsets)
+        }
+    }
+    //scrollviewの条件わけ
+    func scrollposition(moveSize: Int,selectscrollView: UIScrollView, contentInsets: UIEdgeInsets){
+        selectscrollView.contentInset = contentInsets
+        selectscrollView.scrollIndicatorInsets = contentInsets
+        selectscrollView.contentOffset = CGPoint(x: 0, y: moveSize)
+        
+        UIView.commitAnimations()
+    }
+}
+
+//navigation周り
 extension SignInViewController{
     func setupNavigation(){
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
 }
 
+
+//pageviewの下に引いているview
 extension SignInViewController{
     
     func backView(){
@@ -69,10 +169,35 @@ extension SignInViewController{
         backview.backgroundColor = UIColor.init(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
         view.addSubview(backview)
     }
+    
+    func scrollview1(controller: UIViewController){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        
+        scrollView.frame = self.view.frame
+        scrollView.contentSize = CGSize(width:width, height:height * 2)
+        controller.view.addSubview(scrollView)
+    }
+    func scrollview2(controller: UIViewController){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        
+        scrollView2.frame = self.view.frame
+        scrollView2.contentSize = CGSize(width:width, height:height * 2)
+        controller.view.addSubview(scrollView2)
+    }
+    func scrollview3(controller: UIViewController){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        
+        scrollView3.frame = self.view.frame
+        scrollView3.contentSize = CGSize(width:width, height:height * 2)
+        controller.view.addSubview(scrollView3)
+    }
 }
 
 
-//メニューのレイアウト
+//pageview周り
 extension SignInViewController:PageMenuViewDelegateinit{
     func willMoveToPage(_ pageMenu: PageMenuViewinit, from viewController: UIViewController, index currentViewControllerIndex: Int) {
         print("---------")
@@ -101,13 +226,16 @@ extension SignInViewController:PageMenuViewDelegateinit{
         // Add to array
         let viewControllers = [viewController1, viewController2 ,viewController3]
         
-        //メニュー写真の追加
-        view1settings(controller: viewController1)
-        view2settings(controller: viewController2)
-        view3settings(controller: viewController3)
+        //backviewの上に引いているscrollview
+        scrollview1(controller: viewController1)
+        scrollview2(controller: viewController2)
+        scrollview3(controller: viewController3)
         
-        
-        
+        //各部品の配置
+        view1settings()
+        view2settings()
+        view3settings()
+
         
         // Init Page Menu with view controllers and UI option
         pageMenu = PageMenuViewinit(viewControllers: viewControllers, option: optionview())
@@ -157,84 +285,83 @@ extension SignInViewController:PageMenuViewDelegateinit{
         }
     }
     
+    
+}
+//サインインの設定
+extension SignInViewController{
+    
+    func view1settings(){
+        emailtextfield()
+        passwordtextfield()
+        SignInButton()
+    }
+    
     func comeagainLabel(){
         let label = UILabel()
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
-        //        label.frame =  CGRect(x: 48, y: 84, width: 0, height: 0)
         label.frame = CGRect(x: 0, y: height/9.2, width: width , height: height/27)
         label.textAlignment = NSTextAlignment.center
         label.text = "WELLCOME TO DISHME"
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: width/16.3)
-        //        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.adjustsFontSizeToFitWidth = true
         view.addSubview(label)
     }
-    //    height = 812 width = 375
-    func view1settings(controller: UIViewController){
-        emailtextfield(controller: controller)
-        passwordtextfield(controller: controller)
-        SignInButton(controller: controller)
-    }
-    func emailtextfield(controller: UIViewController){
+    
+    func emailtextfield(){
         //メール
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         //            textfield.frame = CGRect(x: 62, y: 116, width: 250, height: 50)
-        signin_email_textfield.frame = CGRect(x: 0, y: height/7, width: width/1.5, height: height/16.24)
+        signin_email_textfield.frame = CGRect(x: 0, y: height / 7, width: width/1.5, height: height/16.24)
         signin_email_textfield.center.x = view.center.x
         signin_email_textfield.textAlignment = NSTextAlignment.left
         signin_email_textfield.font = UIFont.systemFont(ofSize: width/22)
         signin_email_textfield.placeholder = "Email"
         signin_email_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        controller.view.addSubview(signin_email_textfield)
+        scrollView.addSubview(signin_email_textfield)
     }
-    func passwordtextfield(controller: UIViewController){
+    
+    func passwordtextfield(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
-        //            textfield.frame = CGRect(x: 62, y: 205, width: 250, height: 50)
         signin_password_textfield.frame = CGRect(x: 0, y: height/3.96, width: width/1.5, height: height/16.24)
         signin_password_textfield.center.x = view.center.x
         signin_password_textfield.textAlignment = NSTextAlignment.left
         signin_password_textfield.font = UIFont.systemFont(ofSize: width/22)
         signin_password_textfield.placeholder = "Password"
         signin_password_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        controller.view.addSubview(signin_password_textfield)
+        scrollView.addSubview(signin_password_textfield)
     }
     
-    //ログイン
-    func SignInButton(controller: UIViewController){
+    //ログインボタン
+    func SignInButton(){
         // UIButtonのインスタンスを作成する
         let button = UIButton(type: .custom)
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         button.addTarget(self, action: #selector(toyouserAcount), for: UIControl.Event.touchUpInside)
-        //            button.frame = CGRect(x: 96,
-        //                                  y: 401,
-        //                                  width: 183,
-        //                                  height: 39)
         button.frame = CGRect(x: 0, y: height/2.02, width: width/2.04, height: width/9.6)
         button.center.x = view.center.x
         button.setImage(UIImage(named: "signinbar"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        controller.view.addSubview(button)
+        scrollView.addSubview(button)
     }
-    
 }
 
-//signUPの設定
+//サインアップの設定
 extension SignInViewController{
-    func view2settings(controller: UIViewController){
-        nametextfield(controller: controller)
-        emailtextfield_view2(controller: controller)
-        passwordtextfield_view2(controller: controller)
-        acountbutton_view2(controller: controller)
-        SignInButton_view2(controller: controller)
+    func view2settings(){
+        nametextfield()
+        emailtextfield_view2()
+        passwordtextfield_view2()
+        acountbutton_view2()
+        SignInButton_view2()
     }
     
-    func nametextfield(controller: UIViewController){
+    func nametextfield(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         
@@ -244,9 +371,9 @@ extension SignInViewController{
         signup_name_textfield.font = UIFont.systemFont(ofSize: width/22)
         signup_name_textfield.placeholder = "name"
         signup_name_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        controller.view.addSubview(signup_name_textfield)
+        scrollView2.addSubview(signup_name_textfield)
     }
-    func emailtextfield_view2(controller: UIViewController){
+    func emailtextfield_view2(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
 
@@ -256,9 +383,9 @@ extension SignInViewController{
         signup_email_textfield.font = UIFont.systemFont(ofSize: width/22)
         signup_email_textfield.placeholder = "Email"
         signup_email_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        controller.view.addSubview(signup_email_textfield)
+        scrollView2.addSubview(signup_email_textfield)
     }
-    func passwordtextfield_view2(controller: UIViewController){
+    func passwordtextfield_view2(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
 
@@ -268,10 +395,10 @@ extension SignInViewController{
         signup_password_textfield.font = UIFont.systemFont(ofSize: width/22)
         signup_password_textfield.placeholder = "Password"
         signup_password_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        controller.view.addSubview(signup_password_textfield)
+        scrollView2.addSubview(signup_password_textfield)
     }
     
-    func acountbutton_view2(controller: UIViewController){
+    func acountbutton_view2(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         
@@ -282,11 +409,11 @@ extension SignInViewController{
         button.setImage(UIImage(named: "acount0"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        controller.view.addSubview(button)
+        scrollView2.addSubview(button)
     }
     
     //新規サインイン
-    func SignInButton_view2(controller: UIViewController){
+    func SignInButton_view2(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         
@@ -297,22 +424,22 @@ extension SignInViewController{
         button.setImage(UIImage(named: "signupbar"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        controller.view.addSubview(button)
+        scrollView2.addSubview(button)
     }
 }
 
-//    height = 812 width = 375
+
 //会社の登録
 extension SignInViewController{
-    func view3settings(controller: UIViewController){
-        nametextfield_view3(controller: controller)
-        emailtextfield_view3(controller: controller)
-        passwordtextfield_view3(controller: controller)
-        acountbutton_view3(controller: controller)
-        SignInButton_view3(controller: controller)
+    func view3settings(){
+        nametextfield_view3()
+        emailtextfield_view3()
+        passwordtextfield_view3()
+        acountbutton_view3()
+        SignInButton_view3()
     }
     
-    func nametextfield_view3(controller: UIViewController){
+    func nametextfield_view3(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         //        textfield.frame = CGRect(x: 62, y: 117, width: 250, height: 50)
@@ -322,9 +449,9 @@ extension SignInViewController{
         company_name_textfield.font = UIFont.systemFont(ofSize: width/22)
         company_name_textfield.placeholder = "CompanyName"
         company_name_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        controller.view.addSubview(company_name_textfield)
+        scrollView3.addSubview(company_name_textfield)
     }
-    func emailtextfield_view3(controller: UIViewController){
+    func emailtextfield_view3(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         //        textfield.frame = CGRect(x: 62, y: 211, width: 250, height: 50)
@@ -334,40 +461,37 @@ extension SignInViewController{
         company_email_textfield.font = UIFont.systemFont(ofSize: width/22)
         company_email_textfield.placeholder = "CompanyEmail"
         company_email_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        controller.view.addSubview(company_email_textfield)
+        scrollView3.addSubview(company_email_textfield)
     }
-    func passwordtextfield_view3(controller: UIViewController){
+    func passwordtextfield_view3(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
-        //        textfield.frame = CGRect(x: 62, y: 276, width: 250, height: 50)
+
         company_password_textfield.frame = CGRect(x: 0, y: height/2.64, width: width/1.5, height: height/23.09)
         company_password_textfield.textAlignment = NSTextAlignment.left
         company_password_textfield.center.x = view.center.x
         company_password_textfield.font = UIFont.systemFont(ofSize: width/22)
         company_password_textfield.placeholder = "CompanyPassword"
         company_password_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        controller.view.addSubview(company_password_textfield)
+        scrollView3.addSubview(company_password_textfield)
     }
     
-    func acountbutton_view3(controller: UIViewController){
+    func acountbutton_view3(){
         // UIButtonのインスタンスを作成する
         let button = UIButton(type: .custom)
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         button.addTarget(self, action: #selector(acountimage), for: UIControl.Event.touchUpInside)
-        //        button.frame = CGRect(x: 154,
-        //                              y: 50,
-        //                              width: 70,
-        //                              height: 70);
+
         button.frame = CGRect(x: 0, y: height/20.24, width: width/6.35, height: width/6.35)
         button.center.x = view.center.x
         button.setImage(UIImage(named: "acount0"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        controller.view.addSubview(button)
+        scrollView3.addSubview(button)
     }
     
-    func SignInButton_view3(controller: UIViewController){
+    func SignInButton_view3(){
         // UIButtonのインスタンスを作成する
         let button = UIButton(type: .custom)
         let width = UIScreen.main.bounds.size.width
@@ -378,7 +502,7 @@ extension SignInViewController{
         button.setImage(UIImage(named: "signupbar"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        controller.view.addSubview(button)
+        scrollView3.addSubview(button)
     }
     
     //ユーザアカウントに飛ぶ画面遷移

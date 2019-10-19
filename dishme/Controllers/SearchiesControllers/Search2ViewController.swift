@@ -50,9 +50,13 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
                             UIImage(named: "meat13")!,
                             UIImage(named: "meat14")!,
                             UIImage(named: "meat15")!,]
+    
+    var image:[[String]]? = [["meat1","meat2","meat4","meat5"],["meat2","meat3"],["meat3","meat4"]]
+    
+    
     var acountimage = UIImage(named: "acount1")
     var openHeights: [CGFloat] = [650,600,600,600,600,600,600,600,600,600,600,600,600,600,600]
-    var comment = "めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました。"
+    var comment = "めちゃめちゃ美味しかったです。\nリブステーキが特に美味しくてほっぺた落ちちゃいました。\nめちゃめちゃ美味しかったです。\nリブステーキが特に美味しくてほっぺた落ちちゃいました。"
     var goods:[Int] = [120,120,120,120,120,120,120,120,120,120,120,120,120,120,120,]
     var bads:[Int] = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]
     var isOpens = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,]
@@ -100,7 +104,7 @@ extension Search2ViewController{
     
     //テーブルの行数を返却するメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellTexts.count
+        return image!.count
     }
     
     //テーブルの行ごとのセルを返却するメソッド
@@ -111,10 +115,13 @@ extension Search2ViewController{
         cell.isOpen = isOpens[indexPath.row]
         cell.acountButton.setBackgroundImage(UIImage(named: "acount3"), for: UIControl.State())
         cell.acountButton.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
-        cell.dishImage.image = dishes[indexPath.row]
         
         cell.goodlabel.text = "\(goods[indexPath.row])"
         cell.badlabel.text = "\(bads[indexPath.row])"
+        
+        let tablenumber = indexPath.row
+        let photonumber = image?[indexPath.row].count
+        cell.setImage(image: image!, tablenumber: tablenumber, photonumber: photonumber!, view: view)
         
         //コメントを書く
         cell.commentLabel.text = comment

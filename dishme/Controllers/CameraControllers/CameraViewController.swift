@@ -14,8 +14,8 @@ struct CommonStructure {
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     //[ユーザ][企業]
-    var acountResister = "企業a"
-    //[新規ユーザ][企業]
+    var acountResister = "ユーザ"
+    //[新規ユーザ][企業](これはコメントを全て新規にするための変数)
     var cameratarget = "新規ユーザ"
     
     //アルバムカメラロール
@@ -44,14 +44,12 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        //カメラの基本設定
         aVC.initscreen()
         
-        
-        cameraPosition() //カメラの位置調整
-        zoomcamera()    //カメラのズーム設定
-        
+        // ナビゲーションバーの高さを取得
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        let width = view.frame.size.width
+        cameraView.frame = CGRect(x: 0, y: navBarHeight!, width: width, height: width)
         
         //撮り溜めてくcollectionview
         collectionsettings()
@@ -62,7 +60,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         //ページのbackviewのセット
         pagesettings()
         
-        //navigationの基本設定
+        
+        zoomcamera()
         navigation()
         
         //カメラロール
@@ -71,16 +70,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     
 }
-extension CameraViewController{
-    func cameraPosition(){
-        // ナビゲーションバーの高さを取得
-        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
-        let width = view.frame.size.width
-        
-        cameraView.frame = view.frame
-        cameraView.frame = CGRect(x: 0, y: navBarHeight!, width: width, height: width)
-    }
-}
+
 
 //レイアウト周り
 extension CameraViewController{
@@ -135,7 +125,7 @@ extension CameraViewController{
     //次へ
     @objc func nextsegue(){
         if originalimages == []{
-             _ = SweetAlert().showAlert("写真がないため編集できません", subTitle: "写真をカメラで撮影するかライブラリから選択してください", style: AlertStyle.error)
+            _ = SweetAlert().showAlert("写真がないため編集できません", subTitle: "写真をカメラで撮影するかライブラリから選択してください", style: AlertStyle.error)
         }else{
             self.performSegue(withIdentifier: "toPhotoSelect", sender: nil)
         }
@@ -157,12 +147,13 @@ extension CameraViewController{
             nextView.cameratarget = cameratarget
         }
     }
+    
+    
 }
 
-//navigation周り
 extension CameraViewController{
     func navigation(){
-        
+        self.navigationItem.title = ""
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.barTintColor = .white
@@ -177,29 +168,11 @@ extension CameraViewController{
                                     target: self,
                                     action: #selector(closebutton));
         self.navigationItem.setLeftBarButtonItems([close], animated: true)
+        
     }
 }
 
-//photoライブラリ周り
-extension CameraViewController: UICollectionViewDataSource ,UICollectionViewDelegate{
-    
-    
-    // フォトライブラリへの保存メソッド
-    func photoOutput(_ output: AVCapturePhotoOutput,
-                     didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        
-        let photoData = photo.fileDataRepresentation()
-        guard photoData != nil else { return }
-        // フォトライブラリに保存
-        let image = UIImage(data: photoData!)!.cropping2square() //正方形に加工
-        //        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-        
-        //collecitonviewに表示
-        originalimages.append(image!)
-        collectionView.reloadData()
-    }
-    
-    //collectionの基本設定
+extension CameraViewController: UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout{
     func collectionsettings(){
         collectionView = UICollectionView(frame: CGRect(x: 10, y: 493, width: self.view.frame.size.width, height: 135), collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = UIColor.white
@@ -221,7 +194,7 @@ extension CameraViewController: UICollectionViewDataSource ,UICollectionViewDele
             return photoAssets.count
         }
         else{
-           return originalimages.count
+            return originalimages.count
         }
     }
     
@@ -263,7 +236,7 @@ extension CameraViewController: UICollectionViewDataSource ,UICollectionViewDele
         let indexPath = collectionView.indexPath(for: sender.superview!.superview as! UICollectionViewCell)
         originalimages.remove(value: originalimages[(indexPath?.row)!])
         collectionView.reloadData()
-            print(indexPath!)
+        print(indexPath!)
         
     }
     
@@ -292,7 +265,7 @@ extension CameraViewController: UICollectionViewDataSource ,UICollectionViewDele
             albumimageView.image = cell.photoImageView.image
         }
     }
-
+    
     //collectionviewレイアウト
     func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout:UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -310,6 +283,7 @@ extension CameraViewController: UICollectionViewDataSource ,UICollectionViewDele
     }
     
 }
+
 
 
 
@@ -383,7 +357,7 @@ extension CameraViewController: PageMenuViewDelegate{
         option.menuIndicatorColor = .white
         option.menuTitleFont = UIFont(name: "HelveticaNeue-Bold", size: 15)!
         option.menuItemHeight = 50
-
+        
         
         
         pageMenu = PageMenuView(viewControllers: viewControllers, option: option)
@@ -394,7 +368,7 @@ extension CameraViewController: PageMenuViewDelegate{
     //view1とview2の画面のレイアウトのposition
     func positionsettings(){
     }
-
+    
     //カメラから追加
     func pageview(controller: UIViewController){
         controller.view.addSubview(cameraView)
@@ -414,6 +388,21 @@ extension CameraViewController: PageMenuViewDelegate{
 
 //カメラロール周り
 extension CameraViewController{
+    
+    // フォトライブラリへの保存メソッド
+    func photoOutput(_ output: AVCapturePhotoOutput,
+                     didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        
+        let photoData = photo.fileDataRepresentation()
+        guard photoData != nil else { return }
+        // フォトライブラリに保存
+        let image = UIImage(data: photoData!)!.cropping2square() //正方形に加工
+        //        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        
+        //collecitonviewに表示
+        originalimages.append(image!)
+        collectionView.reloadData()
+    }
     
     fileprivate func setup() {
         camerarollcolletionView.dataSource = self
@@ -523,5 +512,5 @@ extension CameraViewController{
         
         return photoAssets
     }
-
+    
 }

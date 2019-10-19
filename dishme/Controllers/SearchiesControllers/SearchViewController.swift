@@ -210,6 +210,7 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
         //料理のカテゴリ
         if collectionView == menubarcollectionView{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "menubarCell", for: indexPath) as! menubarCell
+            cell.backgroundColor = .white
             cell.label.text = menuies[indexPath.row]
             menucellsettings(cell: cell)
             

@@ -35,11 +35,11 @@ class SearchTableViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if settings == "検索"{
+        switch settings{
+        case "検索":
             setupSearchcontroller()
             tablesettings()
-        }
-        else{
+        default:
             tablesettings()
         }
         
@@ -74,7 +74,7 @@ extension SearchTableViewController:UISearchResultsUpdating,UISearchBarDelegate{
         searchController.searchResultsUpdater = self
         searchController.searchBar.showsCancelButton = false
         searchController.searchBar.sizeToFit()
-        searchController.searchBar.placeholder = "肉料理・魚料理"
+        searchController.searchBar.placeholder = settings
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.keyboardAppearance = .default
@@ -95,6 +95,7 @@ extension SearchTableViewController:UISearchResultsUpdating,UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         searchController.searchBar.showsCancelButton = true
         searchController.searchBar.keyboardAppearance = .default
+        self.tableView.reloadData()
         return true
     }
     
@@ -118,15 +119,15 @@ extension SearchTableViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.searchBar.text == ""{
-            return favorite.count
-        }
+        //距離
         if settings == "距離"{
             return spot.count
         }
-        else if searchController.isActive{
+        //検索
+        if searchController.searchBar.text != ""{
             return searchResults.count
         }
+        //検索結果
         else {
             return suggestions.count
         }
@@ -137,22 +138,18 @@ extension SearchTableViewController: UITableViewDelegate,UITableViewDataSource {
         
         cell.textLabel!.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
         
+        //距離
         if settings == "距離"{
             tableView.tableFooterView = UIView(frame: .zero)
             cell.textLabel!.text = "\(spot[indexPath.row])"
         }
-        else{
-            if searchController.searchBar.text == ""{
-                cell.textLabel!.text = favorite[indexPath.row]
-                favoritejudge = "おすすめ"
-            }
-            else if searchController.isActive {
-                cell.textLabel!.text = "\(searchResults[indexPath.row])"
-                favoritejudge = "検索"
-            } else {
-                cell.textLabel!.text = "\(suggestions[indexPath.row])"
-                favoritejudge = "検索"
-            }
+        //検索
+        else if searchController.searchBar.text != ""{
+            cell.textLabel!.text = "\(searchResults[indexPath.row])"
+        }
+        //検索結果
+        else {
+            cell.textLabel!.text = "\(suggestions[indexPath.row])"
         }
         
         return cell
@@ -162,17 +159,14 @@ extension SearchTableViewController: UITableViewDelegate,UITableViewDataSource {
         setupSearchcontroller()
         searchController.searchBar.resignFirstResponder
         
-        //検索されたものかおすすめに出てきているものをタッチしたのかの判別
-        if favoritejudge == "検索"{
-            searchController.searchBar.text = suggestions[indexPath.row]
-            variable = suggestions[indexPath.row]
-        }
+        //距離
         if settings == "距離"{
             distance = spot[indexPath.row]
         }
+        //検索
         else{
-            searchController.searchBar.text = favorite[indexPath.row]
-            variable = favorite[indexPath.row]
+            searchController.searchBar.text = searchResults[indexPath.row]
+            variable = searchResults[indexPath.row]
         }
         
         
@@ -185,5 +179,4 @@ extension SearchTableViewController: UITableViewDelegate,UITableViewDataSource {
         //閉じる
         self.navigationController?.popViewController(animated: true)
     }
-    
 }

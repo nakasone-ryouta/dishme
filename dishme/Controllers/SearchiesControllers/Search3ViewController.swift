@@ -102,7 +102,7 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
     var acountimage = "acount1"
     var congestion = "混雑時間"
     var congestiontime = "AM 13:00〜AM 14:00"
-    var yummynumber = 237
+    var yummynumber = 2374
     var yuckynumber = 237
     var comment = "春の旬のふきのとうや新鮮なリブステーキを兼ね揃えております。今ご来場していただいた方には次回からお使いいただけるクーポンも配布中です。"
     var avaragemoney = "¥6,280〜¥10,000"
@@ -252,7 +252,7 @@ extension Search3ViewController{
         let label = UILabel()
         label.frame =  CGRect(x: 17, y: 232, width: maxwidth / 1.1, height: maxheight / 12.5)
         label.text = comment
-        label.textColor = UIColor.black
+        label.textColor = UIColor.darkGray
         label.font = UIFont.init(name: "HelveticaNeue-Thin", size: 13)
         label.textAlignment = NSTextAlignment.left
 //        label.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -265,7 +265,7 @@ extension Search3ViewController{
         label.frame =  CGRect(x: 23, y: 194, width: 0, height: 0)
         label.text = acountname
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 18)
         label.textAlignment = NSTextAlignment.right
         label.sizeToFit()
         acountview.addSubview(label)
@@ -301,7 +301,7 @@ extension Search3ViewController{
         label.frame.origin.y = button.frame.origin.y - 5
         label.text = "\(yummynumber)"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 18)
         label.textAlignment = NSTextAlignment.center
         acountview.addSubview(label)
         
@@ -319,7 +319,7 @@ extension Search3ViewController{
         label.frame.origin.y = button.frame.origin.y + 20
         label.text = "Yummy!"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 10)
+        label.font = UIFont.init(name: "HelveticaNeue-Light", size: 13)
         label.textAlignment = NSTextAlignment.center
         acountview.addSubview(label)
     }
@@ -358,7 +358,7 @@ extension Search3ViewController{
         label.frame.origin.y = button.frame.origin.y
         label.text = "\(yuckynumber)"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 18)
         label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
         acountview.addSubview(label)
@@ -377,7 +377,7 @@ extension Search3ViewController{
         label.frame.origin.y = button.frame.origin.y + 28
         label.text = "Yucky"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 10)
+        label.font = UIFont.init(name: "HelveticaNeue-Light", size: 13)
         label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
         acountview.addSubview(label)
