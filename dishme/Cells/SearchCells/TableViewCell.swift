@@ -72,6 +72,10 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
     func setImage(image: [[String]] ,tablenumber: Int ,photonumber: Int, view: UIView){
         var imageView:[UIImageView] = []
         
+        let width = view.frame.size.width
+        
+        scrollView.frame = CGRect(x: 0, y: 0, width: width, height: width)
+        
         //ページのnumber
         setContent(numberOfPages: photonumber)
         
@@ -114,6 +118,13 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
             scrollView.addSubview(view)
         }
         
+    }
+    
+    //[お店を見る]ボタンの位置を調整
+    func setditailPosition(view: UIView){
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        detailButton.frame = CGRect(x: 10, y: 375, width: 70, height: 30)
     }
     
     
