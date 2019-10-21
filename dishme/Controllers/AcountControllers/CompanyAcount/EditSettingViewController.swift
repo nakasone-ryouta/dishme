@@ -278,7 +278,7 @@ extension EditSettingViewController{
         label.frame = CGRect(x: view.frame.size.width / 2, y: 190, width: 50, height: 50)
         label.text = "〜"
         label.center.x = view.center.x
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 20)
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 20)
         label.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         view.addSubview(label)
     }

@@ -113,4 +113,52 @@ class Layouting {
             print("unknown!!!!!!!!!!!!" , UIScreen.main.nativeBounds.height)
         }
     }
+    
+    func ReserveCollectionLayouting(collectionview: UITableView, view: UIView){
+        let width = view.frame.size.width
+        
+        switch UIScreen.main.nativeBounds.height {
+        case 1136:
+            print("iPhone 5/5S/5C")
+            collectionview.frame = CGRect(x: 0, y: 0, width: width, height: 370)
+        case 1334:
+            print("iPhone 6/6S/7/8")
+            collectionview.frame = CGRect(x: 0, y: 0, width: width, height: 510)
+        case 2208:
+            print("iPhone 6+/6S+/7+/8+")
+            collectionview.frame = CGRect(x: 0, y: 0, width: width, height: 570)
+        case 2436:
+            print("iPhone X")
+            collectionview.frame = CGRect(x: 0, y: 0, width: width, height: 600)
+        case 960:
+            print("iPad Pro(iPhone ver) (9.7-inch)/(10.5-inch)")
+            print("iPad Air(iPhone ver) (5th generation)/Air/2")
+        default:
+            print("unknown!!!!!!!!!!!!" , UIScreen.main.nativeBounds.height)
+        }
+    }
+    
+    func collectionLayouting(collectionView: UICollectionView, view: UIView){
+        let width = view.frame.size.width
+        
+        switch UIScreen.main.nativeBounds.height {
+        case 1136:
+            print("iPhone 5/5S/5C")
+            collectionView.frame = CGRect(x: 0, y: 0, width: width, height: 370)
+        case 1334:
+            print("iPhone 6/6S/7/8")
+            collectionView.frame = CGRect(x: 0, y: 0, width: width, height: 510)
+        case 2208:
+            print("iPhone 6+/6S+/7+/8+")
+            collectionView.frame = CGRect(x: 0, y: 0, width: width, height: 570)
+        case 2436:
+            print("iPhone X")
+            collectionView.frame = CGRect(x: 0, y: 0, width: width, height: 600)
+        case 960:
+            print("iPad Pro(iPhone ver) (9.7-inch)/(10.5-inch)")
+            print("iPad Air(iPhone ver) (5th generation)/Air/2")
+        default:
+            print("unknown!!!!!!!!!!!!" , UIScreen.main.nativeBounds.height)
+        }
+    }
 }

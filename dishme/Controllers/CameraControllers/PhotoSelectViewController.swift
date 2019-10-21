@@ -87,8 +87,11 @@ class PhotoSelectViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         topcell()
-        kutikomimoji()
-        commentButton()
+        
+        if acountResister == "ユーザ"{
+            kutikomimoji()
+            commentButton()
+        }
     }
 }
 
@@ -264,7 +267,7 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
     
     //セクションの数
     internal func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if cameratarget == "新規企業" || cameratarget == "新規ユーザ"{
+        if cameratarget == "新規"{
             return 1
         }
         else{
@@ -275,7 +278,7 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         //ユーザで追加した場合
-        if cameratarget == "新規企業" || cameratarget == "新規ユーザ"{
+        if cameratarget == "新規"{
             print("aaaaa",originalimages.count)
             return originalimages.count
         }
@@ -300,7 +303,8 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView2.dequeueReusableCell(withReuseIdentifier: "Cell2",for: indexPath as IndexPath) as! PhotosBigViewCell
-            
+        
+            //企業の場合
             if acountResister == "企業"{
                 
                 //写真
@@ -308,14 +312,14 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
                 cell.valuemoji.text = "価格"
                 
                 //カテゴリの表示ボタン
-                if cameratarget == "新規企業"{
+                if cameratarget == "新規"{
                     cell.categoryBtn.setTitle("カテゴリを入力", for: UIControl.State.normal)
                 }else{
                     cell.categoryBtn.setTitle("おすすめ", for: UIControl.State.normal)
                 }
                 
                 //[商品名]の表示ボタン
-                if cameratarget == "新規企業"{
+                if cameratarget == "新規"{
                     cell.productBtn.setTitle("品名を入力", for: UIControl.State.normal)
                 }else{
                     cell.productBtn.setTitle("\(dishname[indexPath.row])", for: UIControl.State.normal)
@@ -323,7 +327,7 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
                 
                 
                 //[4000円]の表示ボタン
-                if cameratarget == "新規企業"{
+                if cameratarget == "新規"{
                    cell.moneyBtn.setTitle("価格を入力", for: UIControl.State.normal)
                 }else{
                     cell.moneyBtn.setTitle("\(value[indexPath.row])円", for: UIControl.State.normal)
@@ -487,7 +491,7 @@ extension PhotoSelectViewController{
         backview()
         deleteBtn()
         
-        if cameratarget == "新規企業" || cameratarget == "新規ユーザ"{
+        if cameratarget == "新規"{
           alertButton()
         }
         else{

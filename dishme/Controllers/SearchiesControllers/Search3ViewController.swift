@@ -97,7 +97,7 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
     var tableView: UITableView  =   UITableView()
     var opentitle = "営業中"
     var opentime = "12:00〜13:00"
-    var position = "Certificate of Excellence"
+    var position = "御殿場市大阪181-2"
     var acountname = "Ribe Face"
     var acountimage = "acount1"
     var congestion = "混雑時間"
@@ -265,7 +265,7 @@ extension Search3ViewController{
         label.frame =  CGRect(x: 23, y: 194, width: 0, height: 0)
         label.text = acountname
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 18)
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
         label.textAlignment = NSTextAlignment.right
         label.sizeToFit()
         acountview.addSubview(label)
@@ -301,7 +301,7 @@ extension Search3ViewController{
         label.frame.origin.y = button.frame.origin.y - 5
         label.text = "\(yummynumber)"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 18)
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 18)
         label.textAlignment = NSTextAlignment.center
         acountview.addSubview(label)
         
@@ -317,7 +317,7 @@ extension Search3ViewController{
         label.frame =  CGRect(x: 0, y: 0, width: 50, height: 30)
         label.frame.origin.x = button.frame.origin.x - 60
         label.frame.origin.y = button.frame.origin.y + 20
-        label.text = "Yummy!"
+        label.text = "YUMMY"
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Light", size: 13)
         label.textAlignment = NSTextAlignment.center
@@ -358,7 +358,7 @@ extension Search3ViewController{
         label.frame.origin.y = button.frame.origin.y
         label.text = "\(yuckynumber)"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 18)
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 18)
         label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
         acountview.addSubview(label)
@@ -373,9 +373,9 @@ extension Search3ViewController{
         
         let label = UILabel()
         label.frame =  CGRect(x: 0, y: navBarHeight! + 120, width: 50, height: 30)
-        label.frame.origin.x = button.frame.origin.x - 50
+        label.frame.origin.x = button.frame.origin.x - 57
         label.frame.origin.y = button.frame.origin.y + 28
-        label.text = "Yucky"
+        label.text = "YUCKY"
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Light", size: 13)
         label.textAlignment = NSTextAlignment.center
@@ -423,7 +423,7 @@ extension Search3ViewController:UITableViewDataSource,UITableViewDelegate{
         if indexPath.row == 0{
             cell.textLabel?.text = opentitle
             cell.textLabel?.textAlignment = NSTextAlignment.right
-            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
             //営業時間
             cell.detailTextLabel?.text = opentime
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
@@ -432,7 +432,7 @@ extension Search3ViewController:UITableViewDataSource,UITableViewDelegate{
         if indexPath.row == 1{
             cell.textLabel?.text = congestion
             cell.textLabel?.textAlignment = NSTextAlignment.right
-            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
             //時間
             cell.detailTextLabel?.text = congestiontime
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
@@ -441,7 +441,7 @@ extension Search3ViewController:UITableViewDataSource,UITableViewDelegate{
         if indexPath.row == 2{
             cell.textLabel?.text = position
             cell.textLabel?.textAlignment = NSTextAlignment.right
-            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Thin", size: 13)
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
             cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         }
         
@@ -476,7 +476,7 @@ extension Search3ViewController:UITableViewDataSource,UITableViewDelegate{
         headerLabel.frame =  CGRect(x: 13, y: 10, width: 0, height: 0)
         headerLabel.text = "レストラン情報"
         headerLabel.textColor = UIColor.black
-        headerLabel.font = UIFont.init(name: "HelveticaNeue-Bold", size: 17)
+        headerLabel.font = UIFont.init(name: "HelveticaNeue-Medium", size: 17)
         headerLabel.textAlignment = NSTextAlignment.right
         headerLabel.sizeToFit()
         view.addSubview(headerLabel)
@@ -549,7 +549,7 @@ extension Search3ViewController:PageMenuViewDelegateinit{
         option.menuItemBackgroundColorSelected = .white
         option.menuTitleMargin = 0
         option.menuTitleColorNormal = .black
-        option.menuTitleFont = UIFont.init(name: "HelveticaNeue-Bold", size: 15)!
+        option.menuTitleFont = UIFont.init(name: "HelveticaNeue-Medium", size: 15)!
         option.menuTitleColorSelected = .black
         option.menuIndicatorHeight = 3
         option.menuIndicatorColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
@@ -593,7 +593,7 @@ extension Search3ViewController: UICollectionViewDataSource ,UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",for: indexPath as IndexPath) as! Search3CollectionViewCell
         //セルのサイズを調節する
-        let size = Int(view.frame.size.width / 3)
+        let size = Int(view.frame.size.width / 3 - 1)
 
         switch  collectionView{
         case collectionView1:

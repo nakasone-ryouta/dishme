@@ -70,7 +70,8 @@ class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
         let width = view.frame.size.width
         let height = view.frame.size.height
         
-        textfield.frame = CGRect(x: width / 11.7, y: height / 2.53, width: width / 1.14, height: height / 3.38)
+        textfield.delegate = self
+        textfield.frame = CGRect(x: width / 11.7, y: height / 2.6, width: width / 1.14, height: height / 3.38)
         textfield.placeHolder = "口コミを書く"
         textfield.font = UIFont.init(name: "HelveticaNeue-Light", size: 16)!
         textfield.textAlignment  = .left
@@ -151,5 +152,17 @@ class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
 extension PhotoCommentViewController{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         textfield.resignFirstResponder()
+    }
+}
+
+//textviewの文字制限
+extension PhotoCommentViewController{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // 入力を反映させたテキストを取得する
+        let resultText: String = (textView.text! as NSString).replacingCharacters(in: range, with: text)
+        if resultText.count <= 75 {
+            return true
+        }
+        return false
     }
 }

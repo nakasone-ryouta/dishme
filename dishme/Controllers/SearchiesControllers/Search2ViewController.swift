@@ -37,8 +37,20 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
                      ]
 
     
-    var image:[[String]]? = [["meat1","meat2","meat4","meat5","meat6","meat7","meat8","meat9","meat10"],["meat2","meat3"],["meat3","meat4"]]
+    var image:[[String]]? = [["meat1","meat2","meat4","meat5","meat6","meat7","meat8","meat9","meat10"],
+                             ["meat2","meat3"],
+                             ["meat3","meat4"],
+                             ["meat4"],
+                             ["meat5"],
+                             ["meat6"],
+                             ["meat7"],
+                             ["meat8"],
+                             ["meat9"],
+                             ["meat10"]]
     
+    //[企業の名前・保存の色を変えるための変数]
+    var namerange:[Int] = []
+    var attrText:[NSMutableAttributedString] = []
     
     var acountimage = UIImage(named: "acount1")
     var openHeights: [CGFloat] = [650,600,600,600,600,600,600,600,600,600,600,600,600,600,600]
@@ -124,11 +136,12 @@ extension Search2ViewController{
         //acountの名前の設定
         cell.resevebButton.setTitle(cellTexts[indexPath.row] + "・保存", for: UIControl.State.normal)
         cell.resevebButton.setTitleColor(UIColor.black, for: .normal)
-        let namerange = cellTexts[indexPath.row].count
-        let attrText = NSMutableAttributedString(string: cell.resevebButton.titleLabel!.text!)
-        attrText.addAttribute(.foregroundColor,
-                              value: UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), range: NSMakeRange(namerange, 3))
-        cell.resevebButton.setAttributedTitle(attrText, for: .normal)
+        cell.resevebButton.titleLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 15)
+        namerange.append(cellTexts[indexPath.row].count)
+        attrText.append(NSMutableAttributedString(string: cell.resevebButton.titleLabel!.text!))
+        attrText[indexPath.row].addAttribute(.foregroundColor,
+                              value: UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), range: NSMakeRange(namerange.last!, 3))
+        cell.resevebButton.setAttributedTitle(attrText[indexPath.row], for: .normal)
         
         //アカウント選択
         cell.acountButton.addTarget(self, action: #selector(self.toSearch3), for: .touchUpInside)

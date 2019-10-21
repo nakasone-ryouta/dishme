@@ -15,8 +15,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     //[ユーザ][企業]
     var acountResister = "ユーザ"
-    //[新規ユーザ][企業](これはコメントを全て新規にするための変数)
-    var cameratarget = "新規ユーザ"
+    //(これは次の画面で新規の場合に初入力にする画面)
+    var cameratarget = "新規"
     
     //アルバムカメラロール
     @IBOutlet weak var albumimageView: UIImageView!

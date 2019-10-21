@@ -20,14 +20,15 @@
 		6A0960772348CA6300846ABF /* GetDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0960762348CA6300846ABF /* GetDates.swift */; };
 		6A09607923498E4E00846ABF /* EditRegularHolidayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A09607823498E4E00846ABF /* EditRegularHolidayViewController.swift */; };
 		6A0AC290235652A900A59F0C /* Layouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AC28F235652A900A59F0C /* Layouting.swift */; };
+		6A0AE907235D0E3200C45EB9 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE906235D0E3200C45EB9 /* HistoryViewController.swift */; };
+		6A0AE909235D0E4800C45EB9 /* MemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE908235D0E4800C45EB9 /* MemberViewController.swift */; };
+		6A0AE90C235D0E7800C45EB9 /* ReserveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE90A235D0E7800C45EB9 /* ReserveTableViewCell.swift */; };
+		6A0AE90D235D0E7800C45EB9 /* ReserveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AE90B235D0E7800C45EB9 /* ReserveTableViewCell.xib */; };
+		6A0AE90F235D3E4500C45EB9 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE90E235D3E4500C45EB9 /* CustomTableViewCell.swift */; };
 		6A116FDF2354D39A00D01A53 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A116FDE2354D39A00D01A53 /* SearchTableViewController.swift */; };
 		6A1D21772358B058005F63A7 /* CameraCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1D21762358B058005F63A7 /* CameraCollectionViewCell.swift */; };
 		6A1D21792358B1C7005F63A7 /* AVCinSideOutSideObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1D21782358B1C7005F63A7 /* AVCinSideOutSideObject.swift */; };
 		6A2B6FBA2331B47B005A3D03 /* PageMenuinit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B6FB92331B47B005A3D03 /* PageMenuinit.swift */; };
-		6A2CA96D2346652100CA35CC /* ResreveMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2CA96C2346652100CA35CC /* ResreveMemberViewController.swift */; };
-		6A2CA9712346657800CA35CC /* HistoryMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2CA9702346657800CA35CC /* HistoryMemberViewController.swift */; };
-		6A2CA97323466ED600CA35CC /* ResreveMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2CA97223466ED600CA35CC /* ResreveMemberTableViewCell.swift */; };
-		6A2CA97523467F1C00CA35CC /* HistoryMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2CA97423467F1C00CA35CC /* HistoryMemberCell.swift */; };
 		6A40A544232A898C0096CC28 /* Search3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A40A543232A898C0096CC28 /* Search3ViewController.swift */; };
 		6A40A546232A9FDA0096CC28 /* PageMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A40A545232A9FD90096CC28 /* PageMenuView.swift */; };
 		6A40A548232BD5420096CC28 /* Search4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A40A547232BD5420096CC28 /* Search4ViewController.swift */; };
@@ -49,8 +50,6 @@
 		6A9A82532333C35900507C1C /* Search2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A82522333C35900507C1C /* Search2ViewController.swift */; };
 		6A9A82552333C42900507C1C /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A82542333C42900507C1C /* TableViewCell.swift */; };
 		6A9A82572334244C00507C1C /* CameraLastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A82562334244C00507C1C /* CameraLastViewController.swift */; };
-		6A9A825A23348EEC00507C1C /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A825923348EEC00507C1C /* ListTableViewCell.swift */; };
-		6A9A825C23348F4900507C1C /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A825B23348F4900507C1C /* ListViewController.swift */; };
 		6A9A825E23349A3700507C1C /* List2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A825D23349A3700507C1C /* List2TableViewCell.swift */; };
 		6A9A826023349A7B00507C1C /* List2TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A9A825F23349A7B00507C1C /* List2TableViewCell.xib */; };
 		6A9A826223349FDF00507C1C /* List2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A826123349FDF00507C1C /* List2ViewController.swift */; };
@@ -58,7 +57,6 @@
 		6A9A827A2334D04500507C1C /* PhotosBigViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A82792334D04500507C1C /* PhotosBigViewCell.swift */; };
 		6A9A827E2335C00900507C1C /* PhotoSelectBig.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A9A827D2335C00900507C1C /* PhotoSelectBig.xib */; };
 		6A9A82832335D7FA00507C1C /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A82822335D7FA00507C1C /* ReservationViewController.swift */; };
-		6AB02AF8233E34E40032F4A1 /* ChangeReserveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB02AF7233E34E40032F4A1 /* ChangeReserveViewController.swift */; };
 		6AB02AFA233F35BD0032F4A1 /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB02AF9233F35BD0032F4A1 /* SweetAlert.swift */; };
 		6AB02AFC233F7C7D0032F4A1 /* SearchMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB02AFB233F7C7C0032F4A1 /* SearchMapViewController.swift */; };
 		6AB02AFE233FBA0E0032F4A1 /* EditMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB02AFD233FBA0E0032F4A1 /* EditMapViewController.swift */; };
@@ -85,14 +83,15 @@
 		6A0960762348CA6300846ABF /* GetDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDates.swift; sourceTree = "<group>"; };
 		6A09607823498E4E00846ABF /* EditRegularHolidayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegularHolidayViewController.swift; sourceTree = "<group>"; };
 		6A0AC28F235652A900A59F0C /* Layouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layouting.swift; sourceTree = "<group>"; };
+		6A0AE906235D0E3200C45EB9 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		6A0AE908235D0E4800C45EB9 /* MemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberViewController.swift; sourceTree = "<group>"; };
+		6A0AE90A235D0E7800C45EB9 /* ReserveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveTableViewCell.swift; sourceTree = "<group>"; };
+		6A0AE90B235D0E7800C45EB9 /* ReserveTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReserveTableViewCell.xib; sourceTree = "<group>"; };
+		6A0AE90E235D3E4500C45EB9 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		6A116FDE2354D39A00D01A53 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		6A1D21762358B058005F63A7 /* CameraCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A1D21782358B1C7005F63A7 /* AVCinSideOutSideObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCinSideOutSideObject.swift; sourceTree = "<group>"; };
 		6A2B6FB92331B47B005A3D03 /* PageMenuinit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageMenuinit.swift; sourceTree = "<group>"; };
-		6A2CA96C2346652100CA35CC /* ResreveMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResreveMemberViewController.swift; sourceTree = "<group>"; };
-		6A2CA9702346657800CA35CC /* HistoryMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMemberViewController.swift; sourceTree = "<group>"; };
-		6A2CA97223466ED600CA35CC /* ResreveMemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResreveMemberTableViewCell.swift; sourceTree = "<group>"; };
-		6A2CA97423467F1C00CA35CC /* HistoryMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMemberCell.swift; sourceTree = "<group>"; };
 		6A40A543232A898C0096CC28 /* Search3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search3ViewController.swift; sourceTree = "<group>"; };
 		6A40A545232A9FD90096CC28 /* PageMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageMenuView.swift; sourceTree = "<group>"; };
 		6A40A547232BD5420096CC28 /* Search4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search4ViewController.swift; sourceTree = "<group>"; };
@@ -117,8 +116,6 @@
 		6A9A82522333C35900507C1C /* Search2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search2ViewController.swift; sourceTree = "<group>"; };
 		6A9A82542333C42900507C1C /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		6A9A82562334244C00507C1C /* CameraLastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraLastViewController.swift; sourceTree = "<group>"; };
-		6A9A825923348EEC00507C1C /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
-		6A9A825B23348F4900507C1C /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		6A9A825D23349A3700507C1C /* List2TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List2TableViewCell.swift; sourceTree = "<group>"; };
 		6A9A825F23349A7B00507C1C /* List2TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = List2TableViewCell.xib; sourceTree = "<group>"; };
 		6A9A826123349FDF00507C1C /* List2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List2ViewController.swift; sourceTree = "<group>"; };
@@ -126,7 +123,6 @@
 		6A9A82792334D04500507C1C /* PhotosBigViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosBigViewCell.swift; sourceTree = "<group>"; };
 		6A9A827D2335C00900507C1C /* PhotoSelectBig.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoSelectBig.xib; sourceTree = "<group>"; };
 		6A9A82822335D7FA00507C1C /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
-		6AB02AF7233E34E40032F4A1 /* ChangeReserveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeReserveViewController.swift; sourceTree = "<group>"; };
 		6AB02AF9233F35BD0032F4A1 /* SweetAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SweetAlert.swift; path = "../../../SweetAlert-iOS-master/SweetAlert/SweetAlert.swift"; sourceTree = "<group>"; };
 		6AB02AFB233F7C7C0032F4A1 /* SearchMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMapViewController.swift; sourceTree = "<group>"; };
 		6AB02AFD233FBA0E0032F4A1 /* EditMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMapViewController.swift; sourceTree = "<group>"; };
@@ -195,9 +191,7 @@
 		6A2CA96E2346652A00CA35CC /* User */ = {
 			isa = PBXGroup;
 			children = (
-				6A9A825B23348F4900507C1C /* ListViewController.swift */,
 				6A9A826123349FDF00507C1C /* List2ViewController.swift */,
-				6AB02AF7233E34E40032F4A1 /* ChangeReserveViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -205,8 +199,8 @@
 		6A2CA96F2346654300CA35CC /* Campany */ = {
 			isa = PBXGroup;
 			children = (
-				6A2CA96C2346652100CA35CC /* ResreveMemberViewController.swift */,
-				6A2CA9702346657800CA35CC /* HistoryMemberViewController.swift */,
+				6A0AE906235D0E3200C45EB9 /* HistoryViewController.swift */,
+				6A0AE908235D0E4800C45EB9 /* MemberViewController.swift */,
 			);
 			path = Campany;
 			sourceTree = "<group>";
@@ -237,11 +231,11 @@
 		6A2CA97823467F7400CA35CC /* ListCells */ = {
 			isa = PBXGroup;
 			children = (
-				6A9A825923348EEC00507C1C /* ListTableViewCell.swift */,
+				6A0AE90E235D3E4500C45EB9 /* CustomTableViewCell.swift */,
+				6A0AE90A235D0E7800C45EB9 /* ReserveTableViewCell.swift */,
+				6A0AE90B235D0E7800C45EB9 /* ReserveTableViewCell.xib */,
 				6A9A825D23349A3700507C1C /* List2TableViewCell.swift */,
 				6A9A825F23349A7B00507C1C /* List2TableViewCell.xib */,
-				6A2CA97223466ED600CA35CC /* ResreveMemberTableViewCell.swift */,
-				6A2CA97423467F1C00CA35CC /* HistoryMemberCell.swift */,
 			);
 			path = ListCells;
 			sourceTree = "<group>";
@@ -449,6 +443,7 @@
 				6A6AE0542329164000D776AD /* Assets.xcassets in Resources */,
 				6A6AE04F2329163C00D776AD /* Main.storyboard in Resources */,
 				6A0960712348702700846ABF /* Search4TableViewCell.xib in Resources */,
+				6A0AE90D235D0E7800C45EB9 /* ReserveTableViewCell.xib in Resources */,
 				6A9A827E2335C00900507C1C /* PhotoSelectBig.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -553,19 +548,17 @@
 				6AB02AFC233F7C7D0032F4A1 /* SearchMapViewController.swift in Sources */,
 				6A9A82532333C35900507C1C /* Search2ViewController.swift in Sources */,
 				6A00A025234C79E300E42E44 /* TableSettings.swift in Sources */,
-				6A2CA9712346657800CA35CC /* HistoryMemberViewController.swift in Sources */,
 				6A9A827A2334D04500507C1C /* PhotosBigViewCell.swift in Sources */,
-				6A9A825A23348EEC00507C1C /* ListTableViewCell.swift in Sources */,
 				6A40A544232A898C0096CC28 /* Search3ViewController.swift in Sources */,
 				6AFBB525234F5B77000276D4 /* Search3CollectionViewCell.swift in Sources */,
-				6A2CA97523467F1C00CA35CC /* HistoryMemberCell.swift in Sources */,
 				6A6AE0612329184E00D776AD /* menubarCell.swift in Sources */,
 				6A7C62FC2331433000B0B898 /* Filtering.swift in Sources */,
+				6A0AE909235D0E4800C45EB9 /* MemberViewController.swift in Sources */,
+				6A0AE90F235D3E4500C45EB9 /* CustomTableViewCell.swift in Sources */,
 				6A9A82832335D7FA00507C1C /* ReservationViewController.swift in Sources */,
 				6A0AC290235652A900A59F0C /* Layouting.swift in Sources */,
 				6AB02AFA233F35BD0032F4A1 /* SweetAlert.swift in Sources */,
 				6A7C63012331656200B0B898 /* CameraRollCollectionViewCell.swift in Sources */,
-				6A2CA97323466ED600CA35CC /* ResreveMemberTableViewCell.swift in Sources */,
 				6A6AE0522329163C00D776AD /* dishme.xcdatamodeld in Sources */,
 				6AC5262D23387A0E00A7A680 /* YouserAcountViewController.swift in Sources */,
 				6A116FDF2354D39A00D01A53 /* SearchTableViewController.swift in Sources */,
@@ -576,17 +569,16 @@
 				6A9A826223349FDF00507C1C /* List2ViewController.swift in Sources */,
 				6A6AE05F2329166D00D776AD /* SearchViewController.swift in Sources */,
 				6A9A82682334C62100507C1C /* PhotoSelectViewController.swift in Sources */,
-				6AB02AF8233E34E40032F4A1 /* ChangeReserveViewController.swift in Sources */,
 				6AC5262723373F0F00A7A680 /* EditViewController.swift in Sources */,
-				6A9A825C23348F4900507C1C /* ListViewController.swift in Sources */,
 				6A0960702348702700846ABF /* Search4TableViewCell.swift in Sources */,
 				6A00A02D234CE44400E42E44 /* PlaceHolderTextView.swift in Sources */,
 				6A505CF72330147F002F2184 /* UIoverride.swift in Sources */,
 				6A00A019234B72F900E42E44 /* Alert.swift in Sources */,
-				6A2CA96D2346652100CA35CC /* ResreveMemberViewController.swift in Sources */,
 				6A1D21792358B1C7005F63A7 /* AVCinSideOutSideObject.swift in Sources */,
+				6A0AE90C235D0E7800C45EB9 /* ReserveTableViewCell.swift in Sources */,
 				6AC526292337F86300A7A680 /* EditSettingViewController.swift in Sources */,
 				6A0960752348B2F200846ABF /* EditHolidayViewController.swift in Sources */,
+				6A0AE907235D0E3200C45EB9 /* HistoryViewController.swift in Sources */,
 				6A7C62F62330408400B0B898 /* CameraEditCollectionViewCell.swift in Sources */,
 				6A6AE04A2329163C00D776AD /* AppDelegate.swift in Sources */,
 				6A6AE06323291A9900D776AD /* dishCell.swift in Sources */,

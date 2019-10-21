@@ -1,17 +1,16 @@
-
-
-
 //
-//  ResreveMemberViewController.swift
+//  MemberViewController.swift
 //  dishme
 //
-//  Created by 中曽根　涼太 on 2019/10/04.
+//  Created by 中曽根　涼太 on 2019/10/21.
 //  Copyright © 2019年 中曽根　涼太. All rights reserved.
 //
 
 import UIKit
 
-class ResreveMemberViewController: UIViewController {
+class MemberViewController: UIViewController {
+
+    @IBOutlet var tableView: UITableView!
     
     //企業アカウントに移行時
     let acountimage:[UIImage] = [UIImage(named: "acount1")!,
@@ -32,11 +31,11 @@ class ResreveMemberViewController: UIViewController {
                                "高村具栄",
                                "大塚愛",]
     
-    let listtime:[String] = ["13:00〜",
-                             "13:00〜",
-                             "13:00〜",
-                             "13:00〜",
-                             "13:00〜",]
+    let time:[String] = ["13:00〜",
+                         "13:00〜",
+                         "13:00〜",
+                         "13:00〜",
+                         "13:00〜",]
     let phonenumber:[String] = ["09067892138",
                                 "08021947289",
                                 "09081283429",
@@ -54,40 +53,22 @@ class ResreveMemberViewController: UIViewController {
                          "１０月７日(水曜日)",
                          "１０月８日(金曜日)",
                          "１０月９日(火曜日)",]
-
-    @IBOutlet weak var tableView: UITableView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tablesettings()
-        
+    }
+    
+
+}
+
+extension MemberViewController: UITableViewDelegate,UITableViewDataSource{
+    func tablesettings(){
         //テーブルのレイアウト
         let tablelayout = Layouting()
         tablelayout.tableLayouting(tableview: tableView, view: view)
         
-    }
-
-}
-
-extension ResreveMemberViewController: UITableViewDataSource,UITableViewDelegate{
-    
-    func tablesettings(){
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        let maxheight = view.frame.size.height
-        let maxwidth = view.frame.size.width
-        
-//        let target = 
-//        print("aaaaaaa",target)
-        
-        let BarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
-        let tableheight = maxheight / 1.2 - BarHeight - BarHeight
-        
-        
-        tableView.frame = CGRect(x: 0, y: 0, width: Int(maxwidth), height: 600)
+        self.tableView.register(UINib(nibName: "ReserveTableViewCell", bundle: nil), forCellReuseIdentifier: "ReserveTableViewCell")
     }
     
     // Section数
@@ -101,69 +82,40 @@ extension ResreveMemberViewController: UITableViewDataSource,UITableViewDelegate
         return date[section]
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let dates = getDates(section: section)
-        return dates.count
+        return acountname.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ResreveMemberTableViewCell", for: indexPath) as! ResreveMemberTableViewCell
-        
-        cell.acountname.text = acountname[indexPath.row]
-        cell.acountname.frame.origin.x = cell.acountImage.frame.origin.x
-        cell.acountname.sizeToFit()
-        
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReserveTableViewCell") as! ReserveTableViewCell
         cell.acountImage.image = acountimage[indexPath.row]
-        cell.acountImage.circle()
-        cell.time.text = listtime[indexPath.row]
-        cell.phonenumber.text = phonenumber[indexPath.row]
-        cell.callbutton.addTarget(self, action: #selector(callbutton), for: .touchUpInside)
-        //選択不可
+        
+        cell.maintitle.text = acountname[indexPath.row]
+        cell.title1.text = "人数  \(number[indexPath.row])名"
+        cell.title2.text = "時間  \(time[indexPath.row])"
+        
+        cell.leftButton.removeFromSuperview()
+        cell.rightButton.setImage(UIImage(named: "callitem"), for: .normal)
+        cell.rightButton.tag = indexPath.row
+        cell.rightButton.addTarget(self, action: #selector(self.callbutton), for: .touchUpInside)
+        
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
-    
+}
+extension MemberViewController{
     //ボタンから取得する
     @objc func callbutton(sender: UIButton){
+        print("aaaaa",sender.tag)
         
-        if let indexPath = tableView.indexPath(for: sender.superview!.superview as! UITableViewCell) {
-            call = phonenumber[indexPath.row]
-        } else {
-            //ここには来ないはず
-            print("not found...")
-        }
+        
         
         //電話をかける
-        let url = NSURL(string: "tel://\(call)")!
+        let url = NSURL(string: "tel://\(phone[sender.tag])")!
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(url as URL)
         } else {
             UIApplication.shared.openURL(url as URL)
         }
     }
-    
-    
-    func getDates(section: Int) -> [String] {
-        
-        switch section {
-        case 0:
-            return date
-        case 1:
-            return date
-        case 2:
-            return date
-        case 3:
-            return date
-        case 4:
-            return date
-        case 5:
-            return date
-        default:
-            return []
-        }
-    }
-    
-    
 }

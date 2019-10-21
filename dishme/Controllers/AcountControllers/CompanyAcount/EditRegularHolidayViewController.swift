@@ -67,7 +67,7 @@ extension EditRegularHolidayViewController: UITableViewDataSource,UITableViewDel
         let cell:UITableViewCell = UITableViewCell(style: .value1, reuseIdentifier: "Home")
         cell.textLabel?.text = days[indexPath.row]
         cell.textLabel?.textAlignment = NSTextAlignment.right
-        cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+        cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

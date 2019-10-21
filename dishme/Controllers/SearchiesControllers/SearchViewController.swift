@@ -245,7 +245,7 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
             let cell = collectionView.cellForItem(at: indexPath) as! menubarCell
             cell.backgroundColor = .white
             cell.label.textColor = .black
-            cell.layer.borderColor = UIColor.black.cgColor
+            cell.layer.borderColor = UIColor.init(red: 219/255, green: 219/255, blue: 219/255, alpha: 1).cgColor
         }
         else{
         }
@@ -253,9 +253,8 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
     
     //menubarの設定周り
     func menucellsettings(cell:menubarCell){
-        cell.layer.borderColor = UIColor.lightGray.cgColor
         cell.layer.borderWidth = 1
-        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderColor = UIColor.init(red: 219/255, green: 219/255, blue: 219/255, alpha: 1).cgColor
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
         menubarcollectionView.backgroundColor = UIColor.init(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)

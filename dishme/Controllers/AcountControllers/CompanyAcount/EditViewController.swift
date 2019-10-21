@@ -28,6 +28,7 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
     //アカウントのUI周り
     let acountview = UIView()//アカウントの下に引くview
     let acountimageView = UIImageView()
+    let text_view1 = UITextField()
     
     //tabbar
     let tabBar : UITabBar = UITabBar(frame: CGRect(x: 0, y: 360, width: 375, height: 200))
@@ -111,6 +112,9 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
         //写真の設定
         collectionSettings()
         
+        //変更ボタン
+        setupNavigation()
+        
     }
     
     // Enable the navbar scrolling
@@ -121,6 +125,16 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         scrollStopsettings()
+    }
+}
+extension EditViewController{
+    func setupNavigation(){
+        let selectBtn = UIBarButtonItem(title: "変更", style: .done, target: self, action: #selector(saveEdit))
+        self.navigationItem.rightBarButtonItems = [selectBtn]
+    }
+    @objc func saveEdit(){
+        _ = SweetAlert().showAlert("変更を保存しました", subTitle: "", style: AlertStyle.success)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 //スクロールまわり
@@ -218,7 +232,7 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
         if indexPath.row == 0{
             cell.textLabel?.text = opentitle
             cell.textLabel?.textAlignment = NSTextAlignment.right
-            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
             //営業時間
             cell.detailTextLabel?.text = opentime
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
@@ -227,7 +241,7 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
         if indexPath.row == 1{
             cell.textLabel?.text = congestion
             cell.textLabel?.textAlignment = NSTextAlignment.right
-            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
             //時間
             cell.detailTextLabel?.text = congestiontime
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
@@ -236,19 +250,19 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
         if indexPath.row == 2{
             cell.textLabel?.text = position
             cell.textLabel?.textAlignment = NSTextAlignment.right
-            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Thin", size: 13)
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         }
         //電話
         if indexPath.row == 3{
             cell.textLabel?.text = String(phonenumber)
             cell.textLabel?.textAlignment = NSTextAlignment.right
-            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         }
         //中休み
         if indexPath.row == 4{
             cell.textLabel?.text = "中休み"
             cell.textLabel?.textAlignment = NSTextAlignment.right
-            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
             cell.detailTextLabel?.text = opentime
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
@@ -256,14 +270,14 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
         if indexPath.row == 5{
             cell.textLabel?.text = "１時間予約上限人数"
             cell.textLabel?.textAlignment = NSTextAlignment.right
-            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
             cell.detailTextLabel?.text = maxnumber + "名"
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
         if indexPath.row == 6{
             cell.textLabel?.text = "定休日"
             cell.textLabel?.textAlignment = NSTextAlignment.right
-            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 13)
+            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
             cell.detailTextLabel?.text = holiday
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
@@ -514,7 +528,7 @@ extension EditViewController: UICollectionViewDelegate , UICollectionViewDataSou
 }
 
 //基本レイアウト周り
-extension EditViewController{
+extension EditViewController: UITextViewDelegate, UITextFieldDelegate{
     func backgroundcontroller(){
         restaurantInfo()
         acountimageview()
@@ -528,6 +542,7 @@ extension EditViewController{
     func textview(){
         let maxwidth = view.frame.size.width
         
+        myTextView.delegate = self
         myTextView.frame =  CGRect(x: 17, y: 185, width: maxwidth / 1.1, height: 50)
         myTextView.text = comment
         myTextView.textAlignment = NSTextAlignment.left
@@ -550,7 +565,7 @@ extension EditViewController{
                               width: 0,
                               height: 0);
         button.setTitle("写真を変更", for: .normal) // ボタンのタイトル
-        button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 11)
+        button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 11)
         button.sizeToFit()
         button.setTitleColor(UIColor.white, for: .normal)
         scrollView.addSubview(button)
@@ -562,11 +577,11 @@ extension EditViewController{
     func nameLabel(){
         let widh = view.frame.width
         //時間帯
-        let text_view1 = UITextField()
+        text_view1.delegate = self
         text_view1.frame = CGRect(x: widh / 2.5, y: 115, width: widh / 1.77, height: 50)
         text_view1.textAlignment = .right
         text_view1.font = UIFont.systemFont(ofSize: 17)
-        text_view1.placeholder = "焼肉大地"
+        text_view1.placeholder = acountname
         text_view1.addBorderBottom(height: 1.0, color: UIColor.lightGray)
         acountview.addSubview(text_view1)
     }
@@ -577,11 +592,41 @@ extension EditViewController{
         label.frame =  CGRect(x: widh / 2.5, y: 134, width: 0, height: 0)
         label.text = "名前"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
         label.textAlignment = .center
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.sizeToFit()
         acountview.addSubview(label)
+    }
+}
+//textview,textfieldの設定
+extension EditViewController{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if (text == "\n") {
+            //あなたのテキストフィールド
+            myTextView.resignFirstResponder()
+            return false
+        }
+        
+        // 入力を反映させたテキストを取得する
+        let resultText: String = (textView.text! as NSString).replacingCharacters(in: range, with: text)
+        if resultText.count <= 75 {
+            return true
+        }
+        return false
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            myTextView.resignFirstResponder()
+            print("aaaa")
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // キーボードを閉じる
+        text_view1.resignFirstResponder()
+        return true
     }
 }
 

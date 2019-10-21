@@ -1,15 +1,17 @@
 
 //
-//  HistoryMemberViewController.swift
+//  HistoryViewController.swift
 //  dishme
 //
-//  Created by 中曽根　涼太 on 2019/10/04.
+//  Created by 中曽根　涼太 on 2019/10/21.
 //  Copyright © 2019年 中曽根　涼太. All rights reserved.
 //
 
 import UIKit
 
-class HistoryMemberViewController: UIViewController {
+class HistoryViewController: UIViewController {
+
+    @IBOutlet var tableView: UITableView!
     
     //企業アカウントに移行時
     let acountimage:[UIImage] = [UIImage(named: "acount1")!,
@@ -30,7 +32,7 @@ class HistoryMemberViewController: UIViewController {
                                "高村具栄",
                                "大塚愛",]
     
-    let listtime:[String] = ["13:00〜",
+    let time:[String] = ["13:00〜",
                              "13:00〜",
                              "13:00〜",
                              "13:00〜",
@@ -40,44 +42,34 @@ class HistoryMemberViewController: UIViewController {
                                 "09081283429",
                                 "09012345678",
                                 "09023859201",]
+    let phone:[Int] = [09069539797,
+                       09069539797,
+                       09069539797,
+                       09069539797,
+                       09069539797,]
+    var call = ""
     
-    let date:[String] = ["１０月７日(火曜日)",
+    let date:[String] = ["１０月５日(火曜日)",
                          "１０月６日(木曜日)",
-                         "１０月５日(水曜日)",
-                         "１０月４日(金曜日)",
-                         "１０月３日(火曜日)",]
-
-    @IBOutlet weak var tableView: UITableView!
-    
+                         "１０月７日(水曜日)",
+                         "１０月８日(金曜日)",
+                         "１０月９日(火曜日)",]
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tablesettings()
         
+        tablesettings()
+    }
+    
+}
+
+extension HistoryViewController: UITableViewDelegate,UITableViewDataSource{
+    
+    func tablesettings(){
         //テーブルのレイアウト
         let tablelayout = Layouting()
         tablelayout.tableLayouting(tableview: tableView, view: view)
-    }
-
-
-}
-
-extension HistoryMemberViewController: UITableViewDataSource,UITableViewDelegate{
-    
-    func tablesettings(){
-
-        tableView.delegate = self
-        tableView.dataSource = self
         
-        let maxheight = view.frame.size.height
-        let maxwidth = view.frame.size.width
-        
-        let BarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
-        let tableheight = maxheight - tableView.frame.origin.y * 2 - BarHeight
-        print(tableheight)
-        
-        
-        tableView.frame = CGRect(x: 0, y: 0, width: Int(maxwidth), height: Int(tableheight))
+        self.tableView.register(UINib(nibName: "ReserveTableViewCell", bundle: nil), forCellReuseIdentifier: "ReserveTableViewCell")
     }
     
     // Section数
@@ -88,46 +80,43 @@ extension HistoryMemberViewController: UITableViewDataSource,UITableViewDelegate
     // Sectioのタイトル
     func tableView(_ tableView: UITableView,
                    titleForHeaderInSection section: Int) -> String? {
-        return date[section]
+        return date[date.count - section - 1]
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let dates = getDates(section: section)
-        return dates.count
+        return acountname.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryMemberCell", for: indexPath) as! HistoryMemberCell
-        cell.acountname.text = acountname[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReserveTableViewCell") as! ReserveTableViewCell
         cell.acountImage.image = acountimage[indexPath.row]
-        cell.acountImage.circle()
-        cell.time.text = listtime[indexPath.row]
-        cell.phonenumber.text = phonenumber[indexPath.row]
         
-        //選択不可
+        cell.maintitle.text = acountname[indexPath.row]
+        cell.title1.text = "人数  \(number[indexPath.row])名"
+        cell.title2.text = "時間  \(time[indexPath.row])"
+        
+        cell.leftButton.removeFromSuperview()
+        cell.rightButton.removeFromSuperview()
+        
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
     
-    func getDates(section: Int) -> [String] {
+}
+
+extension HistoryViewController{
+    //ボタンから取得する
+    @objc func callbutton(sender: UIButton){
+        print("aaaaa",sender.tag)
         
-        switch section {
-        case 0:
-            return date
-        case 1:
-            return date
-        case 2:
-            return date
-        case 3:
-            return date
-        case 4:
-            return date
-        case 5:
-            return date
-        default:
-            return []
+        
+        
+        //電話をかける
+        let url = NSURL(string: "tel://\(phone)")!
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url as URL)
+        } else {
+            UIApplication.shared.openURL(url as URL)
         }
     }
-    
 }

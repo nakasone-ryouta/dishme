@@ -15,6 +15,8 @@ class List2TableViewCell: UITableViewCell {
 
     @IBOutlet weak var acountName: UILabel!
     @IBOutlet weak var acountImage: UIImageView!
+    @IBOutlet var reserveButton: UIButton!
+    @IBOutlet var position: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

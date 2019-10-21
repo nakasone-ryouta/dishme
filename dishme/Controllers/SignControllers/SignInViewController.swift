@@ -77,7 +77,17 @@ extension SignInViewController{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // キーボードを閉じる
+        //サインイン
         signin_email_textfield.resignFirstResponder()
+        signin_password_textfield.resignFirstResponder()
+        //サインアップ
+        signup_name_textfield.resignFirstResponder()
+        signup_email_textfield.resignFirstResponder()
+        signup_password_textfield.resignFirstResponder()
+        //カンパニー
+        company_name_textfield.resignFirstResponder()
+        company_email_textfield.resignFirstResponder()
+        company_password_textfield.resignFirstResponder()
         
         return true
     }
@@ -284,8 +294,8 @@ extension SignInViewController:PageMenuViewDelegateinit{
                 x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
         }
     }
-    
-    
+}
+extension SignInViewController:UITextFieldDelegate{
 }
 //サインインの設定
 extension SignInViewController{
@@ -313,7 +323,8 @@ extension SignInViewController{
         //メール
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
-        //            textfield.frame = CGRect(x: 62, y: 116, width: 250, height: 50)
+        
+        signin_email_textfield.delegate = self
         signin_email_textfield.frame = CGRect(x: 0, y: height / 7, width: width/1.5, height: height/16.24)
         signin_email_textfield.center.x = view.center.x
         signin_email_textfield.textAlignment = NSTextAlignment.left
@@ -326,6 +337,8 @@ extension SignInViewController{
     func passwordtextfield(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
+        
+        signin_password_textfield.delegate = self
         signin_password_textfield.frame = CGRect(x: 0, y: height/3.96, width: width/1.5, height: height/16.24)
         signin_password_textfield.center.x = view.center.x
         signin_password_textfield.textAlignment = NSTextAlignment.left
@@ -364,7 +377,8 @@ extension SignInViewController{
     func nametextfield(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
-        
+    
+        signup_name_textfield.delegate = self
         signup_name_textfield.frame = CGRect(x: 0, y: height/6.9, width: width/1.5, height: height/16.24)
         signup_name_textfield.textAlignment = NSTextAlignment.left
         signup_name_textfield.center.x = view.center.x
@@ -377,6 +391,7 @@ extension SignInViewController{
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
 
+        signup_email_textfield.delegate = self
         signup_email_textfield.frame = CGRect(x: 0, y: height/3.84, width: width/1.5, height: height/16.24)
         signup_email_textfield.textAlignment = NSTextAlignment.left
         signup_email_textfield.center.x = view.center.x
@@ -389,6 +404,7 @@ extension SignInViewController{
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
 
+        signup_password_textfield.delegate = self
         signup_password_textfield.frame = CGRect(x: 0, y: height/2.94, width: width/1.5, height: height/16.24)
         signup_password_textfield.textAlignment = NSTextAlignment.left
         signup_password_textfield.center.x = view.center.x
@@ -443,6 +459,7 @@ extension SignInViewController{
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         //        textfield.frame = CGRect(x: 62, y: 117, width: 250, height: 50)
+        company_name_textfield.delegate = self
         company_name_textfield.frame = CGRect(x: 0, y: height/4.9, width: width/1.5, height: height/23.09)
         company_name_textfield.textAlignment = NSTextAlignment.left
         company_name_textfield.center.x = view.center.x
@@ -455,6 +472,7 @@ extension SignInViewController{
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         //        textfield.frame = CGRect(x: 62, y: 211, width: 250, height: 50)
+        company_email_textfield.delegate = self
         company_email_textfield.frame = CGRect(x: 0, y: height/3.85, width: width/1.5, height: height/23.09)
         company_email_textfield.textAlignment = NSTextAlignment.left
         company_email_textfield.center.x = view.center.x
@@ -467,6 +485,7 @@ extension SignInViewController{
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
 
+        company_password_textfield.delegate = self
         company_password_textfield.frame = CGRect(x: 0, y: height/2.64, width: width/1.5, height: height/23.09)
         company_password_textfield.textAlignment = NSTextAlignment.left
         company_password_textfield.center.x = view.center.x

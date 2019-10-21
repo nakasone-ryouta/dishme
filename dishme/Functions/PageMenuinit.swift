@@ -283,9 +283,13 @@ extension PageMenuViewinit: UICollectionViewDelegate, UICollectionViewDataSource
         
         // PageMenuViewDelegate [WillMoveToPage]
         let viewControllerIndex = getCurrentMenuButtonIndex() - 1
-        delegate?.willMoveToPage(self,
-                                 from: viewControllers[viewControllerIndex],
-                                 index: viewControllerIndex)
+        if (viewControllers.last != nil){
+            
+        }else{
+            delegate?.willMoveToPage(self,
+                                     from: viewControllers[viewControllerIndex],
+                                     index: viewControllerIndex)
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -297,9 +301,13 @@ extension PageMenuViewinit: UICollectionViewDelegate, UICollectionViewDataSource
         
         // PageMenuViewDelegate [DidMoveToPage]
         let viewControllerIndex = buttonIndex - 1
-        delegate?.didMoveToPage(self,
-                                to: viewControllers[viewControllerIndex],
-                                index: viewControllerIndex)
+        if (viewControllers.last != nil){
+            
+        }else{
+            delegate?.didMoveToPage(self,
+                                    to: viewControllers[viewControllerIndex],
+                                    index: viewControllerIndex)
+        }
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {

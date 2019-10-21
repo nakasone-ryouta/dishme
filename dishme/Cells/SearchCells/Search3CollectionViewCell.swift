@@ -5,6 +5,7 @@ class Search3CollectionViewCell: UICollectionViewCell {
     private let cellImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.frame = CGRect(x: 0, y: 0, width: 125, height: 125)
+        imageView.clipsToBounds = true
         return imageView
     }()
     

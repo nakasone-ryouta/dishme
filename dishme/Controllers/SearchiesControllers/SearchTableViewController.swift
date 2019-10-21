@@ -136,7 +136,7 @@ extension SearchTableViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath as IndexPath)
         
-        cell.textLabel!.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
+        cell.textLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
         
         //距離
         if settings == "距離"{
@@ -165,8 +165,8 @@ extension SearchTableViewController: UITableViewDelegate,UITableViewDataSource {
         }
         //検索
         else{
-            searchController.searchBar.text = searchResults[indexPath.row]
-            variable = searchResults[indexPath.row]
+            searchController.searchBar.text = suggestions[indexPath.row]
+            variable = suggestions[indexPath.row]
         }
         
         
