@@ -34,7 +34,7 @@ DEPENDENCIES:
   - SnapLikeCollectionView
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - AMScrollingNavbar
     - BTNavigationDropdownMenu
     - CalculateCalendarLogic
@@ -64,4 +64,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: dd3d1a220a4125453fc19b4a87fc59ba45c82eff
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

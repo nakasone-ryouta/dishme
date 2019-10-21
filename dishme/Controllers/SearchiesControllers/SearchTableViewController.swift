@@ -157,7 +157,7 @@ extension SearchTableViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         setupSearchcontroller()
-        searchController.searchBar.resignFirstResponder
+//        searchController.searchBar.resignFirstResponder
         
         //距離
         if settings == "距離"{

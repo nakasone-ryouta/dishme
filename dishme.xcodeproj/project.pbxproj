@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C23C239235D5A51005DB215 /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C23C238235D5A51005DB215 /* SweetAlert.swift */; };
 		6A00A019234B72F900E42E44 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A00A018234B72F900E42E44 /* Alert.swift */; };
 		6A00A01B234C40E900E42E44 /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A00A01A234C40E900E42E44 /* NoticeViewController.swift */; };
 		6A00A023234C43B100E42E44 /* NoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A00A022234C43B100E42E44 /* NoticeTableViewCell.swift */; };
@@ -57,7 +58,6 @@
 		6A9A827A2334D04500507C1C /* PhotosBigViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A82792334D04500507C1C /* PhotosBigViewCell.swift */; };
 		6A9A827E2335C00900507C1C /* PhotoSelectBig.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A9A827D2335C00900507C1C /* PhotoSelectBig.xib */; };
 		6A9A82832335D7FA00507C1C /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A82822335D7FA00507C1C /* ReservationViewController.swift */; };
-		6AB02AFA233F35BD0032F4A1 /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB02AF9233F35BD0032F4A1 /* SweetAlert.swift */; };
 		6AB02AFC233F7C7D0032F4A1 /* SearchMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB02AFB233F7C7C0032F4A1 /* SearchMapViewController.swift */; };
 		6AB02AFE233FBA0E0032F4A1 /* EditMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB02AFD233FBA0E0032F4A1 /* EditMapViewController.swift */; };
 		6AC5262723373F0F00A7A680 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC5262623373F0F00A7A680 /* EditViewController.swift */; };
@@ -70,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		0A54A0B57DC9C07C8A8AA9D1 /* Pods-dishme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dishme.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dishme/Pods-dishme.debug.xcconfig"; sourceTree = "<group>"; };
+		0C23C238235D5A51005DB215 /* SweetAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetAlert.swift; sourceTree = "<group>"; };
 		6A00A018234B72F900E42E44 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		6A00A01A234C40E900E42E44 /* NoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
 		6A00A022234C43B100E42E44 /* NoticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTableViewCell.swift; sourceTree = "<group>"; };
@@ -123,7 +124,6 @@
 		6A9A82792334D04500507C1C /* PhotosBigViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosBigViewCell.swift; sourceTree = "<group>"; };
 		6A9A827D2335C00900507C1C /* PhotoSelectBig.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoSelectBig.xib; sourceTree = "<group>"; };
 		6A9A82822335D7FA00507C1C /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
-		6AB02AF9233F35BD0032F4A1 /* SweetAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SweetAlert.swift; path = "../../../SweetAlert-iOS-master/SweetAlert/SweetAlert.swift"; sourceTree = "<group>"; };
 		6AB02AFB233F7C7C0032F4A1 /* SearchMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMapViewController.swift; sourceTree = "<group>"; };
 		6AB02AFD233FBA0E0032F4A1 /* EditMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMapViewController.swift; sourceTree = "<group>"; };
 		6AC5262623373F0F00A7A680 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
@@ -300,7 +300,6 @@
 		6A6AE08823296A8900D776AD /* Functions */ = {
 			isa = PBXGroup;
 			children = (
-				6AB02AF9233F35BD0032F4A1 /* SweetAlert.swift */,
 				6A1D21782358B1C7005F63A7 /* AVCinSideOutSideObject.swift */,
 				6A00A018234B72F900E42E44 /* Alert.swift */,
 				6A40A545232A9FD90096CC28 /* PageMenuView.swift */,
@@ -311,6 +310,7 @@
 				6A00A024234C79E300E42E44 /* TableSettings.swift */,
 				6A0AC28F235652A900A59F0C /* Layouting.swift */,
 				6A00A02C234CE44400E42E44 /* PlaceHolderTextView.swift */,
+				0C23C238235D5A51005DB215 /* SweetAlert.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -479,22 +479,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-dishme/Pods-dishme-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-dishme/Pods-dishme-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-dishme/Pods-dishme-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dishme/Pods-dishme-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dishme/Pods-dishme-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F05F9378107FF7A409655F48 /* [CP] Embed Pods Frameworks */ = {
@@ -503,38 +496,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-dishme/Pods-dishme-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AMScrollingNavbar/AMScrollingNavbar.framework",
-				"${BUILT_PRODUCTS_DIR}/BTNavigationDropdownMenu/BTNavigationDropdownMenu.framework",
-				"${BUILT_PRODUCTS_DIR}/CalculateCalendarLogic/CalculateCalendarLogic.framework",
-				"${BUILT_PRODUCTS_DIR}/Expression/Expression.framework",
-				"${BUILT_PRODUCTS_DIR}/FMPhotoPicker/FMPhotoPicker.framework",
-				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
-				"${BUILT_PRODUCTS_DIR}/FlexiblePageControl/FlexiblePageControl.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapLikeCollectionView/SnapLikeCollectionView.framework",
-				"${BUILT_PRODUCTS_DIR}/collection-view-layouts/collection_view_layouts.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-dishme/Pods-dishme-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AMScrollingNavbar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BTNavigationDropdownMenu.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CalculateCalendarLogic.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Expression.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMPhotoPicker.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexiblePageControl.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapLikeCollectionView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/collection_view_layouts.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-dishme/Pods-dishme-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dishme/Pods-dishme-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dishme/Pods-dishme-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -557,7 +527,6 @@
 				6A0AE90F235D3E4500C45EB9 /* CustomTableViewCell.swift in Sources */,
 				6A9A82832335D7FA00507C1C /* ReservationViewController.swift in Sources */,
 				6A0AC290235652A900A59F0C /* Layouting.swift in Sources */,
-				6AB02AFA233F35BD0032F4A1 /* SweetAlert.swift in Sources */,
 				6A7C63012331656200B0B898 /* CameraRollCollectionViewCell.swift in Sources */,
 				6A6AE0522329163C00D776AD /* dishme.xcdatamodeld in Sources */,
 				6AC5262D23387A0E00A7A680 /* YouserAcountViewController.swift in Sources */,
@@ -583,6 +552,7 @@
 				6A6AE04A2329163C00D776AD /* AppDelegate.swift in Sources */,
 				6A6AE06323291A9900D776AD /* dishCell.swift in Sources */,
 				6AC526322338922F00A7A680 /* SignInViewController.swift in Sources */,
+				0C23C239235D5A51005DB215 /* SweetAlert.swift in Sources */,
 				6A00A01B234C40E900E42E44 /* NoticeViewController.swift in Sources */,
 				6A00A02F234D620700E42E44 /* PhotoSelectFilterViewCell.swift in Sources */,
 				6A40A546232A9FDA0096CC28 /* PageMenuView.swift in Sources */,

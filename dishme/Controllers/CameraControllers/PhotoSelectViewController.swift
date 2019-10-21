@@ -212,7 +212,7 @@ extension PhotoSelectViewController: UITableViewDelegate,UITableViewDataSource {
         tableView.removeFromSuperview()
         searchstore = searchController.searchBar.text!
         
-        searchController.searchBar.resignFirstResponder
+//        searchController.searchBar.resignFirstResponder
     }
     
 }
