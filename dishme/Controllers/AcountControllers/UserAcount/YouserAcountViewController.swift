@@ -115,7 +115,6 @@ extension YouserAcountViewController{
     func setupNavigation(){
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.title = "アカウント"
-        self.navigationItem.hidesBackButton = true
         
         let button = UIBarButtonItem(image: UIImage(named: "settingitem")?.withRenderingMode(.alwaysOriginal),
                                      style: .plain,

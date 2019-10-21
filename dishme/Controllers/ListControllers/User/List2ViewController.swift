@@ -106,9 +106,17 @@ extension List2ViewController{
 //tableview周り
 extension List2ViewController: UITableViewDataSource,UITableViewDelegate{
     
+    
+    
     // Section数
     func numberOfSections(in tableView: UITableView) -> Int {
         return date.count
+    }
+    
+    // Sectioのタイトル
+    func tableView(_ tableView: UITableView,
+                   titleForHeaderInSection section: Int) -> String? {
+        return date[date.count - section - 1]
     }
     
     //保存

@@ -28,8 +28,22 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
     @IBOutlet var pageControl: FlexiblePageControl!
     let scrollSize: CGFloat = 300
     
+    let detailButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.system)
+        button.frame = CGRect(x: 10, y: 375, width: 70, height: 30)
+        button.layer.cornerRadius = 15
+        button.titleLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 10)
+        button.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+        button.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        button.setTitle("お店を見る", for: UIControl.State.normal)
+
+        return button
+    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        addSubview(detailButton)
+        
         // Initialization code
         acountButton.layer.masksToBounds = true
         acountButton.layer.cornerRadius = 16

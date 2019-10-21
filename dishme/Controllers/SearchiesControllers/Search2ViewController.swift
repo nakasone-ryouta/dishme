@@ -19,21 +19,18 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var tableView: UITableView!
     
-    var cellTexts = ["Rib Face",
-                     "Thinking Rib",
-                     "焼肉大地",
-                     "deliciase",
-                     "gooodpig",
-                     "Rib Face",
-                     "Thinking Rib",
-                     "焼肉大地",
-                     "deliciase",
-                     "gooodpig",
-                     "Rib Face",
-                     "Thinking Rib",
-                     "焼肉大地",
-                     "deliciase",
-                     "deliciase",
+    var cellTexts = ["中曽根良太",
+                     "井村彩乃",
+                     "細井勇気",
+                     "大塚愛",
+                     "高村知英",
+                     "匿名係",
+                     "中曽根良太",
+                     "井村彩乃",
+                     "細井勇気",
+                     "大塚愛",
+                     "高村知英",
+                     "匿名係",
                      ]
 
     
@@ -133,52 +130,64 @@ extension Search2ViewController{
             cell.resevebButton.isHidden = true
         }
         
+        
         //acountの名前の設定
-        cell.resevebButton.setTitle(cellTexts[indexPath.row] + "・保存", for: UIControl.State.normal)
+        cell.resevebButton.setTitle(cellTexts[indexPath.row] + "・お店を保存", for: UIControl.State.normal)
         cell.resevebButton.setTitleColor(UIColor.black, for: .normal)
         cell.resevebButton.titleLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 15)
         namerange.append(cellTexts[indexPath.row].count)
         attrText.append(NSMutableAttributedString(string: cell.resevebButton.titleLabel!.text!))
         attrText[indexPath.row].addAttribute(.foregroundColor,
-                              value: UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), range: NSMakeRange(namerange.last!, 3))
+                              value: UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), range: NSMakeRange(namerange.last!, 6))
         cell.resevebButton.setAttributedTitle(attrText[indexPath.row], for: .normal)
         
+        //何番目のボタンが押されているか
+        cell.detailButton.tag = indexPath.row
+        cell.acountButton.tag = indexPath.row
+        
         //アカウント選択
-        cell.acountButton.addTarget(self, action: #selector(self.toSearch3), for: .touchUpInside)
+        cell.detailButton.addTarget(self, action: #selector(self.detailaction), for: .touchUpInside)
+        cell.acountButton.addTarget(self, action: #selector(self.toYouserAcount), for: .touchUpInside)
         cell.resevebButton.addTarget(self, action: #selector(self.saveacount), for: .touchUpInside)
         cell.goodButton.addTarget(self, action: #selector(self.goodbutton), for: .touchUpInside)
         cell.badButton.addTarget(self, action: #selector(self.badButton), for: .touchUpInside)
 
         return cell
     }
-}
-
-//cellの選択時の
-extension Search2ViewController{
+    
     //セルを選択した時の処理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! TableViewCell
         
-            self.tableView.beginUpdates()
-            if cell.isOpen{
-                self.isOpens[indexPath.row] = true
-            }else{
-                cell.isOpen = true
-                self.isOpens[indexPath.row] = true
-            }
-            self.tableView.endUpdates()
-            cell.layoutIfNeeded()
+        self.tableView.beginUpdates()
+        if cell.isOpen{
+            self.isOpens[indexPath.row] = true
+        }else{
+            cell.isOpen = true
+            self.isOpens[indexPath.row] = true
+        }
+        self.tableView.endUpdates()
+        cell.layoutIfNeeded()
     }
     
     // テーブルセルの高さを返します
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return isOpens[indexPath.row] ? openHeights[indexPath.row] : 559
     }
+}
+
+//cell内のボタン選択時
+extension Search2ViewController{
     
     //画面遷移
-    @objc func toSearch3(sender: UIButton){
-        let indexPath = tableView.indexPath(for: sender.superview!.superview as! UITableViewCell)
-        self.performSegue(withIdentifier: "toSearch3", sender: nil)
+    @objc func toYouserAcount(sender: UIButton){
+        print(sender.tag)
+        self.performSegue(withIdentifier: "toYouserAcount", sender: nil)
+    }
+    
+    @objc func detailaction(){
+        
+        performSegue(withIdentifier: "toSearch3", sender: nil)
     }
     
     //保存ボタン
