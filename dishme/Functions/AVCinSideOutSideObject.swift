@@ -4,7 +4,6 @@ import AVFoundation
 import Photos
 
 
-
 class AVCinSideOutSideObject: NSObject {
     
     //キャプチャセッションに入力（オーディオやビデオなど）を提供し、ハードウェア固有のキャプチャ機能のコントロールを提供するデバイス。
