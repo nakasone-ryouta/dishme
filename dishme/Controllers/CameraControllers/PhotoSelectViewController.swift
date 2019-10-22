@@ -23,8 +23,7 @@ class PhotoSelectViewController: UIViewController{
     
     
     var firstindex:IndexPath? = nil
-    
-    var shareImage:UIImage? = nil
+    var pageindex: Int = -1
     
     var originalimages:[UIImage] = [UIImage(named: "meat1")!,
                                     UIImage(named: "meat2")!,
@@ -74,21 +73,15 @@ class PhotoSelectViewController: UIViewController{
         
         //collectionviewの基本設定
         collection2setting()
+        topcell()
         
         //navigationの設定
         setupNavigation()
+        deleteBuckTitle()
         
         //検索バー(追加)
         if acountResister == "ユーザ"{
             setupSearchcontroller()
-        }
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        topcell()
-        
-        if acountResister == "ユーザ"{
             kutikomimoji()
             commentButton()
         }
@@ -102,13 +95,12 @@ extension PhotoSelectViewController:UISearchResultsUpdating,UISearchBarDelegate{
     func setupSearchcontroller(){
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
-        searchController.searchBar.sizeToFit()
         searchController.searchBar.placeholder = "店名を入力"
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.keyboardAppearance = .default
         searchController.searchBar.delegate = self
-        searchController.searchBar.showsCancelButton = false
+        searchController.searchBar.setShowsCancelButton(false, animated: true)
         searchController.searchBar.setValue("", forKey: "_cancelButtonText")
         navigationItem.titleView = searchController.searchBar
     }
@@ -142,10 +134,11 @@ extension PhotoSelectViewController:UISearchResultsUpdating,UISearchBarDelegate{
     }
     // 編集が開始されたら、キャンセルボタンを有効にする
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        tablesettings()
-        selectBtn = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(cancel))
-        self.navigationItem.rightBarButtonItems = [selectBtn]
-        self.tableView.reloadData()
+        performSegue(withIdentifier: "toSearchTable", sender: nil)
+//        tablesettings()
+//        selectBtn = UIBarButtonItem(title: "完了", style: .done, target: self, action: #selector(cancel))
+//        self.navigationItem.rightBarButtonItems = [selectBtn]
+//        self.tableView.reloadData()
         return true
         
     }
@@ -168,6 +161,7 @@ extension PhotoSelectViewController: UITableViewDelegate,UITableViewDataSource {
     func topcell(){
         let noindex = IndexPath(item: 0, section: 0)
         collectionView2.scrollToItem(at: firstindex ?? noindex, at: .right, animated: false)
+        pageindex = (firstindex?.row)!
     }
     //tableの基本設定
     func tablesettings(){
@@ -217,40 +211,6 @@ extension PhotoSelectViewController: UITableViewDelegate,UITableViewDataSource {
     
 }
 
-extension PhotoSelectViewController{
-    func kutikomimoji(){
-        let label = UILabel()
-        label.frame =  CGRect(x: 23, y: 500, width: 0, height: 0)
-        label.text = "口コミ"
-        label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)
-        label.textAlignment = NSTextAlignment.right
-        label.sizeToFit()
-        view.addSubview(label)
-    }
-    
-    func commentButton(){
-        
-        // UIButtonのインスタンスを作成する
-        let button = UIButton(type: .custom)
-        button.addTarget(self, action: #selector(commentaction), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 16,
-                              y: 370,
-                              width: 355,
-                              height: 365);
-        button.setTitle(comment, for: UIControl.State.normal)
-        button.setTitleColor(UIColor.darkGray, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.sizeToFit()
-        
-        view.addSubview(button)
-        
-    }
-    @objc func commentaction(){
-        performSegue(withIdentifier: "toPhotoComment", sender: nil)
-    }
-}
 
 //collection周り
 extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewDataSource{
@@ -263,6 +223,8 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
         
         collectionView2.delegate = self
         collectionView2.dataSource = self
+        
+        collectionView2.decelerationRate = .fast
     }
     
     //セクションの数
@@ -302,72 +264,19 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = collectionView2.dequeueReusableCell(withReuseIdentifier: "Cell2",for: indexPath as IndexPath) as! PhotosBigViewCell
         
-            //企業の場合
-            if acountResister == "企業"{
-                
-                //写真
-                cell.imageView.image = originalimages[indexPath.row]
-                cell.valuemoji.text = "価格"
-                
-                //カテゴリの表示ボタン
-                if cameratarget == "新規"{
-                    cell.categoryBtn.setTitle("カテゴリを入力", for: UIControl.State.normal)
-                }else{
-                    cell.categoryBtn.setTitle("おすすめ", for: UIControl.State.normal)
-                }
-                
-                //[商品名]の表示ボタン
-                if cameratarget == "新規"{
-                    cell.productBtn.setTitle("品名を入力", for: UIControl.State.normal)
-                }else{
-                    cell.productBtn.setTitle("\(dishname[indexPath.row])", for: UIControl.State.normal)
-                }
-                
-                
-                //[4000円]の表示ボタン
-                if cameratarget == "新規"{
-                   cell.moneyBtn.setTitle("価格を入力", for: UIControl.State.normal)
-                }else{
-                    cell.moneyBtn.setTitle("\(value[indexPath.row])円", for: UIControl.State.normal)
-                }
-                
-               //ボタンの背景色
-               cell.moneyBtn.backgroundColor = UIColor.init(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
-               cell.productBtn.backgroundColor = UIColor.init(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
-                cell.categoryBtn.backgroundColor = UIColor.init(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
-                //アカウント選択
-                cell.categoryBtn.addTarget(self, action: #selector(tocategory(sender:)), for: .touchUpInside)
-                cell.productBtn.addTarget(self, action: #selector(tomoney(sender:)), for: .touchUpInside)
-                cell.moneyBtn.addTarget(self, action: #selector(todish(sender:)), for: .touchUpInside)
-            }
-            else{
-                
-                //ユーザの場合
-                cell.valuemoji.text = ""
-                cell.dishmoji.text = ""
-                cell.categorymoji.text = ""
-                cell.productBtn.removeFromSuperview()
-                cell.moneyBtn.removeFromSuperview()
-                cell.categoryBtn.removeFromSuperview()
-                
-                // Section毎にCellのプロパティを変える.
-                switch(indexPath.section){
-                case 0:
-                    cell.imageView.image = originalimages[indexPath.row]
-
-                case 1:
-                    cell.imageView.image = originalimages[indexPath.row]
-
-                case 2:
-                    cell.imageView.image = originalimages[indexPath.row]
-
-                default:
-                    cell.imageView.image = originalimages[indexPath.row]
-                }
-            }
-            return cell
+        let collectionsettings = CollectionSettings()
+        let cell = collectionsettings.photoSelectCellForRowAt(originalimages: originalimages[indexPath.row],
+                                                              acountResister: acountResister,
+                                                              cameratarget: cameratarget,
+                                                              categoryname: "おすすめ",
+                                                              productname: dishname[indexPath.row],
+                                                              moneyname: value[indexPath.row],
+                                                              collectionvew: collectionView2,
+                                                              indexPath: indexPath)
+        
+        
+        return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             switch acountResister {
@@ -377,14 +286,20 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
                 break;
             }
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let contensts = collectionView2.contentOffset.x
+        let width = view.frame.size.width
+        pageindex = Int(contensts/width)
+    }
 }
 
+//ボタンが押された時の画面遷移
 extension PhotoSelectViewController{
     //ボタンから取得する
     @objc func tomoney(sender: UIButton){
         
         if let indexPath = collectionView2.indexPath(for: sender.superview!.superview as! UICollectionViewCell) {
+            print("\(indexPath.row)番目の品名を取得しました")
             alerttitle = "品名を決める"
             performSegue(withIdentifier: "toCameraLast", sender: nil)
 
@@ -394,6 +309,7 @@ extension PhotoSelectViewController{
     @objc func todish(sender: UIButton){
         
         if let indexPath = collectionView2.indexPath(for: sender.superview!.superview as! UICollectionViewCell) {
+            print("\(indexPath.row)番目の料理を取得しました")
             alerttitle = "価格を決める"
             performSegue(withIdentifier: "toCameraLast", sender: nil)
         }
@@ -403,6 +319,7 @@ extension PhotoSelectViewController{
     @objc func tocategory(sender: UIButton){
         
         if let indexPath = collectionView2.indexPath(for: sender.superview!.superview as! UICollectionViewCell) {
+            print("\(indexPath.row)番目のカテゴリを取得しました")
             alerttitle = "カテゴリを決める"
             performSegue(withIdentifier: "toCameraLast", sender: nil)
         }
@@ -414,57 +331,13 @@ extension PhotoSelectViewController{
             let nextView = segue.destination as! CameraLastViewController
             nextView.alerttitle = alerttitle
         }
+        if segue.identifier == "toSearchTable" {
+            let nextView = segue.destination as! SearchTableViewController
+            nextView.settings = "お店検索"
+        }
     }
 }
 
-
-class CustomFlowLayout: UICollectionViewFlowLayout {
-    
-    private let largeFlickVelocityThreshold: CGFloat = 2.0
-    private let minimumFlickVelocityThreshold: CGFloat = 0.2
-    private let pageWidth: CGFloat = 320.0
-    
-    override init() {
-        super.init()
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-    
-    private func setup() {
-        itemSize = CGSize(width: 375, height: 600)
-        minimumInteritemSpacing = 0
-        minimumLineSpacing = 0
-        sectionInset = UIEdgeInsets(top: 0.0, left: 0, bottom: 0.0, right: 0)
-        scrollDirection = .horizontal
-    }
-    
-    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-        guard let collectionView = collectionView else {
-            return proposedContentOffset
-        }
-        
-        let pageWidth = itemSize.width + minimumLineSpacing
-        let currentPage = collectionView.contentOffset.x / pageWidth
-        
-        if abs(velocity.x) > largeFlickVelocityThreshold {
-            // velocityが大きいときは2つ動かす
-            let nextPage = (velocity.x > 0.0) ? ceil(currentPage) + 1 : floor(currentPage) - 1
-            return CGPoint(x: nextPage * pageWidth, y: proposedContentOffset.y)
-        } else if abs(velocity.x) > minimumFlickVelocityThreshold {
-            // 1つ動かす
-            let nextPage = (velocity.x > 0.0) ? ceil(currentPage) : floor(currentPage)
-            return CGPoint(x: nextPage * pageWidth, y: proposedContentOffset.y)
-        } else {
-            // velocityが小さすぎるときは近いほうへ
-            return CGPoint(x: round(currentPage) * pageWidth, y: proposedContentOffset.y)
-        }
-    }
-    
-}
 
 //navigation周り
 extension PhotoSelectViewController{
@@ -475,44 +348,109 @@ extension PhotoSelectViewController{
                                        target: self,
                                        action: #selector(filteraciton));
         self.navigationItem.rightBarButtonItems = [edititem]
+        
     }
+    func deleteBuckTitle(){
+        let backButtonItem = UIBarButtonItem(image: UIImage(named: "backsegue")?.withRenderingMode(.alwaysOriginal),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(backaction));
+        
+        self.navigationItem.setLeftBarButtonItems([backButtonItem], animated: true)
+    }
+    @objc func backaction(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @objc func filteraciton(){
         let config = FMPhotoPickerConfig()
-        let vc = FMImageEditorViewController(config: config, sourceImage: originalimages[0])
+        let vc = FMImageEditorViewController(config: config, sourceImage: originalimages[pageindex])
         vc.delegate = self
         
         self.present(vc, animated: true)
     }
 }
 
-//レイアウト
+
+//cellの下にある[口コミ]とその書き込みを表示するレイアウト
+extension PhotoSelectViewController{
+    func kutikomimoji(){
+        let label = UILabel()
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        
+        //        label.frame =  CGRect(x: 23, y: 500, width: 0, height: 0)
+        label.frame = CGRect(x: width / 16.3,y: height / 1.62,width: 0, height: 0)
+        label.text = "口コミ"
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: width / 23.4)
+        label.textAlignment = NSTextAlignment.right
+        label.sizeToFit()
+        view.addSubview(label)
+    }
+    
+    func commentButton(){
+        
+        // UIButtonのインスタンスを作成する
+        let button = UIButton(type: .custom)
+        button.addTarget(self, action: #selector(commentaction), for: UIControl.Event.touchUpInside)
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        button.frame = CGRect(x: width / 23.4,
+                              y: height / 1.6,
+                              width: width / 1.05,
+                              height:width / 4);
+        button.setTitle(comment, for: UIControl.State.normal)
+        button.setTitleColor(UIColor.darkGray, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.sizeToFit()
+        
+        view.addSubview(button)
+        
+    }
+    @objc func commentaction(){
+        performSegue(withIdentifier: "toPhotoComment", sender: nil)
+    }
+}
+
+
+
+
+//tabbar周りのレイアウト
 extension PhotoSelectViewController{
     func tabbarcontroller(){
         backview()
         deleteBtn()
         
         if cameratarget == "新規"{
-          alertButton()
+            alertButton()
         }
         else{
-          savephotoBtn()
+            savephotoBtn()
         }
         
     }
     func backview(){
         let backview = UIView()
-        backview.frame = CGRect(x: 0, y: 733, width: 375, height: 79)
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        //        画面合わせ
+        //        backview.frame = CGRect(x: 0, y: 733, width: 375, height: 79)
+        backview.frame = CGRect(x: 0, y: height / 1.11, width: width, height: height / 10.27)
         backview.backgroundColor = UIColor.init(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
         view.addSubview(backview)
     }
     
     func deleteBtn(){
         let button = UIButton(type: .custom)
+        let width = view.frame.size.width
+        let height = view.frame.size.height
         button.addTarget(self, action: #selector(deletephoto), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 333,
-                              y: 754,
-                              width: 20,
-                              height: 26);
+        button.frame = CGRect(x: width / 1.13,
+                              y: height / 1.07,
+                              width: width / 18.75,
+                              height: width / 14.4);
         button.setImage(UIImage(named: "delete"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
@@ -521,51 +459,55 @@ extension PhotoSelectViewController{
     
     func savephotoBtn(){
         let button = UIButton(type: .custom)
-        button.frame = CGRect(x: 28,
-                              y: 754,
-                              width: 20,
-                              height: 26);
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        button.frame = CGRect(x: width / 13.4,
+                              y: height / 1.07,
+                              width: width / 18.75,
+                              height: width / 14.4);
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-            button.setImage(UIImage(named: "savephoto"), for: UIControl.State())
-            button.addTarget(self, action: #selector(savephoto), for: UIControl.Event.touchUpInside)
-       
+        button.setImage(UIImage(named: "savephoto"), for: UIControl.State())
+        button.addTarget(self, action: #selector(savephoto), for: UIControl.Event.touchUpInside)
+        
         
         self.view.addSubview(button)
     }
     
     func alertButton(){
         let button = UIButton()
-        button.frame = CGRect(x: 26,
-                              y: 754,
-                              width: 50,
-                              height: 26);
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        button.frame = CGRect(x: width / 14.4,
+                              y: height / 1.07,
+                              width: width / 7.5,
+                              height: width / 14.4);
         button.setTitle("保存", for:UIControl.State.normal)
         button.titleLabel?.sizeToFit()
         button.setTitleColor(UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), for: .normal)
         button.titleLabel?.font =  UIFont.systemFont(ofSize: 15)
-        button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 17)!
+        button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: width / 22)!
         button.titleLabel?.textAlignment = .left
         button.addTarget(self, action: #selector(dicidesegue), for: UIControl.Event.touchUpInside)
         
         self.view.addSubview(button)
     }
     
-        @objc func dicidesegue(){
-            
-            //店名が入力されていない
-            if searchstore == ""{
-                let alert = Alert()
-                alert.infoAlert(Title: "保存しますか？", subTitle: "お店が指定されていないと掲載はできません", yes: "はい", no: "いいえ", yesTitle: "保存しました", yessubTitle: "")
-            }else{
-               _ = SweetAlert().showAlert("写真を保存しました", subTitle: "店名:\(searchstore)", style: AlertStyle.success)
-            }
+    @objc func dicidesegue(){
+        
+        //店名が入力されていない
+        if searchstore == ""{
+            let alert = Alert()
+            alert.infoAlert(Title: "保存しますか？", subTitle: "お店が指定されていないと掲載はできません", yes: "はい", no: "いいえ", yesTitle: "保存しました", yessubTitle: "")
+        }else{
+            _ = SweetAlert().showAlert("写真を保存しました", subTitle: "店名:\(searchstore)", style: AlertStyle.success)
         }
+    }
     
     //写真を編集
     @objc func editphotoAction(){
         let config = FMPhotoPickerConfig()
-        let vc = FMImageEditorViewController(config: config, sourceImage: originalimages[0])
+        let vc = FMImageEditorViewController(config: config, sourceImage: originalimages[pageindex])
         vc.delegate = self
         
         self.present(vc, animated: true)
@@ -574,7 +516,7 @@ extension PhotoSelectViewController{
     //端末に保存する
     @objc func savephoto(){
         
-        let activityItems = [shareImage as Any] as [Any]
+        let activityItems = [originalimages[pageindex] as Any] as [Any]
         
         // 初期化処理
         let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
@@ -627,7 +569,7 @@ extension PhotoSelectViewController{
 extension PhotoSelectViewController:FMImageEditorViewControllerDelegate{
     func fmImageEditorViewController(_ editor: FMImageEditorViewController, didFinishEdittingPhotoWith photo: UIImage) {
         self.dismiss(animated: true, completion: nil)
-        originalimages[0] = photo
+        originalimages[pageindex] = photo
         collectionView2.reloadData()
         print("編集おわた")
         self.dismiss(animated: true, completion: nil)

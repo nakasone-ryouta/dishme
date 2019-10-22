@@ -36,10 +36,10 @@ class SearchTableViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         switch settings{
-        case "検索":
-            setupSearchcontroller()
+        case "距離":
             tablesettings()
         default:
+            setupSearchcontroller()
             tablesettings()
         }
         
@@ -169,14 +169,26 @@ extension SearchTableViewController: UITableViewDelegate,UITableViewDataSource {
             variable = suggestions[indexPath.row]
         }
         
-        
         //Navigation Controllerを取得
-        let nav = self.navigationController!
-        let InfoVc = nav.viewControllers[nav.viewControllers.count-2] as! SearchViewController
-        InfoVc.variable = variable
-        InfoVc.distance = distance
+        backsegue()
         
         //閉じる
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func backsegue(){
+        if settings == "距離" || settings == "検索"{
+            //Navigation Controllerを取得
+            let nav = self.navigationController!
+            let InfoVc = nav.viewControllers[nav.viewControllers.count-2] as! SearchViewController
+            InfoVc.variable = variable
+            InfoVc.distance = distance
+            
+        }
+        else{
+            let nav = self.navigationController!
+            let InfoVc = nav.viewControllers[nav.viewControllers.count-2] as! PhotoSelectViewController
+            InfoVc.title = variable
+        }
     }
 }

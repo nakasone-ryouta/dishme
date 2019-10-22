@@ -50,8 +50,8 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
     var attrText:[NSMutableAttributedString] = []
     
     var acountimage = UIImage(named: "acount1")
-    var openHeights: [CGFloat] = [650,600,600,600,600,600,600,600,600,600,600,600,600,600,600]
-    var comment = "めちゃめちゃ美味しかったです。\nリブステーキが特に美味しくてほっぺた落ちちゃいました。\nめちゃめちゃ美味しかったです。\nリブステーキが特に美味しくてほっぺた落ちちゃいました。"
+    var openHeights: [CGFloat] = [600,600,600,600,600,600,600,600,600,600,600,600,600,600,600]
+    var comment = "めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました言い値の先端リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっです。リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました言い値の先端リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました。ブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちぺた落ちちゃいました。ブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました"
     var goods:[Int] = [120,120,120,120,120,120,120,120,120,120,120,120,120,120,120,]
     var bads:[Int] = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]
     var isOpens = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,]
@@ -122,7 +122,6 @@ extension Search2ViewController{
         
         //コメントを書く
         cell.commentLabel.text = comment
-        cell.commentLabel.numberOfLines = 4
         
         //acountの名前の設定
         cell.resevebButton.setTitle(cellTexts[indexPath.row] + "・お店を保存", for: UIControl.State.normal)
@@ -150,7 +149,6 @@ extension Search2ViewController{
         cell.detailButton.addTarget(self, action: #selector(self.detailaction), for: .touchUpInside)
         cell.acountButton.addTarget(self, action: #selector(self.toYouserAcount), for: .touchUpInside)
         cell.resevebButton.addTarget(self, action: #selector(self.saveacount), for: .touchUpInside)
-        cell.goodButton.addTarget(self, action: #selector(self.goodbutton), for: .touchUpInside)
         cell.badButton.addTarget(self, action: #selector(self.badButton), for: .touchUpInside)
 
         return cell
@@ -159,9 +157,15 @@ extension Search2ViewController{
     //セルを選択した時の処理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! TableViewCell
+        //コメント込みの高さを返す
+        if self.isOpens[indexPath.row] == false{
+            let commentHeight = cell.commentLabel.frame.size.height
+            openHeights[indexPath.row] = openHeights[indexPath.row] + commentHeight - 85
+        }
         
         self.tableView.beginUpdates()
         if cell.isOpen{
+            
             self.isOpens[indexPath.row] = true
         }else{
             cell.isOpen = true
