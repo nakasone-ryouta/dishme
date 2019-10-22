@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,8 @@
 		6A0AE90C235D0E7800C45EB9 /* ReserveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE90A235D0E7800C45EB9 /* ReserveTableViewCell.swift */; };
 		6A0AE90D235D0E7800C45EB9 /* ReserveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AE90B235D0E7800C45EB9 /* ReserveTableViewCell.xib */; };
 		6A0AE90F235D3E4500C45EB9 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE90E235D3E4500C45EB9 /* CustomTableViewCell.swift */; };
+		6A0AE911235E5A6F00C45EB9 /* CellsHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE910235E5A6F00C45EB9 /* CellsHeight.swift */; };
+		6A0AE913235E664C00C45EB9 /* EvalutionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE912235E664B00C45EB9 /* EvalutionButton.swift */; };
 		6A116FDF2354D39A00D01A53 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A116FDE2354D39A00D01A53 /* SearchTableViewController.swift */; };
 		6A1D21772358B058005F63A7 /* CameraCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1D21762358B058005F63A7 /* CameraCollectionViewCell.swift */; };
 		6A1D21792358B1C7005F63A7 /* AVCinSideOutSideObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1D21782358B1C7005F63A7 /* AVCinSideOutSideObject.swift */; };
@@ -90,6 +92,8 @@
 		6A0AE90A235D0E7800C45EB9 /* ReserveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveTableViewCell.swift; sourceTree = "<group>"; };
 		6A0AE90B235D0E7800C45EB9 /* ReserveTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReserveTableViewCell.xib; sourceTree = "<group>"; };
 		6A0AE90E235D3E4500C45EB9 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		6A0AE910235E5A6F00C45EB9 /* CellsHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellsHeight.swift; sourceTree = "<group>"; };
+		6A0AE912235E664B00C45EB9 /* EvalutionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvalutionButton.swift; sourceTree = "<group>"; };
 		6A116FDE2354D39A00D01A53 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		6A1D21762358B058005F63A7 /* CameraCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A1D21782358B1C7005F63A7 /* AVCinSideOutSideObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCinSideOutSideObject.swift; sourceTree = "<group>"; };
@@ -292,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				6A1D21782358B1C7005F63A7 /* AVCinSideOutSideObject.swift */,
+				6A0AE910235E5A6F00C45EB9 /* CellsHeight.swift */,
 				6A00A018234B72F900E42E44 /* Alert.swift */,
 				6A40A545232A9FD90096CC28 /* PageMenuView.swift */,
 				6A2B6FB92331B47B005A3D03 /* PageMenuinit.swift */,
@@ -326,6 +331,7 @@
 				6A40A543232A898C0096CC28 /* Search3ViewController.swift */,
 				6A40A547232BD5420096CC28 /* Search4ViewController.swift */,
 				6A9A82822335D7FA00507C1C /* ReservationViewController.swift */,
+				6A0AE912235E664B00C45EB9 /* EvalutionButton.swift */,
 			);
 			path = SearchiesControllers;
 			sourceTree = "<group>";
@@ -570,6 +576,7 @@
 				6A9A82682334C62100507C1C /* PhotoSelectViewController.swift in Sources */,
 				6AC5262723373F0F00A7A680 /* EditViewController.swift in Sources */,
 				6A0960702348702700846ABF /* Search4TableViewCell.swift in Sources */,
+				6A0AE913235E664C00C45EB9 /* EvalutionButton.swift in Sources */,
 				6A00A02D234CE44400E42E44 /* PlaceHolderTextView.swift in Sources */,
 				6A505CF72330147F002F2184 /* UIoverride.swift in Sources */,
 				6A00A019234B72F900E42E44 /* Alert.swift in Sources */,
@@ -580,6 +587,7 @@
 				6A0AE907235D0E3200C45EB9 /* HistoryViewController.swift in Sources */,
 				6A7C62F62330408400B0B898 /* CameraEditCollectionViewCell.swift in Sources */,
 				6A6AE04A2329163C00D776AD /* AppDelegate.swift in Sources */,
+				6A0AE911235E5A6F00C45EB9 /* CellsHeight.swift in Sources */,
 				6A6AE06323291A9900D776AD /* dishCell.swift in Sources */,
 				6AC526322338922F00A7A680 /* SignInViewController.swift in Sources */,
 				0C23C239235D5A51005DB215 /* SweetAlert.swift in Sources */,

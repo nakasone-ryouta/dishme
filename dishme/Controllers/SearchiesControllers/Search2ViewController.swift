@@ -21,13 +21,13 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var cellTexts = ["中曽根良太",
                      "井村彩乃",
-                     "細井勇気",
+                     "米田完",
                      "大塚愛",
                      "高村知英",
                      "匿名係",
                      "中曽根良太",
                      "井村彩乃",
-                     "細井勇気",
+                     "細井ゆうき",
                      "大塚愛",
                      "高村知英",
                      "匿名係",
@@ -124,26 +124,27 @@ extension Search2ViewController{
         cell.commentLabel.text = comment
         cell.commentLabel.numberOfLines = 4
         
-        //企業の場合は保存ボタンはいらない
-        if acountRegister == "企業"{
-            cell.resevebButton.titleLabel?.text = ""
-            cell.resevebButton.isHidden = true
-        }
-        
-        
         //acountの名前の設定
         cell.resevebButton.setTitle(cellTexts[indexPath.row] + "・お店を保存", for: UIControl.State.normal)
         cell.resevebButton.setTitleColor(UIColor.black, for: .normal)
-        cell.resevebButton.titleLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 15)
+        cell.resevebButton.titleLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         namerange.append(cellTexts[indexPath.row].count)
         attrText.append(NSMutableAttributedString(string: cell.resevebButton.titleLabel!.text!))
         attrText[indexPath.row].addAttribute(.foregroundColor,
                               value: UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), range: NSMakeRange(namerange.last!, 6))
         cell.resevebButton.setAttributedTitle(attrText[indexPath.row], for: .normal)
         
+        //企業の場合は保存ボタンはいらない
+        if acountRegister == "企業"{
+            cell.resevebButton.setTitle(cellTexts[indexPath.row], for: UIControl.State.normal)
+        }
+        
+        
         //何番目のボタンが押されているか
         cell.detailButton.tag = indexPath.row
         cell.acountButton.tag = indexPath.row
+        cell.goodButton.tag = indexPath.row
+        cell.badButton.tag = indexPath.row
         
         //アカウント選択
         cell.detailButton.addTarget(self, action: #selector(self.detailaction), for: .touchUpInside)
@@ -199,29 +200,16 @@ extension Search2ViewController{
     
     //GOODボタンから取得する
     @objc func goodbutton(sender: UIButton){
-        
         let indexPath = tableView.indexPath(for: sender.superview!.superview as! UITableViewCell)
         let cell = tableView.cellForRow(at: indexPath!) as! TableViewCell
-            
-            //押されていなかった時の処理
-        if alreadygoods[indexPath!.row] == false{
-            alreadygoods[indexPath!.row] = true
-            goods[indexPath!.row] =  goods[indexPath!.row] + 1
-            cell.goodlabel.text! = "\(goods[indexPath!.row])"
-                
-                let backImage = UIImage(named: "good")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                cell.goodButton.setImage(backImage, for: UIControl.State.normal)
-                cell.goodButton.tintColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
-            //押されていた時の処理
-            }else{
-            alreadygoods[indexPath!.row] = false
-            goods[indexPath!.row] =  goods[indexPath!.row] - 1
-            cell.goodlabel.text! = "\(goods[indexPath!.row])"
-                
-                let backImage = UIImage(named: "good")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                cell.goodButton.setImage(backImage, for: UIControl.State.normal)
-                cell.goodButton.tintColor = .black
-            }
+        
+        //ボタンの判定
+        let evalutionbutton = EvalutionButton()
+        let result = evalutionbutton.goodButton(alreadygoods: alreadygoods,indexPath: indexPath!, goods: goods, button: cell.goodButton)
+
+        alreadygoods[(indexPath?.row)!] = result.alreadygoods
+        cell.goodlabel.text! = "\(result.goods)"
+        cell.goodButton = result.button
     }
     
     //BADボタンから取得する
@@ -230,26 +218,21 @@ extension Search2ViewController{
 
         let indexPath = tableView.indexPath(for: sender.superview!.superview as! UITableViewCell)
         let cell = tableView.cellForRow(at: indexPath!) as! TableViewCell
-            
-            //押されていなかった時の処理
-        if alreadybads[(indexPath?.row)!] == false{
-            alreadybads[(indexPath?.row)!] = true
-                bads[indexPath!.row] =  bads[indexPath!.row] + 1
-                cell.badlabel.text! = "\(bads[indexPath!.row])"
-                
-                let backImage = UIImage(named: "bad")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                cell.badButton.setImage(backImage, for: UIControl.State.normal)
-                cell.badButton.tintColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
-                
-            //押されていた時の処理
-            }else{
-            alreadybads[(indexPath?.row)!] = false
-                bads[indexPath!.row] =  bads[indexPath!.row] - 1
-                cell.badlabel.text! = "\(bads[indexPath!.row])"
-                
-                let backImage = UIImage(named: "bad")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                cell.badButton.setImage(backImage, for: UIControl.State.normal)
-                cell.badButton.tintColor = .black
-            }
+        
+        //ボタンの判定
+        let evalutionbutton = EvalutionButton()
+        let result = evalutionbutton.badButton(alreadybads: alreadybads,indexPath: indexPath!, bads: bads, button: cell.badButton)
+        
+        alreadybads[(indexPath?.row)!] = result.alreadybads
+        cell.badlabel.text! = "\(result.bads)"
+        cell.badButton = result.button
+    }
+    
+    //画面に渡す値
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toYouserAcount"{
+            let nextView = segue.destination as! YouserAcountViewController
+            nextView.spectator = "観覧ユーザ"
+        }
     }
 }

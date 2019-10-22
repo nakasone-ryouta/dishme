@@ -71,7 +71,7 @@ class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
         let height = view.frame.size.height
         
         textfield.delegate = self
-        textfield.frame = CGRect(x: width / 11.7, y: height / 2.6, width: width / 1.14, height: height / 3.38)
+        textfield.frame = CGRect(x: width / 11.7, y: height / 2.5, width: width / 1.14, height: height / 4)
         textfield.placeHolder = "口コミを書く"
         textfield.font = UIFont.init(name: "HelveticaNeue-Light", size: 16)!
         textfield.textAlignment  = .left

@@ -74,6 +74,9 @@ class CustomTableViewCell: UITableViewCell {
     func setPositions(view: UIView){
         let width = view.frame.size.width
         
+        leftButton.frame = CGRect(x: 246, y: 20, width: 44, height: 28)
+        rightButton.frame = CGRect(x: 311, y: 20, width: 44, height: 28)
+        
         leftButton.frame.origin.x = width - 100
         rightButton.frame.origin.x = width - 48
     }

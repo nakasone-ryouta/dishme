@@ -125,7 +125,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jpJ-Uf-Myl">
-                                <rect key="frame" x="0.0" y="88" width="375" height="613"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="613"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="ISC-0s-vc9"/>
@@ -284,7 +284,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="69" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6hA-rI-MgF">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoticeTableViewCell" rowHeight="69" id="k5f-2F-5JF" customClass="NoticeTableViewCell" customModule="dishme" customModuleProvider="target">
@@ -1195,6 +1195,7 @@
                         <segue destination="Fw6-qi-SDZ" kind="show" identifier="toPhotoSelect" id="BU6-yg-Pum"/>
                         <segue destination="Gnk-bo-cP6" kind="show" identifier="toCamera" id="byO-XF-B2J"/>
                         <segue destination="XQJ-LJ-yNK" kind="show" identifier="toNotice" id="LQU-1H-t5M"/>
+                        <segue destination="Yay-wH-CqB" kind="show" identifier="toSearch2" id="Ktm-vO-C5u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GVG-s5-r8g" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1530,12 +1531,13 @@
         <image name="tabsearch" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Ktm-vO-C5u"/>
         <segue reference="JYO-eN-2gu"/>
         <segue reference="f7i-Me-Lo9"/>
         <segue reference="Rvg-zX-bIk"/>
         <segue reference="KKy-9h-H7p"/>
         <segue reference="byO-XF-B2J"/>
-        <segue reference="Txv-9s-JIA"/>
-        <segue reference="zJh-Xi-D0N"/>
+        <segue reference="LQU-1H-t5M"/>
+        <segue reference="BU6-yg-Pum"/>
     </inferredMetricsTieBreakers>
 </document>

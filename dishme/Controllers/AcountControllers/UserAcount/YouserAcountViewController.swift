@@ -64,6 +64,8 @@ class YouserAcountViewController: UIViewController{
     //次の画面で指定したcellを最初に持ってくるindex
     var firstindex:IndexPath? = nil
     
+    var spectator = ""
+    
     //写真を表示するcollectionview
     var myCollectionView : UICollectionView!
     
@@ -228,7 +230,11 @@ extension YouserAcountViewController :UICollectionViewDelegate, UICollectionView
         print("SectionNum:\(indexPath.section)")
         
         firstindex = indexPath
-        performSegue(withIdentifier: "toPhotoSelect", sender: nil)
+        if spectator == "観覧ユーザ"{
+           performSegue(withIdentifier: "toSearch2", sender: nil)
+        }else{
+           performSegue(withIdentifier: "toPhotoSelect", sender: nil)
+        }
         
     }
     

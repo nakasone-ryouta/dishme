@@ -91,8 +91,6 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
     var congestion = "混雑時間"
     var maxnumber = "10"
     var congestiontime = "AM 13:00〜AM 14:00"
-    var yummynumber = 237
-    var yuckynumber = 37
     var comment = "春の旬のふきのとうや新鮮なリブステーキを兼ね揃えております。今ご来場していただいた方には次回からお使いいただけるクーポンも配布中です。"
     var avaragemoney = "¥6,280〜¥10,000"
     var holiday = "毎週水曜日"

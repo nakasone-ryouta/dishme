@@ -179,7 +179,12 @@ extension Search3ViewController{
     func scrollbackview(){
         let maxwidth = view.frame.size.width
         let maxheight = view.frame.size.height
-        scrollView.contentSize = CGSize(width:maxwidth, height:maxheight * 2)
+        
+        let cellheight = CellsHeight()
+        let height = cellheight.menuHeight(cellsum: dishes.count, view: view)
+        let width = Int(view.frame.size.width)
+        
+        scrollView.contentSize = CGSize(width:width, height:height - 100)
         scrollView.frame = self.view.frame
         self.view.addSubview(scrollView)
         
@@ -319,7 +324,7 @@ extension Search3ViewController{
         label.frame.origin.y = button.frame.origin.y + 20
         label.text = "YUMMY"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Light", size: 13)
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         label.textAlignment = NSTextAlignment.center
         acountview.addSubview(label)
     }
@@ -377,7 +382,7 @@ extension Search3ViewController{
         label.frame.origin.y = button.frame.origin.y + 28
         label.text = "YUCKY"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Light", size: 13)
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
         acountview.addSubview(label)
@@ -641,7 +646,13 @@ extension Search3ViewController: UICollectionViewDataSource ,UICollectionViewDel
 extension Search3ViewController:  UICollectionViewDelegateFlowLayout {
     
     func collectionsettings(viewcontroller: UIViewController){
-        collectionView1 = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 750), collectionViewLayout: UICollectionViewFlowLayout())
+        
+        //collectionview全体のザイズを取得
+        let cellheight = CellsHeight()
+        let height = cellheight.menuHeight(cellsum: dishes.count, view: view)
+        let width = Int(view.frame.size.width)
+        
+        collectionView1 = UICollectionView(frame: CGRect(x: 0, y: 0, width: width, height: height), collectionViewLayout: UICollectionViewFlowLayout())
         collectionView1.backgroundColor = UIColor.white
         collectionView1.register(Search3CollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         
@@ -658,7 +669,13 @@ extension Search3ViewController:  UICollectionViewDelegateFlowLayout {
     }
     
     func collection2settings(viewcontroller: UIViewController){
-        collectionView2 = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 750), collectionViewLayout: UICollectionViewFlowLayout())
+        
+        //collectionview全体のザイズを取得
+        let cellheight = CellsHeight()
+        let height = cellheight.menuHeight(cellsum: dishes.count, view: view)
+        let width = Int(view.frame.size.width)
+        
+        collectionView2 = UICollectionView(frame: CGRect(x: 0, y: 0, width: width, height: height), collectionViewLayout: UICollectionViewFlowLayout())
         collectionView2.backgroundColor = UIColor.white
         collectionView2.register(Search3CollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         
@@ -675,7 +692,13 @@ extension Search3ViewController:  UICollectionViewDelegateFlowLayout {
     }
     
     func collection3settings(viewcontroller: UIViewController){
-        collectionView3 = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 750), collectionViewLayout: UICollectionViewFlowLayout())
+        
+        //collectionview全体のザイズを取得
+        let cellheight = CellsHeight()
+        let height = cellheight.menuHeight(cellsum: dishes.count, view: view)
+        let width = Int(view.frame.size.width)
+        
+        collectionView3 = UICollectionView(frame: CGRect(x: 0, y: 0, width: width, height: height), collectionViewLayout: UICollectionViewFlowLayout())
         collectionView3.backgroundColor = UIColor.white
         collectionView3.register(Search3CollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         

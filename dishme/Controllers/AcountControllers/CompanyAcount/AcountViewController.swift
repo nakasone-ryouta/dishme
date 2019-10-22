@@ -127,7 +127,7 @@ class AcountViewController: UIViewController,ScrollingNavigationControllerDelega
     var phonenumber = 08069539797
     var congestiontime = "AM 13:00〜AM 14:00"
     var yummynumber = 237
-    var yuckynumber = 37
+    var yuckynumber = 325
 
     var comment = "春の旬のふきのとうや新鮮なリブステーキを兼ね揃えております。今ご来場していただいた方には次回からお使いいただけるクーポンも配布中です。"
     var avaragemoney = "¥6,280〜¥10,000"
@@ -332,7 +332,7 @@ extension AcountViewController{
         label.frame.origin.y = button.frame.origin.y - 5
         label.text = "\(yummynumber)"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 18)
         label.textAlignment = NSTextAlignment.center
         acountview.addSubview(label)
         
@@ -348,9 +348,9 @@ extension AcountViewController{
         label.frame =  CGRect(x: 0, y: 0, width: 50, height: 30)
         label.frame.origin.x = button.frame.origin.x - 60
         label.frame.origin.y = button.frame.origin.y + 20
-        label.text = "Yummy!"
+        label.text = "YUMMY"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 10)
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         label.textAlignment = NSTextAlignment.center
         acountview.addSubview(label)
     }
@@ -368,7 +368,7 @@ extension AcountViewController{
         // UIButtonのインスタンスを作成する
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(good), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: maxwidth / 1.14,
+        button.frame = CGRect(x: maxwidth / 1.17,
                               y: navBarHeight! + 100,
                               width: 22,
                               height: 20);
@@ -393,7 +393,7 @@ extension AcountViewController{
         label.frame.origin.y = button.frame.origin.y
         label.text = "\(yuckynumber)"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 18)
         label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
         acountview.addSubview(label)
@@ -408,11 +408,11 @@ extension AcountViewController{
         
         let label = UILabel()
         label.frame =  CGRect(x: 0, y: navBarHeight! + 120, width: 50, height: 30)
-        label.frame.origin.x = button.frame.origin.x - 50
+        label.frame.origin.x = button.frame.origin.x - 55
         label.frame.origin.y = button.frame.origin.y + 28
-        label.text = "Yucky"
+        label.text = "YUCKY"
         label.textColor = UIColor.black
-        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 10)
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
         acountview.addSubview(label)
