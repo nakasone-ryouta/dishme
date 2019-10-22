@@ -108,6 +108,10 @@ class YouserAcountViewController: UIViewController{
             nextVC.firstindex = firstindex
             nextVC.acountResister = "ユーザ"
         }
+        if segue.identifier == "toSearch2" {
+            let nextVC = segue.destination as! Search2ViewController
+            nextVC.firstindex = firstindex
+        }
     }
     
 }
