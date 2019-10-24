@@ -12,32 +12,28 @@ import UIKit
 
 class  EvalutionButton {
     
-    func goodButton(alreadygoods: [Bool],indexPath: IndexPath ,goods: [Int] ,button: UIButton) -> (goods:Int,alreadygoods:Bool, button:UIButton){
+    func goodButton(alreadygoods: [Bool],indexPath: IndexPath ,goods: [Int] ,button: DOFavoriteButton) -> (goods:Int,alreadygoods:Bool, button:DOFavoriteButton){
         
         //まだ押されていなかったら
         if alreadygoods[indexPath.row] == false{
-            let backImage = UIImage(named: "good")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-            button.setImage(backImage, for: .normal)
-            button.tintColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
+            button.select()
             return (goods[indexPath.row] + 1, true , button)
         }
         else{
-            button.setImage(UIImage(named: "good"), for: .normal)
+            button.deselect()
             return (goods[indexPath.row], false, button)
         }
     }
     
-    func badButton(alreadybads: [Bool],indexPath: IndexPath ,bads: [Int],button: UIButton) -> (bads:Int,alreadybads:Bool, button:UIButton){
+    func badButton(alreadybads: [Bool],indexPath: IndexPath ,bads: [Int],button: DOFavoriteButton) -> (bads:Int,alreadybads:Bool, button:DOFavoriteButton){
         
         //まだ押されていなかったら
         if alreadybads[indexPath.row] == false{
-            let backImage = UIImage(named: "bad")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-            button.setImage(backImage, for: .normal)
-            button.tintColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
+            button.select()
             return (bads[indexPath.row] + 1, true , button)
         }
         else{
-            button.setImage(UIImage(named: "bad"), for: .normal)
+            button.deselect()
             return (bads[indexPath.row], false, button)
         }
     }

@@ -19,5 +19,6 @@ target 'dishme' do
   pod 'FMPhotoPicker', '~> 0.8'
   pod 'SnapKit'
   pod "FlexiblePageControl"
+  pod 'IQKeyboardManagerSwift'
 
 end

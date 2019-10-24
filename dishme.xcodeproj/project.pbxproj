@@ -34,6 +34,19 @@
 		6A116FDF2354D39A00D01A53 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A116FDE2354D39A00D01A53 /* SearchTableViewController.swift */; };
 		6A1D21772358B058005F63A7 /* CameraCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1D21762358B058005F63A7 /* CameraCollectionViewCell.swift */; };
 		6A1D21792358B1C7005F63A7 /* AVCinSideOutSideObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1D21782358B1C7005F63A7 /* AVCinSideOutSideObject.swift */; };
+		6A21D5AA235FCDAB00C6CC93 /* UIButtonAnimated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A21D5A9235FCDAB00C6CC93 /* UIButtonAnimated.swift */; };
+		6A21D5B4236043B700C6CC93 /* DOFavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A21D5AD236043B700C6CC93 /* DOFavoriteButton.swift */; };
+		6A21D5B5236043B700C6CC93 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A21D5AE236043B700C6CC93 /* like.png */; };
+		6A21D5B6236043B700C6CC93 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A21D5AF236043B700C6CC93 /* heart.png */; };
+		6A21D5B7236043B700C6CC93 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A21D5B0236043B700C6CC93 /* star.png */; };
+		6A21D5B8236043B700C6CC93 /* smile.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A21D5B1236043B700C6CC93 /* smile.png */; };
+		6A21D5B9236043B700C6CC93 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6A21D5B2236043B700C6CC93 /* LICENSE */; };
+		6A21D5BA236043B700C6CC93 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6A21D5B3236043B700C6CC93 /* README.md */; };
+		6A21D5BD23605E4700C6CC93 /* SearchTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A21D5BB23605E4700C6CC93 /* SearchTableTableViewCell.swift */; };
+		6A21D5BE23605E4700C6CC93 /* SearchTableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A21D5BC23605E4700C6CC93 /* SearchTableTableViewCell.xib */; };
+		6A21D5D92361024300C6CC93 /* ReplyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A21D5D82361024300C6CC93 /* ReplyViewController.swift */; };
+		6A21D5DC23610BC700C6CC93 /* ReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A21D5DA23610BC700C6CC93 /* ReplyTableViewCell.swift */; };
+		6A21D5DD23610BC700C6CC93 /* ReplyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A21D5DB23610BC700C6CC93 /* ReplyTableViewCell.xib */; };
 		6A2B6FBA2331B47B005A3D03 /* PageMenuinit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B6FB92331B47B005A3D03 /* PageMenuinit.swift */; };
 		6A40A544232A898C0096CC28 /* Search3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A40A543232A898C0096CC28 /* Search3ViewController.swift */; };
 		6A40A546232A9FDA0096CC28 /* PageMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A40A545232A9FD90096CC28 /* PageMenuView.swift */; };
@@ -101,6 +114,19 @@
 		6A116FDE2354D39A00D01A53 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		6A1D21762358B058005F63A7 /* CameraCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A1D21782358B1C7005F63A7 /* AVCinSideOutSideObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCinSideOutSideObject.swift; sourceTree = "<group>"; };
+		6A21D5A9235FCDAB00C6CC93 /* UIButtonAnimated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIButtonAnimated.swift; path = ../../../swift/touchButton/touchButton/UIButtonAnimated.swift; sourceTree = "<group>"; };
+		6A21D5AD236043B700C6CC93 /* DOFavoriteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DOFavoriteButton.swift; sourceTree = "<group>"; };
+		6A21D5AE236043B700C6CC93 /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
+		6A21D5AF236043B700C6CC93 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
+		6A21D5B0236043B700C6CC93 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		6A21D5B1236043B700C6CC93 /* smile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smile.png; sourceTree = "<group>"; };
+		6A21D5B2236043B700C6CC93 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6A21D5B3236043B700C6CC93 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		6A21D5BB23605E4700C6CC93 /* SearchTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableTableViewCell.swift; sourceTree = "<group>"; };
+		6A21D5BC23605E4700C6CC93 /* SearchTableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableTableViewCell.xib; sourceTree = "<group>"; };
+		6A21D5D82361024300C6CC93 /* ReplyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyViewController.swift; sourceTree = "<group>"; };
+		6A21D5DA23610BC700C6CC93 /* ReplyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyTableViewCell.swift; sourceTree = "<group>"; };
+		6A21D5DB23610BC700C6CC93 /* ReplyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplyTableViewCell.xib; sourceTree = "<group>"; };
 		6A2B6FB92331B47B005A3D03 /* PageMenuinit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageMenuinit.swift; sourceTree = "<group>"; };
 		6A40A543232A898C0096CC28 /* Search3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search3ViewController.swift; sourceTree = "<group>"; };
 		6A40A545232A9FD90096CC28 /* PageMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageMenuView.swift; sourceTree = "<group>"; };
@@ -187,6 +213,29 @@
 			path = UserAcount;
 			sourceTree = "<group>";
 		};
+		6A21D5AB236043B700C6CC93 /* DOFavoriteButton */ = {
+			isa = PBXGroup;
+			children = (
+				6A21D5AC236043B700C6CC93 /* DOFavoriteButton */,
+				6A21D5B2236043B700C6CC93 /* LICENSE */,
+				6A21D5B3236043B700C6CC93 /* README.md */,
+			);
+			name = DOFavoriteButton;
+			path = ../../../swift/touchButton/Pods/DOFavoriteButton;
+			sourceTree = "<group>";
+		};
+		6A21D5AC236043B700C6CC93 /* DOFavoriteButton */ = {
+			isa = PBXGroup;
+			children = (
+				6A21D5AD236043B700C6CC93 /* DOFavoriteButton.swift */,
+				6A21D5AE236043B700C6CC93 /* like.png */,
+				6A21D5AF236043B700C6CC93 /* heart.png */,
+				6A21D5B0236043B700C6CC93 /* star.png */,
+				6A21D5B1236043B700C6CC93 /* smile.png */,
+			);
+			path = DOFavoriteButton;
+			sourceTree = "<group>";
+		};
 		6A2CA96E2346652A00CA35CC /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				6A6AE06223291A9900D776AD /* dishCell.swift */,
+				6A21D5BB23605E4700C6CC93 /* SearchTableTableViewCell.swift */,
+				6A21D5BC23605E4700C6CC93 /* SearchTableTableViewCell.xib */,
 				6A6AE0602329184E00D776AD /* menubarCell.swift */,
 				6A9A82542333C42900507C1C /* TableViewCell.swift */,
 				6AFBB524234F5B77000276D4 /* Search3CollectionViewCell.swift */,
@@ -300,6 +351,7 @@
 		6A6AE08823296A8900D776AD /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				6A21D5A9235FCDAB00C6CC93 /* UIButtonAnimated.swift */,
 				6A0AE914235EBC4800C45EB9 /* CollectionSettings.swift */,
 				6A00A024234C79E300E42E44 /* TableSettings.swift */,
 				6A0AC28F235652A900A59F0C /* Layouting.swift */,
@@ -313,6 +365,7 @@
 				6A0960762348CA6300846ABF /* GetDates.swift */,
 				6A00A02C234CE44400E42E44 /* PlaceHolderTextView.swift */,
 				0C23C238235D5A51005DB215 /* SweetAlert.swift */,
+				6A21D5AB236043B700C6CC93 /* DOFavoriteButton */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -338,6 +391,7 @@
 				6A40A547232BD5420096CC28 /* Search4ViewController.swift */,
 				6A9A82822335D7FA00507C1C /* ReservationViewController.swift */,
 				6A0AE912235E664B00C45EB9 /* EvalutionButton.swift */,
+				6A21D5D82361024300C6CC93 /* ReplyViewController.swift */,
 			);
 			path = SearchiesControllers;
 			sourceTree = "<group>";
@@ -368,6 +422,8 @@
 				6A00A02E234D620700E42E44 /* PhotoSelectFilterViewCell.swift */,
 				6A9A824C2331CAC000507C1C /* PhotosCollectionViewCell.swift */,
 				6A00A022234C43B100E42E44 /* NoticeTableViewCell.swift */,
+				6A21D5DA23610BC700C6CC93 /* ReplyTableViewCell.swift */,
+				6A21D5DB23610BC700C6CC93 /* ReplyTableViewCell.xib */,
 			);
 			path = AcountCells;
 			sourceTree = "<group>";
@@ -424,6 +480,7 @@
 				TargetAttributes = {
 					6A6AE0452329163C00D776AD = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -450,10 +507,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A21D5B5236043B700C6CC93 /* like.png in Resources */,
+				6A21D5B7236043B700C6CC93 /* star.png in Resources */,
+				6A21D5B6236043B700C6CC93 /* heart.png in Resources */,
 				6A9A826023349A7B00507C1C /* List2TableViewCell.xib in Resources */,
+				6A21D5BA236043B700C6CC93 /* README.md in Resources */,
 				6A6AE0572329164000D776AD /* LaunchScreen.storyboard in Resources */,
 				6A6AE0542329164000D776AD /* Assets.xcassets in Resources */,
+				6A21D5B9236043B700C6CC93 /* LICENSE in Resources */,
+				6A21D5B8236043B700C6CC93 /* smile.png in Resources */,
 				6A6AE04F2329163C00D776AD /* Main.storyboard in Resources */,
+				6A21D5DD23610BC700C6CC93 /* ReplyTableViewCell.xib in Resources */,
+				6A21D5BE23605E4700C6CC93 /* SearchTableTableViewCell.xib in Resources */,
 				6A0960712348702700846ABF /* Search4TableViewCell.xib in Resources */,
 				6A0AE90D235D0E7800C45EB9 /* ReserveTableViewCell.xib in Resources */,
 				6A9A827E2335C00900507C1C /* PhotoSelectBig.xib in Resources */,
@@ -479,6 +544,7 @@
 				"${BUILT_PRODUCTS_DIR}/FMPhotoPicker/FMPhotoPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexiblePageControl/FlexiblePageControl.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapLikeCollectionView/SnapLikeCollectionView.framework",
 				"${BUILT_PRODUCTS_DIR}/collection-view-layouts/collection_view_layouts.framework",
@@ -494,6 +560,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMPhotoPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexiblePageControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapLikeCollectionView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/collection_view_layouts.framework",
@@ -562,6 +629,7 @@
 				6A00A025234C79E300E42E44 /* TableSettings.swift in Sources */,
 				6A9A827A2334D04500507C1C /* PhotosBigViewCell.swift in Sources */,
 				6A40A544232A898C0096CC28 /* Search3ViewController.swift in Sources */,
+				6A21D5BD23605E4700C6CC93 /* SearchTableTableViewCell.swift in Sources */,
 				6AFBB525234F5B77000276D4 /* Search3CollectionViewCell.swift in Sources */,
 				6A6AE0612329184E00D776AD /* menubarCell.swift in Sources */,
 				6A7C62FC2331433000B0B898 /* Filtering.swift in Sources */,
@@ -578,6 +646,7 @@
 				6A9A82552333C42900507C1C /* TableViewCell.swift in Sources */,
 				6A505CD0232DA85B002F2184 /* CameraViewController.swift in Sources */,
 				6A9A826223349FDF00507C1C /* List2ViewController.swift in Sources */,
+				6A21D5B4236043B700C6CC93 /* DOFavoriteButton.swift in Sources */,
 				6A0AE915235EBC4800C45EB9 /* CollectionSettings.swift in Sources */,
 				6A6AE05F2329166D00D776AD /* SearchViewController.swift in Sources */,
 				6A9A82682334C62100507C1C /* PhotoSelectViewController.swift in Sources */,
@@ -585,12 +654,14 @@
 				6A0960702348702700846ABF /* Search4TableViewCell.swift in Sources */,
 				6A0AE913235E664C00C45EB9 /* EvalutionButton.swift in Sources */,
 				6A00A02D234CE44400E42E44 /* PlaceHolderTextView.swift in Sources */,
+				6A21D5D92361024300C6CC93 /* ReplyViewController.swift in Sources */,
 				6A505CF72330147F002F2184 /* UIoverride.swift in Sources */,
 				6A00A019234B72F900E42E44 /* Alert.swift in Sources */,
 				6A1D21792358B1C7005F63A7 /* AVCinSideOutSideObject.swift in Sources */,
 				6A0AE90C235D0E7800C45EB9 /* ReserveTableViewCell.swift in Sources */,
 				6AC526292337F86300A7A680 /* EditSettingViewController.swift in Sources */,
 				6A0960752348B2F200846ABF /* EditHolidayViewController.swift in Sources */,
+				6A21D5DC23610BC700C6CC93 /* ReplyTableViewCell.swift in Sources */,
 				6A0AE907235D0E3200C45EB9 /* HistoryViewController.swift in Sources */,
 				6A7C62F62330408400B0B898 /* CameraEditCollectionViewCell.swift in Sources */,
 				6A6AE04A2329163C00D776AD /* AppDelegate.swift in Sources */,
@@ -610,6 +681,7 @@
 				6A9A82572334244C00507C1C /* CameraLastViewController.swift in Sources */,
 				6A1D21772358B058005F63A7 /* CameraCollectionViewCell.swift in Sources */,
 				6A09607923498E4E00846ABF /* EditRegularHolidayViewController.swift in Sources */,
+				6A21D5AA235FCDAB00C6CC93 /* UIButtonAnimated.swift in Sources */,
 				6A9A825E23349A3700507C1C /* List2TableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -757,6 +829,7 @@
 			baseConfigurationReference = 393EB9FB22D8D2FAA62311C7 /* Pods-dishme.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R2Q73Z8UDH;
 				INFOPLIST_FILE = dishme/Info.plist;
@@ -766,6 +839,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.someone.dishme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -776,6 +850,7 @@
 			baseConfigurationReference = 06C54F25A37982B6F9F2BD69 /* Pods-dishme.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R2Q73Z8UDH;
 				INFOPLIST_FILE = dishme/Info.plist;

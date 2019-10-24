@@ -23,7 +23,7 @@ class PhotoSelectViewController: UIViewController{
     
     
     var firstindex:IndexPath? = nil
-    var pageindex: Int = -1
+    var pageindex: Int = 0
     
     var originalimages:[UIImage] = [UIImage(named: "meat1")!,
                                     UIImage(named: "meat2")!,
@@ -161,7 +161,7 @@ extension PhotoSelectViewController: UITableViewDelegate,UITableViewDataSource {
     func topcell(){
         let noindex = IndexPath(item: 0, section: 0)
         collectionView2.scrollToItem(at: firstindex ?? noindex, at: .right, animated: false)
-        pageindex = (firstindex?.row)!
+//        pageindex = (firstindex?.row)!
     }
     //tableの基本設定
     func tablesettings(){
@@ -475,20 +475,19 @@ extension PhotoSelectViewController{
     }
     
     func alertButton(){
-        let button = UIButton()
+        
+        let button = UIButton(type: .custom)
         let width = view.frame.size.width
         let height = view.frame.size.height
         button.frame = CGRect(x: width / 14.4,
                               y: height / 1.07,
-                              width: width / 7.5,
+                              width: width / 14.4,
                               height: width / 14.4);
-        button.setTitle("保存", for:UIControl.State.normal)
-        button.titleLabel?.sizeToFit()
-        button.setTitleColor(UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), for: .normal)
-        button.titleLabel?.font =  UIFont.systemFont(ofSize: 15)
-        button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: width / 22)!
-        button.titleLabel?.textAlignment = .left
+        button.layer.shadowOpacity = 0.1
+        button.layer.shadowOffset = CGSize(width: 2, height: 2)
+        button.setImage(UIImage(named: "checkmark"), for: UIControl.State())
         button.addTarget(self, action: #selector(dicidesegue), for: UIControl.Event.touchUpInside)
+        
         
         self.view.addSubview(button)
     }

@@ -43,6 +43,32 @@ class GetDates{
         let day = tmpCalendar.component(.day, from: date)
         return (year,month,day)
     }
+    //月をInt型で取得
+    func getMonth(date: Date) ->Int{
+        let tmpCalendar = Calendar(identifier: .gregorian)
+        let month = tmpCalendar.component(.month, from: date)
+        return month
+    }
+    
+    //今月を取得
+    func getThisMonth(date: Date) ->String{
+        var calendar = Calendar.current
+        
+        calendar.locale = Locale(identifier: "ja_JP")
+        let month = calendar.component(.month, from: date)
+        print(calendar.standaloneMonthSymbols[month - 1])
+        return calendar.standaloneMonthSymbols[month - 1]
+    }
+    
+    //先月を取得
+    func getLastMonth(date: Date) ->String{
+        var calendar = Calendar.current
+        
+        calendar.locale = Locale(identifier: "ja_JP")
+        let month = calendar.component(.month, from: date)
+        print(calendar.standaloneMonthSymbols[month - 2])
+        return calendar.standaloneMonthSymbols[month - 2]
+    }
     
     //曜日判定(日曜日:1 〜 土曜日:7)
     func getWeekIdx(_ date: Date) -> Int{

@@ -16,6 +16,7 @@ PODS:
     - GoogleMaps/Base
   - GooglePlaces (3.5.0):
     - GoogleMaps/Base (= 3.5.0)
+  - IQKeyboardManagerSwift (6.5.1)
   - SnapKit (5.0.1)
   - SnapLikeCollectionView (1.1.0)
 
@@ -30,6 +31,7 @@ DEPENDENCIES:
   - FSCalendar
   - GoogleMaps
   - GooglePlaces
+  - IQKeyboardManagerSwift
   - SnapKit
   - SnapLikeCollectionView
 
@@ -45,6 +47,7 @@ SPEC REPOS:
     - FSCalendar
     - GoogleMaps
     - GooglePlaces
+    - IQKeyboardManagerSwift
     - SnapKit
     - SnapLikeCollectionView
 
@@ -59,9 +62,10 @@ SPEC CHECKSUMS:
   FSCalendar: 3a5ed3636e2ba1b83ebebfcf0c2603105a6f5efe
   GoogleMaps: 32ca02de09de357a10ac773f2c70f1986751392d
   GooglePlaces: be6f19fe8aa6ff0b5bcccfa1b8805cc977ea1450
+  IQKeyboardManagerSwift: 9ac7524fad9f9fe9a3b98c927e7772471ca546d2
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SnapLikeCollectionView: b6f46ad57d104f94d91ce78b721afa43fd2b444b
 
-PODFILE CHECKSUM: dd3d1a220a4125453fc19b4a87fc59ba45c82eff
+PODFILE CHECKSUM: d53ccee7da56359d2c2576daf263910ff38e7bbc
 
 COCOAPODS: 1.5.3

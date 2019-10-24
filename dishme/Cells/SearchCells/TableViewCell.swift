@@ -19,8 +19,9 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var goodlabel: UILabel!
     @IBOutlet weak var badlabel: UILabel!
-    @IBOutlet var goodButton: UIButton!
-    @IBOutlet var badButton: UIButton!
+    @IBOutlet var goodButton: DOFavoriteButton!
+    @IBOutlet var badButton: DOFavoriteButton!
+    @IBOutlet var commentButton: UIButton!
     
     //pagescroll
     @IBOutlet var photoBackView: UIView!
@@ -43,6 +44,7 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
     override func awakeFromNib() {
         super.awakeFromNib()
         addSubview(detailButton)
+        
         
         // Initialization code
         acountButton.layer.masksToBounds = true

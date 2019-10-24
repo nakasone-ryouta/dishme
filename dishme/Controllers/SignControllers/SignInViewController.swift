@@ -72,7 +72,6 @@ extension SignInViewController{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // 選択されているTextFieldを更新
         self.selectedTextField = textField
-        print("aaaaa")
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -90,6 +89,10 @@ extension SignInViewController{
         company_password_textfield.resignFirstResponder()
         
         return true
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("aaaaa")
+        restoreScrollViewSize()
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         signin_email_textfield.text = signin_password_textfield.text

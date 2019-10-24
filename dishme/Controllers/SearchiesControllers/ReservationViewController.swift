@@ -120,11 +120,30 @@ extension ReservationViewController:FSCalendarDelegate,FSCalendarDataSource,FSCa
         calendar.appearance.todayColor = UIColor.init(red:55/255, green: 151/255, blue: 240/255, alpha: 1)
         calendar.appearance.selectionColor = UIColor.init(red:55/255, green: 151/255, blue: 240/255, alpha: 1)
         calendar.appearance.headerTitleColor = UIColor.init(red:55/255, green: 151/255, blue: 240/255, alpha: 1)
+//        calendar.scope = .week
     }
     
     
     // 土日や祝日の日の文字色を変える
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        let getdates = GetDates()
+        let weekday = getdates.getWeekIdx(date)
+        
+        if date .compare(Date()) == .orderedAscending {
+            return .white
+        }
+        
+//        else if getdates.judgeHoliday(date){
+//            return .red
+//        }
+
+//        if weekday == 1 {   //日曜日
+//            return UIColor.red
+//        }
+//        else if weekday == 7 {  //土曜日
+//            return UIColor.blue
+//        }
+
         
         //予約無理な日
         for i in 0..<notday.count{
@@ -135,10 +154,22 @@ extension ReservationViewController:FSCalendarDelegate,FSCalendarDataSource,FSCa
         return nil
     }
     
+    //前の月を選択不可
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        if date .compare(Date()) == .orderedAscending {
+            return false
+        }
+        else {
+            return true
+        }
+    }
+    
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         calendar.appearance.todayColor = .white
         calendar.appearance.titleTodayColor = .black
+    }
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
     }
 }
 

@@ -16,15 +16,30 @@ class SearchTableViewController: UIViewController {
     
     //========================================検索に必要なもの(追加)======================================
     var searchController = UISearchController()//検索バー
-    var tableView: UITableView!//検索テーブル
+//    var tableView: UITableView!//検索テーブル
+    @IBOutlet var tableView: UITableView!
     //オススメの検索候補
     var favorite:[String] = ["肉料理","海鮮料理","イタリアン","中華料理","インド料理","居酒屋","バル","TVで人気","パフェ"]
     //検索候補
     let suggestions:[String] = ["肉料理", "肉のバル", "肉の居酒屋","肉十八番","東京肉センター秋葉原店", "肉チーズ", "肉人気"]
     
+    var storeposition:[String] = ["300m","500m","1km","2km","3km","300m","500m","1km","2km","3km"]
     var spot:[String] = ["300m以内","500m以内","1km以内","2km以内","3km以内"]
     var favoritejudge = "おすすめ"//おすすめをタッチするか検索されたものをタッチするか
     var searchResults:[String] = []//検索結果
+    
+    var dishes:[UIImage] = [UIImage(named: "meat1")!,
+                            UIImage(named: "meat2")!,
+                            UIImage(named: "meat3")!,
+                            UIImage(named: "meat4")!,
+                            UIImage(named: "meat2")!,
+                            UIImage(named: "meat3")!,
+                            UIImage(named: "meat4")!,
+                            UIImage(named: "meat2")!,
+                            UIImage(named: "meat3")!,
+                            UIImage(named: "meat4")!,
+                            UIImage(named: "meat5")!,
+                            UIImage(named: "meat6")!,]
     //========================================検索に必要なもの===========================================
 
     var settings = ""
@@ -35,16 +50,18 @@ class SearchTableViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        
         switch settings{
         case "距離":
             tablesettings()
+            break;
         default:
             setupSearchcontroller()
             tablesettings()
         }
         
         setupNavagation()
-        
     }
 
 }
@@ -110,12 +127,10 @@ extension SearchTableViewController:UISearchResultsUpdating,UISearchBarDelegate{
 //検索テーブル(追加)
 extension SearchTableViewController: UITableViewDelegate,UITableViewDataSource {
     func tablesettings(){
-        let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
-        tableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: self.view.frame.width, height: self.view.frame.height))
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.dataSource = self
         tableView.delegate = self
-        self.view.addSubview(tableView)
+        tableView.dataSource = self
+        let nib = UINib(nibName: "SearchTableTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "SearchTableTableViewCell")
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,22 +149,29 @@ extension SearchTableViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath as IndexPath)
         
-        cell.textLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableTableViewCell", for: indexPath as IndexPath) as! SearchTableTableViewCell
+
         //距離
         if settings == "距離"{
             tableView.tableFooterView = UIView(frame: .zero)
             cell.textLabel!.text = "\(spot[indexPath.row])"
+            //いらないviewを消す
+            cell.kmLabel.removeFromSuperview()
+            cell.searchLabel.removeFromSuperview()
         }
         //検索
         else if searchController.searchBar.text != ""{
-            cell.textLabel!.text = "\(searchResults[indexPath.row])"
+            
+            cell.acountImage.image = dishes[indexPath.row]
+            cell.kmLabel.text = storeposition[indexPath.row]
+            cell.searchLabel.text = searchResults[indexPath.row]
         }
         //検索結果
         else {
-            cell.textLabel!.text = "\(suggestions[indexPath.row])"
+            cell.acountImage.image = dishes[indexPath.row]
+            cell.kmLabel.text = storeposition[indexPath.row]
+            cell.searchLabel.text = "\(suggestions[indexPath.row])"
         }
         
         return cell

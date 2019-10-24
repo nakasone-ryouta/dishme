@@ -51,7 +51,7 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var acountimage = UIImage(named: "acount1")
     var openHeights: [CGFloat] = [600,600,600,600,600,600,600,600,600,600,600,600,600,600,600]
-    var comment = "めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました言い値の先端リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっです。リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました言い値の先端リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました。ブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちぺた落ちちゃいました。ブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました"
+    var comment = "めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちした。ブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました"
     var goods:[Int] = [120,120,120,120,120,120,120,120,120,120,120,120,120,120,120,]
     var bads:[Int] = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]
     var isOpens = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,]
@@ -149,8 +149,9 @@ extension Search2ViewController{
         cell.detailButton.addTarget(self, action: #selector(self.detailaction), for: .touchUpInside)
         cell.acountButton.addTarget(self, action: #selector(self.toYouserAcount), for: .touchUpInside)
         cell.resevebButton.addTarget(self, action: #selector(self.saveacount), for: .touchUpInside)
+        cell.goodButton.addTarget(self, action: #selector(self.goodbutton), for: .touchUpInside)
         cell.badButton.addTarget(self, action: #selector(self.badButton), for: .touchUpInside)
-
+        cell.commentButton.addTarget(self, action: #selector(self.commentaction), for: .touchUpInside)
         return cell
     }
     
@@ -195,6 +196,11 @@ extension Search2ViewController{
         performSegue(withIdentifier: "toSearch3", sender: nil)
     }
     
+    @objc func commentaction(){
+        
+        performSegue(withIdentifier: "toReply", sender: nil)
+    }
+    
     //保存ボタン
     @objc func saveacount(sender: UIButton){
         let indexPath = tableView.indexPath(for: sender.superview!.superview as! UITableViewCell)
@@ -203,21 +209,21 @@ extension Search2ViewController{
     }
     
     //GOODボタンから取得する
-    @objc func goodbutton(sender: UIButton){
+    @objc func goodbutton(sender: DOFavoriteButton){
         let indexPath = tableView.indexPath(for: sender.superview!.superview as! UITableViewCell)
         let cell = tableView.cellForRow(at: indexPath!) as! TableViewCell
         
         //ボタンの判定
         let evalutionbutton = EvalutionButton()
         let result = evalutionbutton.goodButton(alreadygoods: alreadygoods,indexPath: indexPath!, goods: goods, button: cell.goodButton)
-
+        
         alreadygoods[(indexPath?.row)!] = result.alreadygoods
         cell.goodlabel.text! = "\(result.goods)"
         cell.goodButton = result.button
     }
     
     //BADボタンから取得する
-    @objc func badButton(sender: UIButton){
+    @objc func badButton(sender: DOFavoriteButton){
 
 
         let indexPath = tableView.indexPath(for: sender.superview!.superview as! UITableViewCell)
