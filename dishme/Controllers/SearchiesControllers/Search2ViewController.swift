@@ -130,7 +130,7 @@ extension Search2ViewController{
         namerange.append(cellTexts[indexPath.row].count)
         attrText.append(NSMutableAttributedString(string: cell.resevebButton.titleLabel!.text!))
         attrText[indexPath.row].addAttribute(.foregroundColor,
-                              value: UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), range: NSMakeRange(namerange.last!, 6))
+                              value: UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), range: NSMakeRange(namerange.last! + 1, 5))
         cell.resevebButton.setAttributedTitle(attrText[indexPath.row], for: .normal)
         
         //企業の場合は保存ボタンはいらない

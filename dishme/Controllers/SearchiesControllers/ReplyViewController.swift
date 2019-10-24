@@ -11,6 +11,9 @@ class ReplyViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     
+    //インジケータ
+    private let refreshControl = UIRefreshControl()
+    
     let textList:[String] = [
         "新しいdishmeのアプリが公開されました。ぜひ使ってみてください",
         "通知機能をONにすると常時お店の情報が記載されます。設定＞通知でONにできます",
@@ -43,6 +46,8 @@ class ReplyViewController: UIViewController {
         //navigationの基本設定
         setNavigation()
         
+        //インジケータの基本設定
+        refreshControllSettings()
         
         //textfieldの基本設定
         textfieldsettings()
@@ -63,6 +68,28 @@ class ReplyViewController: UIViewController {
         print("aaaaa")
     }
 }
+
+//refreshcontroll周り
+extension ReplyViewController{
+    //インジケータの基本設定
+    func refreshControllSettings(){
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(ReplyViewController.refresh(sender:)), for: .valueChanged)
+        refreshControl.tintColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
+    }
+    //インジケータ
+    @objc func refresh(sender: UIRefreshControl) {
+        self.refreshControl.endRefreshing()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            //ここに更新時の処理
+        }
+        self.tableView.contentOffset = CGPoint.zero
+        
+    }
+}
+
+//textfieldの基本設定
 extension ReplyViewController :UITextFieldDelegate{
     
     func textfieldsettings(){
