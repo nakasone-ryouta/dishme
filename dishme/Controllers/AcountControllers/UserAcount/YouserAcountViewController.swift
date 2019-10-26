@@ -21,6 +21,8 @@ class YouserAcountViewController: UIViewController{
     let commentViewHeight: CGFloat = 64.0
     let animatorDuration: TimeInterval = 1
     
+    var customcolor = CustomColor()
+    
     // UI
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var blurEffectView: UIVisualEffectView!
@@ -48,7 +50,7 @@ class YouserAcountViewController: UIViewController{
     var point = "¥17200"
     var email = "sone.to.soccer@icloud.com"
     var acountimage = UIImage(named: "acount1")
-    var sectionTitle:[String] = ["dishstore","ribface","新規追加",]
+    var sectionTitle:[String] = ["新規追加","ribface","dishstore",]
     var image:[UIImage] = [UIImage(named: "meat1")!,
                            UIImage(named: "meat2")!,
                            UIImage(named: "meat3")!,
@@ -162,13 +164,10 @@ extension YouserAcountViewController :UICollectionViewDelegate, UICollectionView
         
         myCollectionView.backgroundColor = .white
         
-        let maxwidth = view.frame.size.width
-        let maxheight = view.frame.size.height
-        
-        let BarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
-        print(BarHeight)
-        print(maxheight)
-        myCollectionView.frame = CGRect(x: 0, y: 0, width: maxwidth, height: 580)
+        //frame
+        let layouting = Layouting()
+        layouting.youserAcountcollectionLayouting(collectionView: myCollectionView, view: view)
+      
         
         self.backview.addSubview(myCollectionView)
     }
@@ -181,13 +180,13 @@ extension YouserAcountViewController :UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch(section){
         case 0:
-            return 10
+            return 0
             
         case 1:
             return 8
             
         case 2:
-            return 0
+            return 10
             
         default:
             print("error")
@@ -203,7 +202,7 @@ extension YouserAcountViewController :UICollectionViewDelegate, UICollectionView
         case 0:
             cell.backgroundColor = UIColor.red
             cell.textLabel?.text = "0"
-            cell.imageView?.image = image[indexPath.row]
+//            cell.imageView?.image = image[indexPath.row]
             
         case 1:
             cell.backgroundColor = UIColor.white
@@ -370,7 +369,7 @@ extension YouserAcountViewController{
         let label = UILabel()
         label.frame = CGRect(x: width / 1.23, y: 92, width: 0, height: 0)
         label.text = point
-        label.textColor = UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1)
+        label.textColor = customcolor.selectColor()
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: width / 25)
         label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
@@ -383,7 +382,7 @@ extension YouserAcountViewController{
         // UIButtonのインスタンスを作成する
         let button = UIButton(type: UIButton.ButtonType.system)
         button.frame = CGRect(x: width / 1.27, y: 121, width: 0, height: 0)
-        button.setTitleColor(UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1), for: UIControl.State.normal)
+        button.setTitleColor(customcolor.selectColor(), for: UIControl.State.normal)
         button.addTarget(self, action: #selector(creditRegister), for: UIControl.Event.touchUpInside)
         button.setTitle("ポイント換金", for: UIControl.State.normal)
         button.titleLabel!.font = UIFont(name: "Helvetica-Bold",size: CGFloat(width / 31.25))
@@ -396,7 +395,7 @@ extension YouserAcountViewController{
         
         // UIButtonのインスタンスを作成する
         creditbutton.frame = CGRect(x: width / 1.274, y: 99, width: 0, height: 0)
-        creditbutton.setTitleColor(UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1), for: UIControl.State.normal)
+        creditbutton.setTitleColor(customcolor.selectColor(), for: UIControl.State.normal)
         creditbutton.addTarget(self, action: #selector(creditRegister), for: UIControl.Event.touchUpInside)
         creditbutton.setTitle("振込口座登録", for: UIControl.State.normal)
         creditbutton.titleLabel!.font = UIFont(name: "Helvetica-Bold",size: CGFloat(width / 31.25))

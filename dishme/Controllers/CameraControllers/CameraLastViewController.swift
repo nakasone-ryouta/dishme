@@ -15,6 +15,8 @@ class CameraLastViewController: UIViewController {
     //サインイン(企業orユーザ)
     var acountResister = "企業"
     
+    var customcolor = CustomColor()
+    
     //[ユーザのメニュー追加],[企業のメニュー追加],[口コミの追加]
     var cameratarget = ""
     //[外観][メインメニュー][サイドメニュー][ドリンク]
@@ -102,7 +104,7 @@ class CameraLastViewController: UIViewController {
         let width = view.frame.size.width
         let height = view.frame.size.height
         lineview.frame = CGRect(x: width / 62.5, y: height / 2.56, width: width / 1.03, height: 1)
-        lineview.backgroundColor = UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1)
+        lineview.backgroundColor = customcolor.selectColor()
         view.addSubview(lineview)
     }
     
@@ -172,7 +174,7 @@ class CameraLastViewController: UIViewController {
         button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: width / 22.05)!
         button.setTitle("決定", for: UIControl.State.normal)
         button.titleLabel?.sizeToFit()
-        button.setTitleColor(UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1), for: UIControl.State.normal)
+        button.setTitleColor(customcolor.selectColor(), for: UIControl.State.normal)
         view.addSubview(button)
     }
     

@@ -17,4 +17,17 @@ class CellsHeight {
         result = line * Int(view.frame.size.width)
         return result
     }
+    
+    func totalHeight(cellsum: [Int] ,view: UIView) ->Int{
+        var result = 0
+        let cellsize = Int(view.frame.size.width / 3 - 1)
+        for i in 0..<cellsum.count{
+            let line = Double(cellsum[i]) / 3
+            let lineup = ceil(line)
+            let linedown = Int(lineup)
+            result = cellsize * linedown + result
+            print("aaaaa",result)
+        }
+        return result
+    }
 }

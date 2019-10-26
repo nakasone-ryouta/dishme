@@ -22,29 +22,17 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
     @IBOutlet var goodButton: DOFavoriteButton!
     @IBOutlet var badButton: DOFavoriteButton!
     @IBOutlet var commentButton: UIButton!
+    @IBOutlet var commentNumber: UILabel!
     
+    @IBOutlet var detailButton: UIButton!
     //pagescroll
     @IBOutlet var photoBackView: UIView!
     private var scrollView: UIScrollView!
     @IBOutlet var pageControl: FlexiblePageControl!
     let scrollSize: CGFloat = 300
     
-    let detailButton: UIButton = {
-        let button = UIButton(type: UIButton.ButtonType.system)
-        button.frame = CGRect(x: 10, y: 375, width: 70, height: 30)
-        button.layer.cornerRadius = 15
-        button.titleLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 10)
-        button.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
-        button.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        button.setTitle("お店を見る", for: UIControl.State.normal)
-
-        return button
-    }()
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        addSubview(detailButton)
-        
         
         // Initialization code
         acountButton.layer.masksToBounds = true
@@ -62,6 +50,15 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
         pageControl.currentPageIndicatorTintColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
         pageControl.center = CGPoint(x: scrollView.center.x, y: scrollView.frame.maxY + 16)
         photoBackView.addSubview(pageControl)
+        
+
+
+        detailButton.layer.cornerRadius = 18
+        detailButton.titleLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 10)
+        detailButton.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+        detailButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        detailButton.setTitle("お店を見る", for: UIControl.State.normal)
+        photoBackView.bringSubviewToFront(detailButton)
 
     }
     
@@ -82,10 +79,10 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
         setContent(numberOfPages: photonumber)
         
         //格写真を並べる
-        scrollView.contentSize = CGSize(width: 375 * photonumber, height: 375)
+        scrollView.contentSize = CGSize(width: 375 * photonumber, height: Int(width))
         
         for photonumber in 0..<photonumber{
-            imageView.append(createImageView(x: view.frame.size.width*CGFloat(photonumber), y: 0, width: view.frame.size.width, height: 375, image: image[tablenumber][photonumber]))
+            imageView.append(createImageView(x: view.frame.size.width*CGFloat(photonumber), y: 0, width: view.frame.size.width, height: width, image: image[tablenumber][photonumber]))
             scrollView.addSubview(imageView[photonumber])
         }
     }
@@ -120,13 +117,6 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
             scrollView.addSubview(view)
         }
         
-    }
-    
-    //[お店を見る]ボタンの位置を調整
-    func setditailPosition(view: UIView){
-        let width = view.frame.size.width
-        let height = view.frame.size.height
-        detailButton.frame = CGRect(x: 10, y: 375, width: 70, height: 30)
     }
     
     

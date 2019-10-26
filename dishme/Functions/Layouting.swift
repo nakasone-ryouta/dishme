@@ -161,4 +161,29 @@ class Layouting {
             print("unknown!!!!!!!!!!!!" , UIScreen.main.nativeBounds.height)
         }
     }
+    
+    func youserAcountcollectionLayouting(collectionView: UICollectionView, view: UIView){
+        
+        let width = view.frame.size.width
+        
+        switch UIScreen.main.nativeBounds.height {
+        case 1136:
+            print("iPhone 5/5S/5C")
+            collectionView.frame = CGRect(x: 0, y: 0, width: width, height: 363)
+        case 1334:
+            print("iPhone 6/6S/7/8")
+            collectionView.frame = CGRect(x: 0, y: 0, width: width, height: 460)
+        case 2208:
+            print("iPhone 6+/6S+/7+/8+")
+            collectionView.frame = CGRect(x: 0, y: 0, width: width, height: 530)
+        case 2436:
+            print("iPhone X")
+            collectionView.frame = CGRect(x: 0, y: 0, width: width, height: 575)
+        case 960:
+            print("iPad Pro(iPhone ver) (9.7-inch)/(10.5-inch)")
+            print("iPad Air(iPhone ver) (5th generation)/Air/2")
+        default:
+            print("unknown!!!!!!!!!!!!" , UIScreen.main.nativeBounds.height)
+        }
+    }
 }

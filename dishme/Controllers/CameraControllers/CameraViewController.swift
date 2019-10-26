@@ -132,8 +132,7 @@ extension CameraViewController{
     }
     //closeボタン
     @objc func closebutton(){
-        let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "TabbarController") as! UITabBarController
-        self.present(secondViewController, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     func zoomcamera(){
         aVC.setupPinchGestureRecognizer(addview: view)

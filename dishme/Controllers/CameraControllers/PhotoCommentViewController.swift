@@ -20,6 +20,8 @@ class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
     //[店の名前]
     var userphoto = ""
     
+    var customcolor = CustomColor()
+    
     let textfield = PlaceHolderTextView.init(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
     
     //渡されてくる値
@@ -62,7 +64,7 @@ class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
         
         let lineview = UIView()
         lineview.frame = CGRect(x: width / 62.5, y: height / 2.56, width: width / 1.033, height: 1)
-        lineview.backgroundColor = UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1)
+        lineview.backgroundColor = customcolor.selectColor()
         view.addSubview(lineview)
     }
     
@@ -133,7 +135,7 @@ class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
         button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Bold", size: 16)!
         button.titleLabel?.sizeToFit()
         button.setTitle("決定", for: UIControl.State.normal)
-        button.setTitleColor(UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1), for: UIControl.State.normal)
+        button.setTitleColor(customcolor.selectColor(), for: UIControl.State.normal)
         view.addSubview(button)
     }
     

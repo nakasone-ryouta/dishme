@@ -10,12 +10,28 @@ class ReservationViewController: UIViewController,ScrollingNavigationControllerD
     //カレンダー
     @IBOutlet weak var calendar: FSCalendar!
     
+    var customcolor = CustomColor()
+    
     var getdates = GetDates()
     
-    @IBOutlet var textField_time: UnderLineTextField!
-    @IBOutlet var textField_number: UnderLineTextField!
+    @IBOutlet var textField_time: UITextField!
+    @IBOutlet var textField_number: UITextField!
     var pickerView: UIPickerView = UIPickerView()
     var pickerView_number: UIPickerView = UIPickerView()
+    
+    //カレンダー変数
+    var PagecalenderDate: String = ""
+    var mincalender: String = "2019/10/27"//最低で表示できない日付(明日の日付)
+//    var maxcalender: String = "2019/11/24"//最高で表示できない日付
+    private var currentPage: Date?
+    fileprivate let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        return formatter
+    }()
+    private lazy var today: Date = {
+        return Date()
+    }()
     
     //予約OKな日
     let nodate:[String] = ["2019/9/22",
@@ -69,7 +85,11 @@ class ReservationViewController: UIViewController,ScrollingNavigationControllerD
         
         setupNavigation()
         
+        //UI部品の配置
+        setUpView()
+        
     }
+    
     
     @IBAction func callButton(_ sender: Any) {
         let url = NSURL(string: "tel://\(callnumber)")!
@@ -117,34 +137,70 @@ extension ReservationViewController:FSCalendarDelegate,FSCalendarDataSource,FSCa
     func calendarsettings(){
         self.calendar.dataSource = self
         self.calendar.delegate = self
-        calendar.appearance.todayColor = UIColor.init(red:55/255, green: 151/255, blue: 240/255, alpha: 1)
-        calendar.appearance.selectionColor = UIColor.init(red:55/255, green: 151/255, blue: 240/255, alpha: 1)
-        calendar.appearance.headerTitleColor = UIColor.init(red:55/255, green: 151/255, blue: 240/255, alpha: 1)
-//        calendar.scope = .week
+        calendar.frame = CGRect(x: 0, y: 155, width: view.frame.size.width, height: 300)
+        calendar.appearance.todayColor = .white
+        calendar.appearance.titleTodayColor = .lightGray
+        calendar.appearance.selectionColor = customcolor.selectColor()
+        calendar.appearance.headerTitleColor = customcolor.selectColor()
+        calendar.appearance.headerMinimumDissolvedAlpha = 0.0 ;
+    
+        calendar.scope = .week
+        
+        //カレンダーの戻るボタン,進むボタン
+        calendarBack()
+        calendarNext()
     }
     
+    //週をbackする
+    func calendarBack(){
+        // UIButtonのインスタンスを作成する
+        let button = UIButton(type: .custom)
+        button.addTarget(self, action: #selector(calendarback), for: UIControl.Event.touchUpInside)
+        button.frame = CGRect(x: 100,
+                              y: 13,
+                              width: 25,
+                              height: 25);
+        button.setImage(UIImage(named: "calenderback"), for: UIControl.State())
+        calendar.addSubview(button)
+    }
+    //週をnextにする
+    func calendarNext(){
+        // UIButtonのインスタンスを作成する
+        let button = UIButton(type: .custom)
+        button.addTarget(self, action: #selector(calendarnext), for: UIControl.Event.touchUpInside)
+        button.frame = CGRect(x: 250,
+                              y: 13,
+                              width: 25,
+                              height: 25);
+        button.setImage(UIImage(named: "calendarnext"), for: UIControl.State())
+        calendar.addSubview(button)
+    }
+    
+    @objc func calendarback(){
+        if PagecalenderDate == mincalender{
+            print("スクロールできません")
+        }else{
+            self.moveCurrentPage(moveUp: false)
+        }
+    }
+    @objc func calendarnext(){
+            self.moveCurrentPage(moveUp: true)
+    }
+    
+    private func moveCurrentPage(moveUp: Bool) {
+        
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        dateComponents.weekOfMonth = moveUp ? 1 : -1
+        
+        self.currentPage = calendar.date(byAdding: dateComponents, to: self.currentPage ?? self.today)
+        self.calendar.setCurrentPage(self.currentPage!, animated: true)
+    }
     
     // 土日や祝日の日の文字色を変える
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         let getdates = GetDates()
-        let weekday = getdates.getWeekIdx(date)
-        
-        if date .compare(Date()) == .orderedAscending {
-            return .white
-        }
-        
-//        else if getdates.judgeHoliday(date){
-//            return .red
-//        }
 
-//        if weekday == 1 {   //日曜日
-//            return UIColor.red
-//        }
-//        else if weekday == 7 {  //土曜日
-//            return UIColor.blue
-//        }
-
-        
         //予約無理な日
         for i in 0..<notday.count{
             if getdates.getday_from_date_to_String(date: date) == notday[i]{
@@ -170,6 +226,14 @@ extension ReservationViewController:FSCalendarDelegate,FSCalendarDataSource,FSCa
         calendar.appearance.titleTodayColor = .black
     }
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        print("change page to \(self.formatter.string(from: calendar.currentPage))")
+        PagecalenderDate = self.formatter.string(from: calendar.currentPage)
+    }
+//    func maximumDate(for calendar: FSCalendar) -> Date {
+//        return self.formatter.date(from: maxcalender)!
+//    }
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        return self.formatter.date(from: mincalender)!
     }
 }
 
@@ -233,16 +297,22 @@ extension ReservationViewController : UIPickerViewDelegate, UIPickerViewDataSour
     func textfiledsettings(){
         //時間帯
         textField_time.inputView = pickerView
-        textField_time.textAlignment = .right
+        textField_time.textAlignment = .center
+        textField_time.frame = CGRect(x: 0, y: 312, width: 375, height: 45)
         textField_time.font = UIFont.systemFont(ofSize: 17)
+        textField_time.layer.borderWidth = 1
+        textField_time.layer.borderColor = UIColor.init(red: 230/255, green: 230/255, blue: 230/255, alpha: 1).cgColor
         textField_time.placeholder = "時間を決める"
         view.addSubview(textField_time)
         
         //人数
         textField_number.inputView = pickerView_number
-        textField_number.textAlignment = .right
+        textField_number.textAlignment = .center
+        textField_number.frame = CGRect(x: 0, y: 437, width: 375, height: 45)
         textField_number.font = UIFont.systemFont(ofSize: 17)
         textField_number.placeholder = "人数を決める"
+        textField_number.layer.borderWidth = 1
+        textField_number.layer.borderColor = UIColor.init(red: 230/255, green: 230/255, blue: 230/255, alpha: 1).cgColor
         view.addSubview(textField_number)
     }
     
@@ -279,4 +349,45 @@ extension ReservationViewController : UIPickerViewDelegate, UIPickerViewDataSour
             textField_time.text = "\(time[pickerView.selectedRow(inComponent: 0)])"
         }
     }
+}
+
+extension ReservationViewController{
+    func setUpView(){
+        dateLabel()
+        timeLabel()
+        numberLabel()
+    }
+    func dateLabel(){
+        let label = UILabel()
+        label.frame =  CGRect(x: 10, y: 166, width: 0, height: 0)
+        label.text = "日付選択"
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
+        label.textAlignment = NSTextAlignment.right
+        label.sizeToFit()
+        view.addSubview(label)
+    }
+    
+    func timeLabel(){
+        let label = UILabel()
+        label.frame =  CGRect(x: 10, y: 288, width: 0, height: 0)
+        label.text = "時間帯"
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
+        label.textAlignment = NSTextAlignment.right
+        label.sizeToFit()
+        view.addSubview(label)
+    }
+    
+    func numberLabel(){
+        let label = UILabel()
+        label.frame =  CGRect(x: 10, y: 416, width: 0, height: 0)
+        label.text = "人数"
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
+        label.textAlignment = NSTextAlignment.right
+        label.sizeToFit()
+        view.addSubview(label)
+    }
+    
 }

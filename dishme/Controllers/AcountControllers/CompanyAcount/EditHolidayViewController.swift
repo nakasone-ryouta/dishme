@@ -15,6 +15,8 @@ class EditHolidayViewController: UIViewController {
     //カレンダー
     @IBOutlet weak var calendar: FSCalendar!
     
+    var customcolor = CustomColor()
+    
     //土曜日、日曜日、祝日の取得
     let getdates = GetDates()
     
@@ -57,8 +59,8 @@ extension EditHolidayViewController:FSCalendarDelegate,FSCalendarDataSource,FSCa
         self.calendar.delegate = self
         calendar.allowsMultipleSelection = true //複数の日付を同時に選択する
         calendar.appearance.todayColor = .white
-        calendar.appearance.selectionColor = UIColor.init(red:55/255, green: 151/255, blue: 240/255, alpha: 1)
-        calendar.appearance.headerTitleColor = UIColor.init(red:55/255, green: 151/255, blue: 240/255, alpha: 1)
+        calendar.appearance.selectionColor = customcolor.selectColor()
+        calendar.appearance.headerTitleColor = customcolor.selectColor()
 //        calendar.scrollDirection = .vertical
 //        calendar.scope = .week
 //        calendar.scrollEnabled = false

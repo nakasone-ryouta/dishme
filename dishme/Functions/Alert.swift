@@ -23,7 +23,6 @@ class Alert :SweetAlert{
                                    otherButtonColor: UIColor.colorFromRGB(0xDD6B55))
         { (isOtherButton) -> Void in
             if isOtherButton == true {
-                
             }
             else {
                 _ = SweetAlert().showAlert(yesTitle, subTitle: yessubTitle, style: AlertStyle.success)

@@ -17,6 +17,8 @@ class SearchViewController: UIViewController ,LayoutDelegate{
     //インジケータ
     private let refreshControl = UIRefreshControl()
     
+    var customcolor = CustomColor()
+    
     
     //dammydata
     var menuies:[String] = ["肉料理","海鮮料理","居酒屋","中華","イタリアン"]
@@ -229,9 +231,9 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
         //料理のカテゴリ
         if collectionView == menubarcollectionView{
             let cell = collectionView.cellForItem(at: indexPath) as! menubarCell
-            cell.backgroundColor = UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1)
+            cell.backgroundColor = customcolor.selectColor()
             cell.label.textColor = .white
-            cell.layer.borderColor = UIColor.init(red: 75/255, green: 149/255, blue: 233/255, alpha: 1).cgColor
+            cell.layer.borderColor = customcolor.selectColor().cgColor
         }
         //料理の写真
         else{

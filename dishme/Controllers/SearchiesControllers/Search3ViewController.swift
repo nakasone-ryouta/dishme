@@ -23,13 +23,15 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
     var firstindex: IndexPath? = nil
     
     var alert = SweetAlert()
-
+    
+    //色を選択
+    var customcolor = CustomColor()
+    
     @IBOutlet weak var avarageMoneyLabel: UILabel!
     
     //スクロールview
     let scrollView = UIScrollView()
     let menuview = UIView()
-    let acountview = UIView()
     @IBOutlet weak var blackView: UIView!
     
     //メニューのページ
@@ -177,22 +179,14 @@ extension Search3ViewController{
 //スクロールviewの基本設定
 extension Search3ViewController{
     func scrollbackview(){
-        let maxwidth = view.frame.size.width
-        let maxheight = view.frame.size.height
-        
         let cellheight = CellsHeight()
-        let height = cellheight.menuHeight(cellsum: dishes.count, view: view)
+        let height = cellheight.totalHeight(cellsum: [dishes.count], view: view)
+        let maxheight = Int(view.frame.size.height)
         let width = Int(view.frame.size.width)
         
-        scrollView.contentSize = CGSize(width:width, height:height - 100)
+        scrollView.contentSize = CGSize(width:width, height: height + 420 + 70)
         scrollView.frame = self.view.frame
         self.view.addSubview(scrollView)
-        
-        acountview.frame = CGRect(x: 0,
-                                  y: -80,
-                                  width: scrollView.frame.size.width,
-                                  height: scrollView.frame.size.height)
-        self.scrollView.addSubview(acountview)
         
         menuview.frame = CGRect(x: 0,
                                 y: 420,
@@ -246,16 +240,16 @@ extension Search3ViewController{
     }
     func acountimageview(){
         let image = UIImageView(image: UIImage(named: "acount1"))
-        image.frame = CGRect(x: 17, y: 98, width: 85, height: 85)
+        image.frame = CGRect(x: 17, y: 20, width: 85, height: 85)
         image.circle()
-        self.acountview.addSubview(image)
+        self.scrollView.addSubview(image)
         
     }
     func comentview(){
         let maxwidth = view.frame.size.width
         let maxheight = view.frame.size.height
         let label = UILabel()
-        label.frame =  CGRect(x: 17, y: 232, width: maxwidth / 1.1, height: maxheight / 12.5)
+        label.frame =  CGRect(x: 17, y: 154, width: maxwidth / 1.1, height: maxheight / 12.5)
         label.text = comment
         label.textColor = UIColor.darkGray
         label.font = UIFont.init(name: "HelveticaNeue-Thin", size: 13)
@@ -263,17 +257,17 @@ extension Search3ViewController{
 //        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.numberOfLines = 4
         label.sizeToFit()
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
     }
     func acontlabel(){
         let label = UILabel()
-        label.frame =  CGRect(x: 23, y: 194, width: 0, height: 0)
+        label.frame =  CGRect(x: 23, y: 116, width: 0, height: 0)
         label.text = acountname
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
         label.textAlignment = NSTextAlignment.right
         label.sizeToFit()
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
     }
     
     func goodButton(){
@@ -285,13 +279,13 @@ extension Search3ViewController{
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(good), for: UIControl.Event.touchUpInside)
         button.frame = CGRect(x: maxwidth / 1.74,
-                              y: navBarHeight! + 100,
+                              y: navBarHeight! + 22,
                               width: 22,
                               height: 20);
         button.setImage(UIImage(named: "good"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        self.acountview.addSubview(button)
+        self.scrollView.addSubview(button)
         
         //継承する
         Yummynumber(button: button)
@@ -308,7 +302,7 @@ extension Search3ViewController{
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 18)
         label.textAlignment = NSTextAlignment.center
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
         
         //継承する
         Yummylabel(button: button, label: label)
@@ -326,7 +320,7 @@ extension Search3ViewController{
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         label.textAlignment = NSTextAlignment.center
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
     }
 //yuckyボタン周り
     func badButton(){
@@ -339,13 +333,13 @@ extension Search3ViewController{
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(good), for: UIControl.Event.touchUpInside)
         button.frame = CGRect(x: maxwidth / 1.14,
-                              y: navBarHeight! + 100,
+                              y: navBarHeight! + 22,
                               width: 22,
                               height: 20);
         button.setImage(UIImage(named: "bad"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        acountview.addSubview(button)
+        scrollView.addSubview(button)
         
         
         Yuckynumber(button: button)
@@ -366,7 +360,7 @@ extension Search3ViewController{
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 18)
         label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
         
         Yuckylabel(button: button)
     }
@@ -377,7 +371,7 @@ extension Search3ViewController{
         let navBarHeight = self.navigationController?.navigationBar.frame.size.height
         
         let label = UILabel()
-        label.frame =  CGRect(x: 0, y: navBarHeight! + 120, width: 50, height: 30)
+        label.frame =  CGRect(x: 0, y: navBarHeight! + 42, width: 50, height: 30)
         label.frame.origin.x = button.frame.origin.x - 57
         label.frame.origin.y = button.frame.origin.y + 28
         label.text = "YUCKY"
@@ -385,7 +379,7 @@ extension Search3ViewController{
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
         
     }
 }
@@ -398,7 +392,7 @@ extension Search3ViewController:UITableViewDataSource,UITableViewDelegate{
         //下から出てくるtableview
         tableView.frame = CGRect(
             x: 0.0,
-            y: 312,
+            y: 234,
             width: self.view.frame.width,
             height: 183
         )
@@ -411,7 +405,7 @@ extension Search3ViewController:UITableViewDataSource,UITableViewDelegate{
         tableView.contentMode = .scaleAspectFit
         tableView.layer.borderWidth = 1
         tableView.layer.borderColor = UIColor(red: 208/255, green: 208/255, blue:208/255, alpha: 1).cgColor
-        acountview.addSubview(tableView)
+        scrollView.addSubview(tableView)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -557,7 +551,7 @@ extension Search3ViewController:PageMenuViewDelegateinit{
         option.menuTitleFont = UIFont.init(name: "HelveticaNeue-Medium", size: 15)!
         option.menuTitleColorSelected = .black
         option.menuIndicatorHeight = 3
-        option.menuIndicatorColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
+        option.menuIndicatorColor = customcolor.selectColor()
         
         return option
     }

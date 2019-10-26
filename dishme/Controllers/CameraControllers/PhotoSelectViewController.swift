@@ -217,9 +217,8 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collection2setting(){
         // レイアウト設定
-        let layout = CustomFlowLayout()
-        layout.itemSize = CGSize(width: 375, height: 650)
-        collectionView2.collectionViewLayout = layout
+        let photoselectLayouting = PhotoSelectLayouting()
+        photoselectLayouting.photoselectCell(collectionView: collectionView2, view: view)
         
         collectionView2.delegate = self
         collectionView2.dataSource = self
@@ -377,10 +376,9 @@ extension PhotoSelectViewController{
     func kutikomimoji(){
         let label = UILabel()
         let width = view.frame.size.width
-        let height = view.frame.size.height
+        let photoselectLayouting = PhotoSelectLayouting()
         
-        //        label.frame =  CGRect(x: 23, y: 500, width: 0, height: 0)
-        label.frame = CGRect(x: width / 16.3,y: height / 1.62,width: 0, height: 0)
+        photoselectLayouting.kutikomiLayout(label: label, view: view)
         label.text = "口コミ"
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: width / 23.4)
@@ -496,10 +494,27 @@ extension PhotoSelectViewController{
         
         //店名が入力されていない
         if searchstore == ""{
-            let alert = Alert()
-            alert.infoAlert(Title: "保存しますか？", subTitle: "お店が指定されていないと掲載はできません", yes: "はい", no: "いいえ", yesTitle: "保存しました", yessubTitle: "")
+
+            _ = SweetAlert().showAlert("保存しますか？",
+                                       subTitle: "お店が指定されていないと掲載はできません",
+                                       style: AlertStyle.warning,
+                                       buttonTitle:"いいえ",
+                                       buttonColor:UIColor.colorFromRGB(0xD0D0D0) ,
+                                       otherButtonTitle:"はい",
+                                       otherButtonColor: UIColor.colorFromRGB(0xDD6B55))
+            { (isOtherButton) -> Void in
+                if isOtherButton == true {
+                }
+                else {
+                    _ = SweetAlert().showAlert("保存しました", subTitle: "", style: AlertStyle.success)
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+            
+            
         }else{
             _ = SweetAlert().showAlert("写真を保存しました", subTitle: "店名:\(searchstore)", style: AlertStyle.success)
+            dismiss(animated: true, completion: nil)
         }
     }
     

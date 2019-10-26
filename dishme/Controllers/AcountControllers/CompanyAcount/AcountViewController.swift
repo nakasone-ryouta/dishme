@@ -26,6 +26,8 @@ class AcountViewController: UIViewController,ScrollingNavigationControllerDelega
     //    @IBOutlet weak var closeButton: UIButton!
     //    @IBOutlet weak var backButton: UIButton!
     
+    var customcolor = CustomColor()
+    
     
     var commentView = UIView()
     var commentTitleLabel = UILabel()
@@ -48,7 +50,6 @@ class AcountViewController: UIViewController,ScrollingNavigationControllerDelega
     //スクロールview
     let scrollView = UIScrollView()
     let backview = UIView()
-    let acountview = UIView()
     
     
     //メニューのページ
@@ -217,18 +218,16 @@ extension AcountViewController{
 //スクロールviewの基本設定
 extension AcountViewController{
     func scrollbackview(){
-        let width = view.frame.size.width
-        let height = view.frame.size.height
-
+        
+        let cellheight = CellsHeight()
+        //一番大きい要素数を入れる
+        let celltotal:[Int] = [dishes.count]
+        let height = cellheight.totalHeight(cellsum: celltotal, view: view)
+        let width = Int(view.frame.size.width)
         scrollView.frame = self.view.frame
-        scrollView.contentSize = CGSize(width:width, height:height * 2)
+        scrollView.contentSize = CGSize(width:width, height:680 + height + 85)
         self.view.addSubview(scrollView)
         
-        acountview.frame = CGRect(x: 0,
-                                  y: -80,
-                                  width: scrollView.frame.size.width,
-                                  height: scrollView.frame.size.height)
-        self.scrollView.addSubview(acountview)
         
         backview.frame = CGRect(x: 0,
                                 y:690,
@@ -263,43 +262,43 @@ extension AcountViewController{
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(editsegue), for: UIControl.Event.touchUpInside)
         button.frame = CGRect(x: width / 2.286,
-                              y: navBarHeight! + 150,
+                              y: navBarHeight! + 72,
                               width: width / 1.923,
                               height: width / 12.93);
         button.setImage(UIImage(named: "editbar"), for: UIControl.State())
-        acountview.addSubview(button)
+        scrollView.addSubview(button)
     }
     
     func acountimageview(){
         let image = UIImageView()
         image.image = acountimage
-        image.frame = CGRect(x: 17, y: 98, width: 85, height: 85)
+        image.frame = CGRect(x: 17, y: 20, width: 85, height: 85)
         image.circle()
-        self.acountview.addSubview(image)
+        self.scrollView.addSubview(image)
         
     }
     func comentview(){
         let maxwidth = view.frame.size.width
         let maxheight = view.frame.size.height
         let label = UILabel()
-        label.frame =  CGRect(x: 17, y: 232, width: maxwidth / 1.1, height: maxheight / 12.5)
+        label.frame =  CGRect(x: 17, y: 154, width: maxwidth / 1.1, height: maxheight / 12.5)
         label.text = comment
         label.textColor = UIColor.darkGray
         label.font = UIFont.init(name: "HelveticaNeue-Thin", size: 13)
         label.textAlignment = NSTextAlignment.left
         label.numberOfLines = 4
         label.sizeToFit()
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
     }
     func acontlabel(){
         let label = UILabel()
-        label.frame =  CGRect(x: 23, y: 194, width: 0, height: 0)
+        label.frame =  CGRect(x: 23, y: 116, width: 0, height: 0)
         label.text = acountname
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
         label.textAlignment = NSTextAlignment.right
         label.sizeToFit()
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
     }
     
     func goodButton(){
@@ -311,13 +310,13 @@ extension AcountViewController{
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(good), for: UIControl.Event.touchUpInside)
         button.frame = CGRect(x: maxwidth / 1.74,
-                              y: navBarHeight! + 100,
+                              y: navBarHeight! + 22,
                               width: 22,
                               height: 20);
         button.setImage(UIImage(named: "good"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        self.acountview.addSubview(button)
+        self.scrollView.addSubview(button)
         
         //継承する
         Yummynumber(button: button)
@@ -334,7 +333,7 @@ extension AcountViewController{
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 18)
         label.textAlignment = NSTextAlignment.center
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
         
         //継承する
         Yummylabel(button: button, label: label)
@@ -352,7 +351,7 @@ extension AcountViewController{
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         label.textAlignment = NSTextAlignment.center
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
     }
     
     @objc func good(){
@@ -369,13 +368,13 @@ extension AcountViewController{
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(good), for: UIControl.Event.touchUpInside)
         button.frame = CGRect(x: maxwidth / 1.17,
-                              y: navBarHeight! + 100,
+                              y: navBarHeight! + 22,
                               width: 22,
                               height: 20);
         button.setImage(UIImage(named: "bad"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        acountview.addSubview(button)
+        scrollView.addSubview(button)
         
         
         Yuckynumber(button: button)
@@ -396,7 +395,7 @@ extension AcountViewController{
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 18)
         label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
         
         Yuckylabel(button: button)
     }
@@ -415,7 +414,7 @@ extension AcountViewController{
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         label.textAlignment = NSTextAlignment.center
         label.sizeToFit()
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
         
     }
     
@@ -436,7 +435,7 @@ extension AcountViewController{
         //下から出てくるtableview
         tableView1.frame = CGRect(
             x: 0.0,
-            y: 295,
+            y: 217,
             width: self.view.frame.width,
             height: 500
         )
@@ -452,7 +451,7 @@ extension AcountViewController{
         tableView1.estimatedRowHeight = 66
         tableView1.sectionHeaderHeight = 57
         tableView1.rowHeight = UITableView.automaticDimension
-        acountview.addSubview(tableView1)
+        scrollView.addSubview(tableView1)
     }
     
     //各種設定のテーブル
@@ -711,7 +710,7 @@ extension AcountViewController:PageMenuViewDelegateinit{
         option.menuTitleFont = UIFont.init(name: "HelveticaNeue-Bold", size: 15)!
         option.menuTitleColorSelected = .black
         option.menuIndicatorHeight = 3
-        option.menuIndicatorColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
+        option.menuIndicatorColor = customcolor.selectColor()
         
         return option
     }

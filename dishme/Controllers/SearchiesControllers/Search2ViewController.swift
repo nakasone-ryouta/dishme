@@ -17,6 +17,8 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
      var acountRegister = "企業a"
      var firstindex:IndexPath? = nil //初期位置
     
+    var customcolor = CustomColor()
+    
     @IBOutlet weak var tableView: UITableView!
     
     var cellTexts = ["中曽根良太",
@@ -51,6 +53,7 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var acountimage = UIImage(named: "acount1")
     var openHeights: [CGFloat] = [600,600,600,600,600,600,600,600,600,600,600,600,600,600,600]
+    var commentnumbar = [30,21,21,2,21,21,2,33,8,7,64]
     var comment = "めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちした。ブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました"
     var goods:[Int] = [120,120,120,120,120,120,120,120,120,120,120,120,120,120,120,]
     var bads:[Int] = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]
@@ -122,7 +125,7 @@ extension Search2ViewController{
         
         //コメントを書く
         cell.commentLabel.text = comment
-        
+        cell.commentNumber.text = "\(commentnumbar[indexPath.row])"
         //acountの名前の設定
         cell.resevebButton.setTitle(cellTexts[indexPath.row] + "・お店を保存", for: UIControl.State.normal)
         cell.resevebButton.setTitleColor(UIColor.black, for: .normal)
@@ -130,7 +133,7 @@ extension Search2ViewController{
         namerange.append(cellTexts[indexPath.row].count)
         attrText.append(NSMutableAttributedString(string: cell.resevebButton.titleLabel!.text!))
         attrText[indexPath.row].addAttribute(.foregroundColor,
-                              value: UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), range: NSMakeRange(namerange.last! + 1, 5))
+                              value: customcolor.selectColor(), range: NSMakeRange(namerange.last! + 1, 5))
         cell.resevebButton.setAttributedTitle(attrText[indexPath.row], for: .normal)
         
         //企業の場合は保存ボタンはいらない

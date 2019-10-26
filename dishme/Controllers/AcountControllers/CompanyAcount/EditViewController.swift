@@ -26,7 +26,6 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
     let backview = UIView()
     
     //アカウントのUI周り
-    let acountview = UIView()//アカウントの下に引くview
     let acountimageView = UIImageView()
     let text_view1 = UITextField()
     
@@ -35,7 +34,6 @@ class EditViewController: UIViewController,ScrollingNavigationControllerDelegate
     
     //下に引くview周り
     let scrollView = UIScrollView()
-    let menuview = UIView()
     
     
     //テキスト
@@ -165,24 +163,17 @@ extension EditViewController{
 //スクロールviewの基本設定
 extension EditViewController{
     func scrollbackview(){
-        let width = view.frame.size.width
-        let height = view.frame.size.height
+        //tableviewまでのy + tableviewの長さ　+ collectionviewの長さ
+        let cellheight = CellsHeight()
+        //cellの総数
+        let celltotal:[Int] = [dishes.count,sidemenus.count,appearance.count]
+        
+        let height = cellheight.totalHeight(cellsum: celltotal, view: view)
+        
+        let width = Int(view.frame.size.width)
         scrollView.frame = self.view.frame
-        scrollView.contentSize = CGSize(width:width, height:height*2)
+        scrollView.contentSize = CGSize(width:width, height:680 + height + 60*3 + 10)
         self.view.addSubview(scrollView)
-        
-        acountview.frame = CGRect(x: 0,
-                                  y: -80,
-                                  width: scrollView.frame.size.width,
-                                  height: scrollView.frame.size.height + 200)
-        self.scrollView.addSubview(acountview)
-        
-        menuview.frame = CGRect(x: 0,
-                                y: height,
-                                width: scrollView.frame.size.width,
-                                height: scrollView.frame.size.height)
-        self.scrollView.addSubview(menuview)
-        
         
     }
 }
@@ -195,7 +186,7 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
         //下から出てくるtableview
         tableView.frame = CGRect(
             x: 0.0,
-            y: 250,
+            y: 172,
             width: self.view.frame.width,
             height: self.view.frame.height
         )
@@ -209,7 +200,7 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
         tableView.layer.borderWidth = 1
         tableView.layer.borderColor = UIColor(red: 208/255, green: 208/255, blue:208/255, alpha: 1).cgColor
         tableView.isScrollEnabled = false
-        acountview.addSubview(tableView)
+        scrollView.addSubview(tableView)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -427,9 +418,14 @@ extension EditViewController: UICollectionViewDelegate , UICollectionViewDataSou
         myCollectionView.delegate = self
         myCollectionView.dataSource = self
         
-        let width = view.frame.size.width
-        let height = view.frame.size.height
-        myCollectionView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        //メニューの高さを決める
+        let cellheight = CellsHeight()
+        let dishesheight = cellheight.menuHeight(cellsum: dishes.count, view: view)
+        let sidemenuheight = cellheight.menuHeight(cellsum: sidemenus.count, view: view)
+        let appearanceheight = cellheight.menuHeight(cellsum: appearance.count, view: view)
+        let totalheight = dishesheight + sidemenuheight + appearanceheight
+        let width = Int(view.frame.size.width)
+        myCollectionView.frame = CGRect(x: 0, y: 0, width: width, height: totalheight)
         myCollectionView.backgroundColor = .white
         
         self.backview.addSubview(myCollectionView)
@@ -443,13 +439,13 @@ extension EditViewController: UICollectionViewDelegate , UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch(section){
         case 0:
-            return 5
+            return dishes.count
             
         case 1:
-            return 8
+            return sidemenus.count
             
         case 2:
-            return 10
+            return appearance.count
             
         default:
             print("error")
@@ -541,18 +537,18 @@ extension EditViewController: UITextViewDelegate, UITextFieldDelegate{
         let maxwidth = view.frame.size.width
         
         myTextView.delegate = self
-        myTextView.frame =  CGRect(x: 17, y: 185, width: maxwidth / 1.1, height: 50)
+        myTextView.frame =  CGRect(x: 17, y: 107, width: maxwidth / 1.1, height: 50)
         myTextView.text = comment
         myTextView.textAlignment = NSTextAlignment.left
-        acountview.addSubview(myTextView)
+        scrollView.addSubview(myTextView)
     }
     
     func acountimageview(){
         acountimageView.image = acountimage
-        acountimageView.frame = CGRect(x: 17, y: 98, width: 85, height: 85)
+        acountimageView.frame = CGRect(x: 17, y: 20, width: 85, height: 85)
         acountimageView.contentMode = .scaleAspectFill
         acountimageView.circle()
-        self.acountview.addSubview(acountimageView)
+        self.scrollView.addSubview(acountimageView)
     }
     
     func acountImageChange (){
@@ -576,25 +572,25 @@ extension EditViewController: UITextViewDelegate, UITextFieldDelegate{
         let widh = view.frame.width
         //時間帯
         text_view1.delegate = self
-        text_view1.frame = CGRect(x: widh / 2.5, y: 115, width: widh / 1.77, height: 50)
+        text_view1.frame = CGRect(x: widh / 2.5, y: 37, width: widh / 1.77, height: 50)
         text_view1.textAlignment = .right
         text_view1.font = UIFont.systemFont(ofSize: 17)
         text_view1.placeholder = acountname
         text_view1.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        acountview.addSubview(text_view1)
+        scrollView.addSubview(text_view1)
     }
     
     func nameEditLabel(){
         let widh = view.frame.width
         let label = UILabel()
-        label.frame =  CGRect(x: widh / 2.5, y: 134, width: 0, height: 0)
+        label.frame =  CGRect(x: widh / 2.5, y: 56, width: 0, height: 0)
         label.text = "名前"
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)
         label.textAlignment = .center
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.sizeToFit()
-        acountview.addSubview(label)
+        scrollView.addSubview(label)
     }
 }
 //textview,textfieldの設定

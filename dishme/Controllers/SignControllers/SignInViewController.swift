@@ -35,6 +35,14 @@ class SignInViewController: UIViewController {
     let company_email_textfield = UITextField()
     let company_password_textfield = UITextField()
     
+    //アカウントのボタンのインスタンス化
+    let acountbtn_view2 = UIButton(type: .custom)
+    let permitbutton = UIButton(type: .custom)
+    
+    //アカウントの画像
+    var acountimageView = UIImage(named: "acount0")
+    var permitimageView = UIImage(named: "acount0")
+    var acounttouch:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -421,14 +429,13 @@ extension SignInViewController{
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
         
-        let button = UIButton(type: .custom)
-        button.addTarget(self, action: #selector(acountimage), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 0, y: height/20.24, width: width/6.35, height: width/6.35)
-        button.center.x = view.center.x
-        button.setImage(UIImage(named: "acount0"), for: UIControl.State())
-        button.layer.shadowOpacity = 0.1
-        button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        scrollView2.addSubview(button)
+        acountbtn_view2.addTarget(self, action: #selector(acountimage), for: UIControl.Event.touchUpInside)
+        acountbtn_view2.frame = CGRect(x: 0, y: height/20.24, width: width/6.35, height: width/6.35)
+        acountbtn_view2.center.x = view.center.x
+        acountbtn_view2.setImage(acountimageView, for: UIControl.State())
+        acountbtn_view2.layer.shadowOpacity = 0.1
+        acountbtn_view2.layer.shadowOffset = CGSize(width: 2, height: 2)
+        scrollView2.addSubview(acountbtn_view2)
     }
     
     //新規サインイン
@@ -500,17 +507,16 @@ extension SignInViewController{
     
     func acountbutton_view3(){
         // UIButtonのインスタンスを作成する
-        let button = UIButton(type: .custom)
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
-        button.addTarget(self, action: #selector(acountimage), for: UIControl.Event.touchUpInside)
+        permitbutton.addTarget(self, action: #selector(permitaction), for: UIControl.Event.touchUpInside)
 
-        button.frame = CGRect(x: 0, y: height/20.24, width: width/6.35, height: width/6.35)
-        button.center.x = view.center.x
-        button.setImage(UIImage(named: "acount0"), for: UIControl.State())
-        button.layer.shadowOpacity = 0.1
-        button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        scrollView3.addSubview(button)
+        permitbutton.frame = CGRect(x: 0, y: height/20.24, width: width/6.35, height: width/6.35)
+        permitbutton.center.x = view.center.x
+        permitbutton.setImage(permitimageView, for: UIControl.State())
+        permitbutton.layer.shadowOpacity = 0.1
+        permitbutton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        scrollView3.addSubview(permitbutton)
     }
     
     func SignInButton_view3(){
@@ -538,8 +544,85 @@ extension SignInViewController{
     }
     
     @objc func acountimage(){
-        
+        acounttouch = true
+        showAlbum()
+    }
+    @objc func permitaction(){
+        acounttouch = false
+        showAlbum()
     }
 
     
+}
+
+
+//カメラ機能
+extension SignInViewController:UIImagePickerControllerDelegate,
+UINavigationControllerDelegate{
+    
+    // アルバムを表示
+    @objc func showAlbum() {
+        
+        let sourceType:UIImagePickerController.SourceType =
+            UIImagePickerController.SourceType.photoLibrary
+        
+        if UIImagePickerController.isSourceTypeAvailable(
+            UIImagePickerController.SourceType.photoLibrary){
+            // インスタンスの作成
+            let cameraPicker = UIImagePickerController()
+            cameraPicker.sourceType = sourceType
+            cameraPicker.delegate = self
+            self.present(cameraPicker, animated: true, completion: nil)
+            
+            print("Tap the [Start] to save a picture")
+            
+        }
+        else{
+            print("error")
+            
+        }
+    }
+    
+    //　撮影が完了時した時に呼ばれる
+    func imagePickerController(_ imagePicker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
+        
+        if let pickedImage = info[.originalImage]
+            as? UIImage {
+            if acounttouch == true{
+                acountimageView = pickedImage
+                acountbutton_view2()
+            }
+            else{
+                permitimageView = pickedImage
+                acountbutton_view3()
+            }
+            
+        }
+        //閉じる処理
+        imagePicker.dismiss(animated: true, completion: nil)
+        print("Tap the [Save] to save a picture")
+        
+        
+    }
+    
+    // 撮影がキャンセルされた時に呼ばれる
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+        print("Canceled")
+    }
+    
+    // 書き込み完了結果の受け取り
+    @objc func image(_ image: UIImage,
+                     didFinishSavingWithError error: NSError!,
+                     contextInfo: UnsafeMutableRawPointer) {
+        
+        if error != nil {
+            print(error.code)
+            print("Save Failed !")
+        }
+        else{
+            print("Save Succeeded")
+        }
+    }
 }

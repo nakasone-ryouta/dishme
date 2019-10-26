@@ -12,6 +12,8 @@ import UIKit
 class EditRegularHolidayViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
+    var customcolor = CustomColor()
+    
     var days = ["毎日曜日",
                 "毎月曜日",
                 "毎火曜日",
@@ -73,7 +75,7 @@ extension EditRegularHolidayViewController: UITableViewDataSource,UITableViewDel
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell:UITableViewCell = tableView.cellForRow(at: indexPath)!
         
-        cell.tintColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
+        cell.tintColor = customcolor.selectColor()
         cell.backgroundColor = .white
         
         if selectdays.contains(days[indexPath.row]){

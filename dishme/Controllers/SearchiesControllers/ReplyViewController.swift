@@ -11,6 +11,9 @@ class ReplyViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     
+    //色を選択
+    let customcolor = CustomColor()
+    
     //インジケータ
     private let refreshControl = UIRefreshControl()
     
@@ -107,7 +110,7 @@ extension ReplyViewController :UITextFieldDelegate{
         //送信する
         if textView.text != nil {
             postButton.isEnabled = textView.text != ""
-            postButton.setTitleColor(UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1), for: .normal)
+            postButton.setTitleColor(customcolor.selectColor(), for: .normal)
             postButton.isEnabled = true
         }
         //送信できない
