@@ -40,6 +40,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        aVC.initscreen()
         
         // ナビゲーションバーの高さを取得
         let navBarHeight = self.navigationController?.navigationBar.frame.size.height
@@ -51,7 +52,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         //カメラのメソッドをUIImageViewに付与
         cameraView = aVC.inSideOutSideCameraSet(cameraView: cameraView)
-        
         //ページのbackviewのセット
         pagesettings()
         

@@ -71,6 +71,7 @@ class ReservationViewController: UIViewController,ScrollingNavigationControllerD
         
         // デリゲートの設定
         calendarsettings()
+        calenderdayColor()
 
         
         //電話番号
@@ -137,7 +138,7 @@ extension ReservationViewController:FSCalendarDelegate,FSCalendarDataSource,FSCa
     func calendarsettings(){
         self.calendar.dataSource = self
         self.calendar.delegate = self
-        calendar.frame = CGRect(x: 0, y: 155, width: view.frame.size.width, height: 300)
+        calendar.frame = CGRect(x: 0, y: 155, width: view.frame.size.width, height: 500)
         calendar.appearance.todayColor = .white
         calendar.appearance.titleTodayColor = .lightGray
         calendar.appearance.selectionColor = customcolor.selectColor()
@@ -150,6 +151,69 @@ extension ReservationViewController:FSCalendarDelegate,FSCalendarDataSource,FSCa
         calendarBack()
         calendarNext()
     }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+        return .white
+    }
+    
+    
+    // 土日や祝日の日の文字色を変える
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        let getdates = GetDates()
+
+        //予約無理な日
+        for i in 0..<notday.count{
+            if getdates.getday_from_date_to_String(date: date) == notday[i]{
+                return UIColor.white
+            }
+        }
+        return nil
+    }
+    
+    //前の月を選択不可
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        if date .compare(Date()) == .orderedAscending {
+            return false
+        }
+        else {
+            return true
+        }
+    }
+    
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        calendar.appearance.todayColor = .white
+        calendar.appearance.titleTodayColor = .black
+    }
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        print("change page to \(self.formatter.string(from: calendar.currentPage))")
+        PagecalenderDate = self.formatter.string(from: calendar.currentPage)
+    }
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        return self.formatter.date(from: mincalender)!
+    }
+    
+    func calenderdayColor(){
+        self.calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
+        self.calendar.calendarWeekdayView.weekdayLabels[1].text = "月"
+        self.calendar.calendarWeekdayView.weekdayLabels[2].text = "火"
+        self.calendar.calendarWeekdayView.weekdayLabels[3].text = "水"
+        self.calendar.calendarWeekdayView.weekdayLabels[4].text = "木"
+        self.calendar.calendarWeekdayView.weekdayLabels[5].text = "金"
+        self.calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
+        
+        self.calendar.calendarWeekdayView.weekdayLabels[0].textColor =  UIColor.init(red: 255/255, green: 144/255, blue: 144/255, alpha: 1)
+        self.calendar.calendarWeekdayView.weekdayLabels[1].textColor = UIColor.black
+        self.calendar.calendarWeekdayView.weekdayLabels[2].textColor = UIColor.black
+        self.calendar.calendarWeekdayView.weekdayLabels[3].textColor = UIColor.black
+        self.calendar.calendarWeekdayView.weekdayLabels[4].textColor = UIColor.black
+        self.calendar.calendarWeekdayView.weekdayLabels[5].textColor = UIColor.black
+        self.calendar.calendarWeekdayView.weekdayLabels[6].textColor =  UIColor.init(red: 173/255, green: 212/255, blue: 255/255, alpha: 1)
+    }
+}
+
+//カレンダーのUI部品
+extension ReservationViewController{
     
     //週をbackする
     func calendarBack(){
@@ -184,7 +248,7 @@ extension ReservationViewController:FSCalendarDelegate,FSCalendarDataSource,FSCa
         }
     }
     @objc func calendarnext(){
-            self.moveCurrentPage(moveUp: true)
+        self.moveCurrentPage(moveUp: true)
     }
     
     private func moveCurrentPage(moveUp: Bool) {
@@ -195,45 +259,6 @@ extension ReservationViewController:FSCalendarDelegate,FSCalendarDataSource,FSCa
         
         self.currentPage = calendar.date(byAdding: dateComponents, to: self.currentPage ?? self.today)
         self.calendar.setCurrentPage(self.currentPage!, animated: true)
-    }
-    
-    // 土日や祝日の日の文字色を変える
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        let getdates = GetDates()
-
-        //予約無理な日
-        for i in 0..<notday.count{
-            if getdates.getday_from_date_to_String(date: date) == notday[i]{
-                return UIColor.white
-            }
-        }
-        return nil
-    }
-    
-    //前の月を選択不可
-    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-        if date .compare(Date()) == .orderedAscending {
-            return false
-        }
-        else {
-            return true
-        }
-    }
-    
-    
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        calendar.appearance.todayColor = .white
-        calendar.appearance.titleTodayColor = .black
-    }
-    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        print("change page to \(self.formatter.string(from: calendar.currentPage))")
-        PagecalenderDate = self.formatter.string(from: calendar.currentPage)
-    }
-//    func maximumDate(for calendar: FSCalendar) -> Date {
-//        return self.formatter.date(from: maxcalender)!
-//    }
-    func minimumDate(for calendar: FSCalendar) -> Date {
-        return self.formatter.date(from: mincalender)!
     }
 }
 
@@ -298,7 +323,7 @@ extension ReservationViewController : UIPickerViewDelegate, UIPickerViewDataSour
         //時間帯
         textField_time.inputView = pickerView
         textField_time.textAlignment = .center
-        textField_time.frame = CGRect(x: 0, y: 312, width: 375, height: 45)
+        textField_time.frame = CGRect(x: 0, y: 332, width: 375, height: 45)
         textField_time.font = UIFont.systemFont(ofSize: 17)
         textField_time.layer.borderWidth = 1
         textField_time.layer.borderColor = UIColor.init(red: 230/255, green: 230/255, blue: 230/255, alpha: 1).cgColor
@@ -370,7 +395,7 @@ extension ReservationViewController{
     
     func timeLabel(){
         let label = UILabel()
-        label.frame =  CGRect(x: 10, y: 288, width: 0, height: 0)
+        label.frame =  CGRect(x: 10, y: 300, width: 0, height: 0)
         label.text = "時間帯"
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Medium", size: 16)

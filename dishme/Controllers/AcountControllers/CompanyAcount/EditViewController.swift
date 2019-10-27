@@ -325,8 +325,7 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
             performSegue(withIdentifier: "toEditSetting", sender: nil)
         }
         else if indexPath.row == 5{
-            setting = "定員人数"
-            performSegue(withIdentifier: "toEditSetting", sender: nil)
+            performSegue(withIdentifier: "toEditReserve", sender: nil)
         }
         else if indexPath.row == 6{
             //定休日
@@ -385,6 +384,10 @@ extension EditViewController:UITableViewDataSource,UITableViewDelegate{
             let nextVC = segue.destination as! PhotoSelectViewController
             nextVC.firstindex = firstindex
             nextVC.acountResister = "企業"
+        }
+        if segue.identifier == "toEditHoliday"{
+            let nextVC = segue.destination as! EditHolidayViewController
+            nextVC.setting = setting
         }
     }
 }

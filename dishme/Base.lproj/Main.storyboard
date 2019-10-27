@@ -879,7 +879,7 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="scrollEnabled" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="weekdayHeight">
-                                        <real key="value" value="0.0"/>
+                                        <real key="value" value="30"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
                                         <real key="value" value="1"/>
@@ -927,6 +927,7 @@
                         <segue destination="R23-8P-awm" kind="show" identifier="toEditHoliday" id="cUT-Sm-myL"/>
                         <segue destination="VvJ-kU-7BX" kind="show" identifier="toEditRegularHoliday" id="GCO-7S-IMp"/>
                         <segue destination="Fw6-qi-SDZ" kind="show" identifier="toPhotoSelect" id="DWq-4V-68b"/>
+                        <segue destination="bVb-e3-meX" kind="show" identifier="toEditReserve" id="oCg-d7-OL7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8w3-Jb-Khq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -998,7 +999,10 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="scrollEnabled" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="weekdayHeight">
-                                        <real key="value" value="0.0"/>
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderDefaultColor">
+                                        <color key="value" red="0.90331535529999996" green="0.90331535529999996" blue="0.90331535529999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -1022,6 +1026,118 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jKO-fh-jQ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5948" y="1616"/>
+        </scene>
+        <!--Edit Reserve Setting View Controller-->
+        <scene sceneID="nDC-1g-fac">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0W9-OZ-1Ip" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController hidesBottomBarWhenPushed="YES" id="bVb-e3-meX" customClass="EditReserveSettingViewController" customModule="dishme" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IRu-3W-p1Q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RDE-Es-e0I">
+                                <rect key="frame" x="0.0" y="219" width="375" height="334"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fWr-Ss-7jV" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="213" width="375" height="419"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderSelectionColor">
+                                        <color key="value" red="0.90331535529999996" green="0.90331535529999996" blue="0.90331535529999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderDefaultColor">
+                                        <color key="value" red="0.90331535529999996" green="0.90331535529999996" blue="0.90331535529999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="headerDateFormat" value="yyyy年MM月"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleTextSize">
+                                        <real key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="weekdayHeight">
+                                        <real key="value" value="11"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="headerHeight">
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="1時間予約人数" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cIb-g6-RHq">
+                                <rect key="frame" x="0.0" y="130" width="375" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Q2H-iM-aFU">
+                                <rect key="frame" x="0.0" y="640" width="375" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LhQ-4V-zhs">
+                                    <size key="itemSize" width="60" height="60"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="JyU-6k-WSm" customClass="EditReserveCollectionViewCell" customModule="dishme" customModuleProvider="target">
+                                        <rect key="frame" x="14" y="10" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCr-mR-6Ng">
+                                                    <rect key="frame" x="0.0" y="7" width="60" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vrf-GA-z2I">
+                                                    <rect key="frame" x="0.0" y="36" width="60" height="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Vrf-GA-z2I" firstAttribute="leading" secondItem="JyU-6k-WSm" secondAttribute="leading" id="A3q-By-aoO"/>
+                                            <constraint firstAttribute="trailing" secondItem="PCr-mR-6Ng" secondAttribute="trailing" id="AJb-V2-Ndm"/>
+                                            <constraint firstItem="Vrf-GA-z2I" firstAttribute="top" secondItem="PCr-mR-6Ng" secondAttribute="bottom" constant="13" id="Oor-sY-6nN"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vrf-GA-z2I" secondAttribute="bottom" constant="10" id="PTG-D9-Vf5"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vrf-GA-z2I" secondAttribute="trailing" id="lBM-0t-9ch"/>
+                                            <constraint firstItem="PCr-mR-6Ng" firstAttribute="leading" secondItem="JyU-6k-WSm" secondAttribute="leading" id="xS5-ob-4iF"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="numberLabel" destination="Vrf-GA-z2I" id="pqV-mc-74P"/>
+                                            <outlet property="timeLabel" destination="PCr-mR-6Ng" id="9g5-1e-YXG"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="bVb-e3-meX" id="eNn-3A-9kd"/>
+                                    <outlet property="delegate" destination="bVb-e3-meX" id="XEl-3B-3KQ"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="fnz-vz-RXP"/>
+                    </view>
+                    <connections>
+                        <outlet property="calendar" destination="fWr-Ss-7jV" id="AIJ-bq-bAG"/>
+                        <outlet property="calendarbackView" destination="RDE-Es-e0I" id="uTC-4R-FDd"/>
+                        <outlet property="collectionView" destination="Q2H-iM-aFU" id="0sU-eA-V5F"/>
+                        <outlet property="textField_number" destination="cIb-g6-RHq" id="eht-SK-Rht"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="6900" y="1626.3546798029558"/>
         </scene>
         <!--Photo Comment View Controller-->
         <scene sceneID="3Ot-Fd-zBg">
@@ -1521,11 +1637,11 @@
     <inferredMetricsTieBreakers>
         <segue reference="gDm-dX-hkN"/>
         <segue reference="JYO-eN-2gu"/>
-        <segue reference="f7i-Me-Lo9"/>
+        <segue reference="BkW-KD-mdM"/>
         <segue reference="Y7O-Qq-eTn"/>
         <segue reference="hhS-4M-KmY"/>
-        <segue reference="iUQ-3I-eMB"/>
+        <segue reference="35X-Ai-6C0"/>
         <segue reference="LQU-1H-t5M"/>
-        <segue reference="zJh-Xi-D0N"/>
+        <segue reference="DWq-4V-68b"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -54,7 +54,7 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
     var acountimage = UIImage(named: "acount1")
     var openHeights: [CGFloat] = [600,600,600,600,600,600,600,600,600,600,600,600,600,600,600]
     var commentnumbar = [30,21,21,2,21,21,2,33,8,7,64]
-    var comment = "めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちした。ブステーキが特に美味しくてほっぺた落ちちゃいました。めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました"
+    var comment = "めちゃめちゃ美味しかったです。\nリブステーキが特に美味しくてほっぺた落ちちゃいました。"
     var goods:[Int] = [120,120,120,120,120,120,120,120,120,120,120,120,120,120,120,]
     var bads:[Int] = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]
     var isOpens = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,]
