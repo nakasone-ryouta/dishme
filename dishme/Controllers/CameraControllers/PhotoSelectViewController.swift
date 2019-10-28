@@ -42,6 +42,17 @@ class PhotoSelectViewController: UIViewController{
                                     UIImage(named: "meat15")!,
                                     UIImage(named: "meat11")!,]
     
+    var acounts:[UIImage] = [UIImage(named: "meat1")!,
+                                    UIImage(named: "meat2")!,
+                                    UIImage(named: "meat3")!,
+                                    UIImage(named: "meat4")!,
+                                    UIImage(named: "meat5")!,
+                                    UIImage(named: "meat6")!,
+                                    UIImage(named: "meat7")!,
+                                    UIImage(named: "meat8")!,
+                                    UIImage(named: "meat9")!,
+                                    UIImage(named: "meat10")!,]
+    
     var dishname:[String] = ["イベリコ豚","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身","牛肉の切り身"]
     
     var comment = "めちゃめちゃ美味しかったです。リブステーキが特に美味しくてほっぺた落ちちゃいました。"
@@ -76,7 +87,7 @@ class PhotoSelectViewController: UIViewController{
         topcell()
         
         //navigationの設定
-        setupNavigation()
+//        setupNavigation()
         deleteBuckTitle()
         
         //検索バー(追加)
@@ -100,8 +111,8 @@ extension PhotoSelectViewController:UISearchResultsUpdating,UISearchBarDelegate{
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.keyboardAppearance = .default
         searchController.searchBar.delegate = self
+        searchController.searchBar.setValue("完了", forKey: "_cancelButtonText")
         searchController.searchBar.setShowsCancelButton(false, animated: true)
-        searchController.searchBar.setValue("", forKey: "_cancelButtonText")
         navigationItem.titleView = searchController.searchBar
     }
     
@@ -121,6 +132,7 @@ extension PhotoSelectViewController:UISearchResultsUpdating,UISearchBarDelegate{
         searchBar.showsCancelButton = false
         self.view.endEditing(true)
         searchBar.text = ""
+        tableView.removeFromSuperview()
         self.tableView.reloadData()
     }
     
@@ -134,11 +146,10 @@ extension PhotoSelectViewController:UISearchResultsUpdating,UISearchBarDelegate{
     }
     // 編集が開始されたら、キャンセルボタンを有効にする
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        performSegue(withIdentifier: "toSearchTable", sender: nil)
-//        tablesettings()
-//        selectBtn = UIBarButtonItem(title: "完了", style: .done, target: self, action: #selector(cancel))
-//        self.navigationItem.rightBarButtonItems = [selectBtn]
-//        self.tableView.reloadData()
+//        performSegue(withIdentifier: "toSearchTable", sender: nil)
+        searchController.searchBar.showsCancelButton = true
+        tablesettings()
+        self.tableView.reloadData()
         return true
         
     }
@@ -203,10 +214,13 @@ extension PhotoSelectViewController: UITableViewDelegate,UITableViewDataSource {
         
         //検索されたものかおすすめに出てきているものをタッチしたのかの判別
         searchController.searchBar.text = suggestions[indexPath.row]
-        tableView.removeFromSuperview()
         searchstore = searchController.searchBar.text!
         
-//        searchController.searchBar.resignFirstResponder
+        searchController.searchBar.resignFirstResponder()
+        searchController.searchBar.showsCancelButton = false
+        tableView.removeFromSuperview()
+        self.tableView.reloadData()
+
     }
     
 }
@@ -346,7 +360,7 @@ extension PhotoSelectViewController{
                                        style: .plain,
                                        target: self,
                                        action: #selector(filteraciton));
-        self.navigationItem.rightBarButtonItems = [edititem]
+        self.navigationItem.rightBarButtonItem = edititem
         
     }
     func deleteBuckTitle(){
@@ -355,7 +369,7 @@ extension PhotoSelectViewController{
                                              target: self,
                                              action: #selector(backaction));
         
-        self.navigationItem.setLeftBarButtonItems([backButtonItem], animated: true)
+        self.navigationItem.setLeftBarButton(backButtonItem, animated: true)
     }
     @objc func backaction(){
         self.navigationController?.popViewController(animated: true)

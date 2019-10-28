@@ -37,11 +37,12 @@ class SignInViewController: UIViewController {
     
     //アカウントのボタンのインスタンス化
     let acountbtn_view2 = UIButton(type: .custom)
+    let acountbtn_view3 = UIButton(type: .custom)
     let permitbutton = UIButton(type: .custom)
     
     //アカウントの画像
     var acountimageView = UIImage(named: "acount0")
-    var permitimageView = UIImage(named: "acount0")
+    var permitimageView = UIImage(named: "permitadd")
     var acounttouch:Bool = false
     
     override func viewDidLoad() {
@@ -378,11 +379,26 @@ extension SignInViewController{
 //サインアップの設定
 extension SignInViewController{
     func view2settings(){
+        acountLabel()
         nametextfield()
         emailtextfield_view2()
         passwordtextfield_view2()
         acountbutton_view2()
         SignInButton_view2()
+    }
+    
+    func acountLabel(){
+        let label = UILabel()
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        label.frame = CGRect(x: 147, y: 100, width: 0 , height: 0)
+        label.textAlignment = NSTextAlignment.center
+        label.text = "ユーザ写真"
+        label.sizeToFit()
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 7)
+        label.adjustsFontSizeToFitWidth = true
+        scrollView2.addSubview(label)
     }
     
     func nametextfield(){
@@ -458,12 +474,73 @@ extension SignInViewController{
 //会社の登録
 extension SignInViewController{
     func view3settings(){
+        acountLabel_view3()
+        uploadpermitLabel()
         nametextfield_view3()
         emailtextfield_view3()
         passwordtextfield_view3()
         acountbutton_view3()
+        permitbutton_view3()
         SignInButton_view3()
     }
+    
+    func acountbutton_view3(){
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        
+        acountbtn_view3.addTarget(self, action: #selector(acountimage), for: UIControl.Event.touchUpInside)
+        acountbtn_view3.frame = CGRect(x: 0, y: height/20.24, width: width/6.35, height: width/6.35)
+        acountbtn_view3.center.x = view.center.x - 70
+        acountbtn_view3.setImage(acountimageView, for: UIControl.State())
+        acountbtn_view3.layer.shadowOpacity = 0.1
+        acountbtn_view3.layer.shadowOffset = CGSize(width: 2, height: 2)
+        scrollView3.addSubview(acountbtn_view3)
+    }
+    
+    func permitbutton_view3(){
+        // UIButtonのインスタンスを作成する
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        permitbutton.addTarget(self, action: #selector(permitaction), for: UIControl.Event.touchUpInside)
+        
+        permitbutton.frame = CGRect(x: 0, y: height/20.24, width: width/6.35, height: width/6.35)
+        permitbutton.center.x = view.center.x + 70
+        permitbutton.setImage(permitimageView, for: UIControl.State())
+        permitbutton.layer.shadowOpacity = 0.1
+        permitbutton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        scrollView3.addSubview(permitbutton)
+    }
+    
+    
+    func uploadpermitLabel(){
+        let label = UILabel()
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        label.frame = CGRect(x: 147, y: 100, width: 0 , height: 0)
+        label.textAlignment = NSTextAlignment.center
+        label.text = "営業許可証"
+        label.sizeToFit()
+        label.center.x = view.center.x + 70
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 7)
+        label.adjustsFontSizeToFitWidth = true
+        scrollView3.addSubview(label)
+    }
+    func acountLabel_view3(){
+        let label = UILabel()
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        label.frame = CGRect(x: 0, y: 100, width: 0 , height: 0)
+        label.textAlignment = NSTextAlignment.center
+        label.text = "ユーザ写真"
+        label.sizeToFit()
+        label.center.x = view.center.x - 70
+        label.textColor = UIColor.black
+        label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 7)
+        label.adjustsFontSizeToFitWidth = true
+        scrollView3.addSubview(label)
+    }
+    
     
     func nametextfield_view3(){
         let width = UIScreen.main.bounds.size.width
@@ -503,20 +580,6 @@ extension SignInViewController{
         company_password_textfield.placeholder = "CompanyPassword"
         company_password_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
         scrollView3.addSubview(company_password_textfield)
-    }
-    
-    func acountbutton_view3(){
-        // UIButtonのインスタンスを作成する
-        let width = UIScreen.main.bounds.size.width
-        let height = UIScreen.main.bounds.size.height
-        permitbutton.addTarget(self, action: #selector(permitaction), for: UIControl.Event.touchUpInside)
-
-        permitbutton.frame = CGRect(x: 0, y: height/20.24, width: width/6.35, height: width/6.35)
-        permitbutton.center.x = view.center.x
-        permitbutton.setImage(permitimageView, for: UIControl.State())
-        permitbutton.layer.shadowOpacity = 0.1
-        permitbutton.layer.shadowOffset = CGSize(width: 2, height: 2)
-        scrollView3.addSubview(permitbutton)
     }
     
     func SignInButton_view3(){

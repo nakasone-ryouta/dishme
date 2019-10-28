@@ -1030,7 +1030,6 @@
         <!--Edit Reserve Setting View Controller-->
         <scene sceneID="nDC-1g-fac">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0W9-OZ-1Ip" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController hidesBottomBarWhenPushed="YES" id="bVb-e3-meX" customClass="EditReserveSettingViewController" customModule="dishme" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IRu-3W-p1Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -1136,6 +1135,7 @@
                         <outlet property="textField_number" destination="cIb-g6-RHq" id="eht-SK-Rht"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0W9-OZ-1Ip" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6900" y="1626.3546798029558"/>
         </scene>
@@ -1641,7 +1641,7 @@
         <segue reference="Y7O-Qq-eTn"/>
         <segue reference="hhS-4M-KmY"/>
         <segue reference="35X-Ai-6C0"/>
-        <segue reference="LQU-1H-t5M"/>
+        <segue reference="Txv-9s-JIA"/>
         <segue reference="DWq-4V-68b"/>
     </inferredMetricsTieBreakers>
 </document>

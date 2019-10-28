@@ -6,7 +6,7 @@ import SnapKit
 class List2ViewController: UIViewController {
     
     //サインイン(企業orユーザ)
-    var acountResister = "企業a"
+    var acountResister = "企業"
     
     let acountimage:[UIImage] = [UIImage(named: "acount1")!,
                                  UIImage(named: "acount2")!,
