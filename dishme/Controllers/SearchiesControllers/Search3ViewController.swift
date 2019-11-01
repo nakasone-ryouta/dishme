@@ -13,9 +13,6 @@ import SnapKit
 
 class Search3ViewController: UIViewController,ScrollingNavigationControllerDelegate{
     
-    //サインイン(企業orユーザ)
-    var acountResister = "企業a"
-    
     //[おすすめ][メニュー][雰囲気]を判断する
     var controllerjudge = "おすすめ"
     
@@ -138,17 +135,12 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
     }
     
     @IBAction func ReservaionButton(_ sender: Any) {
-        switch acountResister {
-        case "企業":
-            //電話をかける
-            let url = NSURL(string: "tel://\(callnumber)")!
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url as URL)
-            } else {
-                UIApplication.shared.openURL(url as URL)
-            }
-        default:
-            performSegue(withIdentifier: "toReservation", sender: nil)
+        //電話をかける
+        let url = NSURL(string: "tel://\(callnumber)")!
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url as URL)
+        } else {
+            UIApplication.shared.openURL(url as URL)
         }
     }
 }
@@ -214,11 +206,8 @@ extension Search3ViewController{
         acountimageview()
         comentview()
         
-        //保存ボタン
-        if acountResister == "企業"{
-        }else{
-          setupNavigation()
-        }
+        //navigationの基本設定
+        setupNavigation()
         
         //yummyボタン
         goodButton()

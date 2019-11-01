@@ -61,6 +61,7 @@ class PhotoSelectViewController: UIViewController{
     
     var alerttitle = ""
     
+    var customcolor = CustomColor()
     //========================================検索に必要なもの(追加)======================================
     var searchController = UISearchController()//検索バー
     var tableView: UITableView!//検索テーブル
@@ -493,11 +494,14 @@ extension PhotoSelectViewController{
         let height = view.frame.size.height
         button.frame = CGRect(x: width / 14.4,
                               y: height / 1.07,
-                              width: width / 14.4,
+                              width: width / 12,
                               height: width / 14.4);
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        button.setImage(UIImage(named: "checkmark"), for: UIControl.State())
+        button.setTitle("投稿", for: .normal)
+        button.titleLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 15)
+        button.setTitleColor(customcolor.selectColor(), for: .normal)
+        button.titleLabel?.sizeToFit()
         button.addTarget(self, action: #selector(dicidesegue), for: UIControl.Event.touchUpInside)
         
         

@@ -13,8 +13,7 @@
 import UIKit
 
 class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-     var acountRegister = "企業a"
+
      var firstindex:IndexPath? = nil //初期位置
     
     var customcolor = CustomColor()
@@ -126,21 +125,17 @@ extension Search2ViewController{
         //コメントを書く
         cell.commentLabel.text = comment
         cell.commentNumber.text = "\(commentnumbar[indexPath.row])"
-        //acountの名前の設定
+        
+
+
         cell.resevebButton.setTitle(cellTexts[indexPath.row] + "・お店を保存", for: UIControl.State.normal)
         cell.resevebButton.setTitleColor(UIColor.black, for: .normal)
         cell.resevebButton.titleLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         namerange.append(cellTexts[indexPath.row].count)
         attrText.append(NSMutableAttributedString(string: cell.resevebButton.titleLabel!.text!))
         attrText[indexPath.row].addAttribute(.foregroundColor,
-                              value: customcolor.selectColor(), range: NSMakeRange(namerange.last! + 1, 5))
+                                             value: customcolor.selectColor(), range: NSMakeRange(namerange.last! + 1, 5))
         cell.resevebButton.setAttributedTitle(attrText[indexPath.row], for: .normal)
-        
-        //企業の場合は保存ボタンはいらない
-        if acountRegister == "企業"{
-            cell.resevebButton.setTitle(cellTexts[indexPath.row], for: UIControl.State.normal)
-        }
-        
         
         //何番目のボタンが押されているか
         cell.detailButton.tag = indexPath.row

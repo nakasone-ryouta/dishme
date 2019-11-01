@@ -53,14 +53,14 @@ class TableSettings :UIViewController{
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
         //最大定員数
+//        if indexPath.row == 5{
+//            cell.textLabel?.text = "１時間予約上限人数"
+//            cell.textLabel?.textAlignment = NSTextAlignment.right
+//            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
+//            cell.detailTextLabel?.text = maxnumber + "名"
+//            cell.detailTextLabel?.textAlignment = NSTextAlignment.left
+//        }
         if indexPath.row == 5{
-            cell.textLabel?.text = "１時間予約上限人数"
-            cell.textLabel?.textAlignment = NSTextAlignment.right
-            cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
-            cell.detailTextLabel?.text = maxnumber + "名"
-            cell.detailTextLabel?.textAlignment = NSTextAlignment.left
-        }
-        if indexPath.row == 6{
             cell.textLabel?.text = "定休日"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
@@ -68,21 +68,21 @@ class TableSettings :UIViewController{
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
         //臨時休業
-        if indexPath.row == 7{
+        if indexPath.row == 6{
             cell.textLabel?.text = "臨時休業"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
             cell.detailTextLabel?.text = temporaryClosed
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
-        if indexPath.row == 8{
+        if indexPath.row == 7{
             cell.textLabel?.text = "平均使用額"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
             cell.detailTextLabel?.text = avaragemoney
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
         }
-        if indexPath.row == 9{
+        if indexPath.row == 8{
             cell.textLabel?.text = "お店の料理ジャンル"
             cell.textLabel?.textAlignment = NSTextAlignment.right
             cell.textLabel?.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
