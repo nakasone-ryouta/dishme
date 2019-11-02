@@ -74,6 +74,9 @@ class PhotoSelectViewController: UIViewController{
     var category = ["おすすめ","メニュー","雰囲気"]
     //========================================検索に必要なもの===========================================
     
+    //tabのbackview
+    let backview = UIView()
+    
     //右上のボタン
     var selectBtn: UIBarButtonItem!
     
@@ -433,8 +436,9 @@ extension PhotoSelectViewController{
 //tabbar周りのレイアウト
 extension PhotoSelectViewController{
     func tabbarcontroller(){
-        backview()
+        backviewground()
         deleteBtn()
+        filterBtn()
         
         if cameratarget == "新規"{
             alertButton()
@@ -444,8 +448,7 @@ extension PhotoSelectViewController{
         }
         
     }
-    func backview(){
-        let backview = UIView()
+    func backviewground(){
         let width = view.frame.size.width
         let height = view.frame.size.height
         //        画面合わせ
@@ -506,6 +509,22 @@ extension PhotoSelectViewController{
         
         
         self.view.addSubview(button)
+    }
+    func filterBtn(){
+        let button = UIButton(type: .custom)
+        let width = view.frame.size.width
+        button.frame = CGRect(x: 0,
+                              y: 0,
+                              width: width/14.4,
+                              height: width/14.4);
+        button.layer.position = CGPoint(x: view.frame.size.width / 2, y: backview.frame.size.height / 2)
+        button.layer.shadowOpacity = 0.1
+        button.layer.shadowOffset = CGSize(width: 2, height: 2)
+        button.setImage(UIImage(named: "edititem"), for: UIControl.State())
+        button.addTarget(self, action: #selector(filteraciton), for: UIControl.Event.touchUpInside)
+        
+        
+        backview.addSubview(button)
     }
     
     @objc func dicidesegue(){
