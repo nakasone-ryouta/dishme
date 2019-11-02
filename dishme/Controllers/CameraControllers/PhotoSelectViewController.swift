@@ -344,10 +344,6 @@ extension PhotoSelectViewController{
     
     //画面に渡す値
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toCameraLast" {
-            let nextView = segue.destination as! CameraLastViewController
-            nextView.alerttitle = alerttitle
-        }
         if segue.identifier == "toSearchTable" {
             let nextView = segue.destination as! SearchTableViewController
             nextView.settings = "お店検索"

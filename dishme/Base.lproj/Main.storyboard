@@ -93,7 +93,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SNj-Se-f10">
-                                                    <rect key="frame" x="-3" y="0.0" width="375" height="375"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="SNj-Se-f10" secondAttribute="height" multiplier="1:1" id="9VI-di-Pkh"/>
                                                         <constraint firstAttribute="width" constant="375" id="dev-Nc-gws"/>
@@ -125,7 +125,6 @@
                     <connections>
                         <outlet property="collectionView2" destination="cIo-Qx-VaV" id="aZ6-3M-1dd"/>
                         <segue destination="cwZ-y6-9Ta" kind="showDetail" identifier="toPhotoComment" id="xlf-WA-z2D"/>
-                        <segue destination="JIh-8O-0qO" kind="showDetail" identifier="toCameraLast" id="ZEe-Tk-uCq"/>
                         <segue destination="0E1-qk-fRq" kind="show" identifier="toSearchTable" id="hhS-4M-KmY"/>
                     </connections>
                 </viewController>
@@ -326,21 +325,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z2E-qD-k1z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-220" y="3273"/>
-        </scene>
-        <!--Camera Last View Controller-->
-        <scene sceneID="7YX-Tv-Pbb">
-            <objects>
-                <viewController modalPresentationStyle="overCurrentContext" id="JIh-8O-0qO" customClass="CameraLastViewController" customModule="dishme" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="NaH-rw-BOe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="yPK-PD-N1n"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rhg-Xs-a9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3806" y="2316"/>
         </scene>
         <!--検索-->
         <scene sceneID="R8U-O8-rxg">
@@ -607,7 +591,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h5x-CO-YTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4721" y="2316"/>
+            <point key="canvasLocation" x="2217" y="2297"/>
         </scene>
         <!--Youser Acount View Controller-->
         <scene sceneID="Ecu-Oi-UXd">

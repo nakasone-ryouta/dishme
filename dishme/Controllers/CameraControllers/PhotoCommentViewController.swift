@@ -141,7 +141,7 @@ class PhotoCommentViewController: UIViewController ,UITextViewDelegate{
     
     @objc func segue(){
         if textfield.text == ""{
-            _ = SweetAlert().showAlert("値段を設定してください", subTitle: "値段を決めないと追加できません", style: AlertStyle.error)
+            _ = SweetAlert().showAlert("コメントがありません", subTitle: "値段を決めないと追加できません", style: AlertStyle.error)
         }else{
             _ = SweetAlert().showAlert("写真を保存しました", subTitle: "店名:\(searchstore)", style: AlertStyle.success)
         }

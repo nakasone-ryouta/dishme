@@ -379,12 +379,12 @@ extension SignInViewController{
         let height = UIScreen.main.bounds.size.height
         label.frame = CGRect(x: 0, y: height / 8.12, width: 0 , height: 0)
         label.textAlignment = NSTextAlignment.center
-        label.center.x = view.center.x
         label.text = "ユーザ写真"
         label.sizeToFit()
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: 7)
         label.adjustsFontSizeToFitWidth = true
+        label.center.x = view.center.x
         scrollView2.addSubview(label)
     }
     
