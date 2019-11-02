@@ -102,14 +102,11 @@ extension List2ViewController: UITableViewDataSource,UITableViewDelegate{
         //テーブルのレイアウト
         let tablelayout = Layouting()
         tablelayout.tableLayouting(tableview: tableView, view: view)
-        let tableheight = view.frame.size.height - navigationController!.navigationBar.frame.size.height
-        tableView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: tableheight)
         tableView.separatorStyle = .none
         controller.view.addSubview(tableView)
     }
     //予約
     func tableview2settings(controller: UIViewController){
-        reserve_tableView.frame         = CGRect(x: 0, y: 0, width: 375, height: 812)
         reserve_tableView.delegate      =   self
         reserve_tableView.dataSource    =   self
         reserve_tableView.separatorStyle = .none

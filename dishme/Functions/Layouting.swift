@@ -17,7 +17,7 @@ class Layouting {
         switch UIScreen.main.nativeBounds.height {
         case 1136:
             print("iPhone 5/5S/5C")
-            tableview.frame = CGRect(x: 0, y: 0, width: width, height: 370)
+            tableview.frame = CGRect(x: 0, y: 0, width: width, height: 405)
         case 1334:
             print("iPhone 6/6S/7/8")
             tableview.frame = CGRect(x: 0, y: 0, width: width, height: 510)
@@ -41,7 +41,7 @@ class Layouting {
         switch UIScreen.main.nativeBounds.height {
         case 1136:
             print("iPhone 5/5S/5C")
-            tableview.frame = CGRect(x: 0, y: 0, width: width, height: 370)
+            tableview.frame = CGRect(x: 0, y: 0, width: width, height: 400)
         case 1334:
             print("iPhone 6/6S/7/8")
             tableview.frame = CGRect(x: 0, y: 0, width: width, height: 470)

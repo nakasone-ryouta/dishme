@@ -376,10 +376,10 @@ extension SignInViewController{
     
     func acountLabel(){
         let label = UILabel()
-        let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
-        label.frame = CGRect(x: 147, y: 100, width: 0 , height: 0)
+        label.frame = CGRect(x: 0, y: height / 8.12, width: 0 , height: 0)
         label.textAlignment = NSTextAlignment.center
+        label.center.x = view.center.x
         label.text = "ユーザ写真"
         label.sizeToFit()
         label.textColor = UIColor.black

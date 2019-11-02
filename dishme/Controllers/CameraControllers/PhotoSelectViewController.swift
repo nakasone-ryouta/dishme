@@ -410,12 +410,9 @@ extension PhotoSelectViewController{
         // UIButtonのインスタンスを作成する
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(commentaction), for: UIControl.Event.touchUpInside)
-        let width = view.frame.size.width
-        let height = view.frame.size.height
-        button.frame = CGRect(x: width / 23.4,
-                              y: height / 1.6,
-                              width: width / 1.05,
-                              height:width / 4);
+        let photoselectLayouting = PhotoSelectLayouting()
+        photoselectLayouting.comment(comment: button)
+
         button.setTitle(comment, for: UIControl.State.normal)
         button.setTitleColor(UIColor.darkGray, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
@@ -461,33 +458,33 @@ extension PhotoSelectViewController{
     func deleteBtn(){
         let button = UIButton(type: .custom)
         let width = view.frame.size.width
-        let height = view.frame.size.height
         button.addTarget(self, action: #selector(deletephoto), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: width / 1.13,
-                              y: height / 1.07,
+        button.frame = CGRect(x: 0,
+                              y: 0,
                               width: width / 18.75,
                               height: width / 14.4);
+        button.layer.position = CGPoint(x: view.frame.size.width - 30, y: backview.frame.size.height / 2)
         button.setImage(UIImage(named: "delete"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        self.view.addSubview(button)
+        self.backview.addSubview(button)
     }
     
     func savephotoBtn(){
         let button = UIButton(type: .custom)
         let width = view.frame.size.width
-        let height = view.frame.size.height
-        button.frame = CGRect(x: width / 13.4,
-                              y: height / 1.07,
+        button.frame = CGRect(x: 0,
+                              y: 0,
                               width: width / 18.75,
                               height: width / 14.4);
+        button.layer.position = CGPoint(x: 30, y: backview.frame.size.height / 2)
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
         button.setImage(UIImage(named: "savephoto"), for: UIControl.State())
         button.addTarget(self, action: #selector(savephoto), for: UIControl.Event.touchUpInside)
         
         
-        self.view.addSubview(button)
+        self.backview.addSubview(button)
     }
     
     func alertButton(){

@@ -143,7 +143,7 @@ extension Search4ViewController: UITableViewDataSource, UITableViewDelegate{
             x: 0.0,
             y: 0,
             width: self.view.frame.width,
-            height: 812
+            height: self.view.frame.height
         )
         
         tableView1.delegate      =   self
@@ -212,6 +212,6 @@ extension Search4ViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 375
+        return view.frame.size.width
     }
 }

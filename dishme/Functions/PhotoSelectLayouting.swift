@@ -50,21 +50,49 @@ class PhotoSelectLayouting {
         switch UIScreen.main.nativeBounds.height {
         case 1136:
             print("iPhone 5/5S/5C")
-            label.frame = CGRect(x: 20,y: 430,width: 0, height: 0)
+            label.frame = CGRect(x: 15,y: 410,width: 0, height: 0)
             
         case 1334:
             print("iPhone 6/6S/7/8")
-            label.frame = CGRect(x: 20,y: 430,width: 0, height: 0)
+            label.frame = CGRect(x: 15,y: 490,width: 0, height: 0)
            
             
         case 2208:
             print("iPhone 6+/6S+/7+/8+")
-            label.frame = CGRect(x: 20,y: 430,width: 0, height: 0)
+            label.frame = CGRect(x: 15,y: 520,width: 0, height: 0)
           
             
         case 2436:
             print("iPhone X")
-            label.frame = CGRect(x: 20,y: 500,width: 0, height: 0)
+            label.frame = CGRect(x: 15,y: 560,width: 0, height: 0)
+            
+        case 960:
+            print("iPad Pro(iPhone ver) (9.7-inch)/(10.5-inch)")
+            print("iPad Air(iPhone ver) (5th generation)/Air/2")
+        default:
+            print("unknown!!!!!!!!!!!!" , UIScreen.main.nativeBounds.height)
+        }
+    }
+    
+    func comment(comment: UIButton){
+        switch UIScreen.main.nativeBounds.height {
+        case 1136:
+            print("iPhone 5/5S/5C")
+            comment.frame = CGRect(x: 15,y: 375,width: 300, height: 150)
+            
+        case 1334:
+            print("iPhone 6/6S/7/8")
+            comment.frame = CGRect(x: 15,y: 460,width: 340, height: 150)
+            
+            
+        case 2208:
+            print("iPhone 6+/6S+/7+/8+")
+            comment.frame = CGRect(x: 15,y: 500,width: 340, height: 150)
+            
+            
+        case 2436:
+            print("iPhone X")
+            comment.frame = CGRect(x: 15,y: 530,width: 340, height: 150)
             
         case 960:
             print("iPad Pro(iPhone ver) (9.7-inch)/(10.5-inch)")
