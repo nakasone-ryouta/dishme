@@ -362,11 +362,11 @@
             </objects>
             <point key="canvasLocation" x="-220" y="2316"/>
         </scene>
-        <!--予約-->
+        <!--リスト-->
         <scene sceneID="5oE-5X-cp6">
             <objects>
                 <navigationController id="JTJ-DS-XFp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="予約" image="tabcheck" id="t00-iC-8M0"/>
+                    <tabBarItem key="tabBarItem" title="リスト" image="tabcheck" id="t00-iC-8M0"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xhj-AX-mXB">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1138,7 +1138,7 @@
         <segue reference="JYO-eN-2gu"/>
         <segue reference="Rvg-zX-bIk"/>
         <segue reference="hhS-4M-KmY"/>
-        <segue reference="byO-XF-B2J"/>
+        <segue reference="iUQ-3I-eMB"/>
         <segue reference="BU6-yg-Pum"/>
     </inferredMetricsTieBreakers>
 </document>
