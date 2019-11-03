@@ -415,6 +415,7 @@ extension Search3ViewController:UITableViewDataSource,UITableViewDelegate{
             //営業時間
             cell.detailTextLabel?.text = opentime
             cell.detailTextLabel?.textAlignment = NSTextAlignment.left
+            cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         }
         //混雑時間
         if indexPath.row == 1{
@@ -440,8 +441,11 @@ extension Search3ViewController:UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        if indexPath.row == 2{
+        
+        if indexPath.row == 0{
+            performSegue(withIdentifier: "toEditHoliday", sender: nil)
+        }
+        else if indexPath.row == 2{
             performSegue(withIdentifier: "toSearchMap", sender: nil)
         }
     }

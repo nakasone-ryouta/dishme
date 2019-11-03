@@ -557,6 +557,7 @@
                         <outlet property="blackView" destination="IWE-lP-pTB" id="KQk-EJ-NSk"/>
                         <segue destination="N8b-Fx-7we" kind="show" identifier="toSearch4" id="l8R-vB-t3R"/>
                         <segue destination="r9G-19-op4" kind="show" identifier="toSearchMap" id="eW3-se-LyZ"/>
+                        <segue destination="M86-fN-2hV" kind="show" identifier="toEditHoliday" id="Xip-1P-dqd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xG1-bj-xtV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1010,6 +1011,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdg-BQ-7oZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-220" y="61"/>
+        </scene>
+        <!--Edit Regular Holiday View Controller-->
+        <scene sceneID="ryu-D7-GMg">
+            <objects>
+                <viewController id="M86-fN-2hV" customClass="EditRegularHolidayViewController" customModule="dishme_inc" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xml-pT-BO2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="46" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xho-fb-use">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="46" id="dM7-uK-tQM">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="46"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dM7-uK-tQM" id="6Cg-rH-ztp">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="45.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="M86-fN-2hV" id="E8j-TS-fin"/>
+                                    <outlet property="delegate" destination="M86-fN-2hV" id="UEt-ht-mUc"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Xho-fb-use" secondAttribute="bottom" id="2FS-xw-BO6"/>
+                            <constraint firstAttribute="trailing" secondItem="Xho-fb-use" secondAttribute="trailing" id="8YO-8y-7Fy"/>
+                            <constraint firstItem="Xho-fb-use" firstAttribute="trailing" secondItem="Wya-ll-stX" secondAttribute="trailing" id="AMa-yX-5Y9"/>
+                            <constraint firstItem="Xho-fb-use" firstAttribute="top" secondItem="xml-pT-BO2" secondAttribute="top" id="KcC-5D-vSc"/>
+                            <constraint firstAttribute="bottom" secondItem="Xho-fb-use" secondAttribute="bottom" id="YE6-40-kvV"/>
+                            <constraint firstItem="Xho-fb-use" firstAttribute="top" secondItem="xml-pT-BO2" secondAttribute="top" id="YMX-q6-Trl"/>
+                            <constraint firstItem="Xho-fb-use" firstAttribute="leading" secondItem="Wya-ll-stX" secondAttribute="leading" id="b29-QB-gyI"/>
+                            <constraint firstItem="Xho-fb-use" firstAttribute="leading" secondItem="Wya-ll-stX" secondAttribute="leading" id="bvr-b8-YFs"/>
+                            <constraint firstItem="Xho-fb-use" firstAttribute="leading" secondItem="xml-pT-BO2" secondAttribute="leading" id="cAO-Jl-6sL"/>
+                            <constraint firstAttribute="bottom" secondItem="Xho-fb-use" secondAttribute="bottom" id="i1G-dL-JA6"/>
+                            <constraint firstItem="Xho-fb-use" firstAttribute="top" secondItem="xml-pT-BO2" secondAttribute="top" id="kEF-6k-Fzt"/>
+                            <constraint firstItem="Xho-fb-use" firstAttribute="trailing" secondItem="Wya-ll-stX" secondAttribute="trailing" id="u1k-k6-uGo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Wya-ll-stX"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="Xho-fb-use" id="VKj-yz-xp6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nvt-su-wsy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2217" y="-1321"/>
         </scene>
     </scenes>
     <resources>
