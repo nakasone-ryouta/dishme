@@ -15,9 +15,9 @@ import FMPhotoPicker
 
 class PhotoSelectViewController: UIViewController{
     
-    //サインイン(企業orユーザ)
-    var acountResister = "企業"
     var cameratarget = ""
+    
+    var storename = "店名を入力"
 
     @IBOutlet weak var collectionView2: UICollectionView!
     
@@ -95,11 +95,9 @@ class PhotoSelectViewController: UIViewController{
         deleteBuckTitle()
         
         //検索バー(追加)
-        if acountResister == "ユーザ"{
-            setupSearchcontroller()
-            kutikomimoji()
-            commentButton()
-        }
+        setupSearchcontroller()
+        kutikomimoji()
+        commentButton()
     }
 }
 
@@ -110,7 +108,7 @@ extension PhotoSelectViewController:UISearchResultsUpdating,UISearchBarDelegate{
     func setupSearchcontroller(){
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = "店名を入力"
+        searchController.searchBar.placeholder = storename
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.keyboardAppearance = .default
@@ -282,26 +280,28 @@ extension PhotoSelectViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let collectionsettings = CollectionSettings()
-        let cell = collectionsettings.photoSelectCellForRowAt(originalimages: originalimages[indexPath.row],
-                                                              acountResister: acountResister,
-                                                              cameratarget: cameratarget,
-                                                              categoryname: "おすすめ",
-                                                              productname: dishname[indexPath.row],
-                                                              moneyname: value[indexPath.row],
-                                                              collectionvew: collectionView2,
-                                                              indexPath: indexPath)
+        let cell = collectionView2.dequeueReusableCell(withReuseIdentifier: "Cell2",for: indexPath as IndexPath) as! PhotosBigViewCell
         
+        // Section毎にCellのプロパティを変える.
+        switch(indexPath.section){
+        case 0:
+            cell.imageView.image = originalimages[indexPath.row]
+            
+        case 1:
+            cell.imageView.image = originalimages[indexPath.row]
+            
+        case 2:
+            cell.imageView.image = originalimages[indexPath.row]
+            
+        default:
+            cell.imageView.image = originalimages[indexPath.row]
+        }
         
         return cell
+        
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            switch acountResister {
-            case "企業":
-                break;
-            default:
-                break;
-            }
+        //写真が選択された場合の処理
     }
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let contensts = collectionView2.contentOffset.x

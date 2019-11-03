@@ -25,7 +25,6 @@
 		6A0AE90F235D3E4500C45EB9 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE90E235D3E4500C45EB9 /* CustomTableViewCell.swift */; };
 		6A0AE911235E5A6F00C45EB9 /* CellsHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE910235E5A6F00C45EB9 /* CellsHeight.swift */; };
 		6A0AE913235E664C00C45EB9 /* EvalutionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE912235E664B00C45EB9 /* EvalutionButton.swift */; };
-		6A0AE915235EBC4800C45EB9 /* CollectionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE914235EBC4800C45EB9 /* CollectionSettings.swift */; };
 		6A0AE918235ECFAD00C45EB9 /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0AE917235ECFAD00C45EB9 /* CustomFlowLayout.swift */; };
 		6A116FDF2354D39A00D01A53 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A116FDE2354D39A00D01A53 /* SearchTableViewController.swift */; };
 		6A1D21772358B058005F63A7 /* CameraCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1D21762358B058005F63A7 /* CameraCollectionViewCell.swift */; };
@@ -93,7 +92,6 @@
 		6A0AE90E235D3E4500C45EB9 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		6A0AE910235E5A6F00C45EB9 /* CellsHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellsHeight.swift; sourceTree = "<group>"; };
 		6A0AE912235E664B00C45EB9 /* EvalutionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvalutionButton.swift; sourceTree = "<group>"; };
-		6A0AE914235EBC4800C45EB9 /* CollectionSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionSettings.swift; sourceTree = "<group>"; };
 		6A0AE917235ECFAD00C45EB9 /* CustomFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
 		6A116FDE2354D39A00D01A53 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		6A1D21762358B058005F63A7 /* CameraCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -265,7 +263,6 @@
 		6A6AE08823296A8900D776AD /* Functions */ = {
 			isa = PBXGroup;
 			children = (
-				6A0AE914235EBC4800C45EB9 /* CollectionSettings.swift */,
 				6A00A024234C79E300E42E44 /* TableSettings.swift */,
 				6A0AC28F235652A900A59F0C /* Layouting.swift */,
 				6A23BAF223628E0B00863D5D /* PhotoSelectLayouting.swift */,
@@ -553,7 +550,6 @@
 				6A9A82552333C42900507C1C /* TableViewCell.swift in Sources */,
 				6A505CD0232DA85B002F2184 /* CameraViewController.swift in Sources */,
 				6A9A826223349FDF00507C1C /* List2ViewController.swift in Sources */,
-				6A0AE915235EBC4800C45EB9 /* CollectionSettings.swift in Sources */,
 				6A6AE05F2329166D00D776AD /* SearchViewController.swift in Sources */,
 				6A9A82682334C62100507C1C /* PhotoSelectViewController.swift in Sources */,
 				6A0960702348702700846ABF /* Search4TableViewCell.swift in Sources */,

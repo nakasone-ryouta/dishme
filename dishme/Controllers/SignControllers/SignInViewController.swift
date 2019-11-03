@@ -29,11 +29,8 @@ class SignInViewController: UIViewController {
     //signupのtextfield
     let signup_name_textfield = UITextField()
     let signup_email_textfield = UITextField()
+    let signup_phone_textfield = UITextField()
     let signup_password_textfield = UITextField()
-    //companyのtextfield
-    let company_name_textfield = UITextField()
-    let company_email_textfield = UITextField()
-    let company_password_textfield = UITextField()
     
     //アカウントのボタンのインスタンス化
     let acountbtn_view2 = UIButton(type: .custom)
@@ -93,10 +90,7 @@ extension SignInViewController{
         signup_name_textfield.resignFirstResponder()
         signup_email_textfield.resignFirstResponder()
         signup_password_textfield.resignFirstResponder()
-        //カンパニー
-        company_name_textfield.resignFirstResponder()
-        company_email_textfield.resignFirstResponder()
-        company_password_textfield.resignFirstResponder()
+        signup_phone_textfield.resignFirstResponder()
         
         return true
     }
@@ -159,7 +153,7 @@ extension SignInViewController{
         if selectedTextField == signin_password_textfield || selectedTextField == signin_email_textfield{
             scrollposition(moveSize: Int(moveSize), selectscrollView: scrollView, contentInsets: contentInsets)
         }
-        else if selectedTextField == signup_password_textfield || selectedTextField == signup_email_textfield || selectedTextField == signup_name_textfield{
+        else if selectedTextField == signup_password_textfield || selectedTextField == signup_email_textfield || selectedTextField == signup_name_textfield || selectedTextField == signup_phone_textfield{
             scrollposition(moveSize: Int(moveSize), selectscrollView: scrollView2, contentInsets: contentInsets)
         }
         else{
@@ -372,6 +366,7 @@ extension SignInViewController{
         passwordtextfield_view2()
         acountbutton_view2()
         SignInButton_view2()
+        phonetextfield_view2()
     }
     
     func acountLabel(){
@@ -406,7 +401,7 @@ extension SignInViewController{
         let height = UIScreen.main.bounds.size.height
 
         signup_email_textfield.delegate = self
-        signup_email_textfield.frame = CGRect(x: 0, y: height/3.84, width: width/1.5, height: height/16.24)
+        signup_email_textfield.frame = CGRect(x: 0, y: height/3.64, width: width/1.5, height: height/16.24)
         signup_email_textfield.textAlignment = NSTextAlignment.left
         signup_email_textfield.center.x = view.center.x
         signup_email_textfield.font = UIFont.systemFont(ofSize: width/22)
@@ -426,6 +421,19 @@ extension SignInViewController{
         signup_password_textfield.placeholder = "Password"
         signup_password_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
         scrollView2.addSubview(signup_password_textfield)
+    }
+    func phonetextfield_view2(){
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        
+        signup_phone_textfield.delegate = self
+        signup_phone_textfield.frame = CGRect(x: 0, y: height/4.75, width: width/1.5, height: height/16.24)
+        signup_phone_textfield.textAlignment = NSTextAlignment.left
+        signup_phone_textfield.center.x = view.center.x
+        signup_phone_textfield.font = UIFont.systemFont(ofSize: width/22)
+        signup_phone_textfield.placeholder = "Phone Number"
+        signup_phone_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
+        scrollView2.addSubview(signup_phone_textfield)
     }
     
     func acountbutton_view2(){
@@ -448,7 +456,7 @@ extension SignInViewController{
         
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(toyouserAcount), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 0, y: height/2.13, width: width/2.05, height: width/9.6)
+        button.frame = CGRect(x: 0, y: height/2.02, width: width/2.04, height: width/9.6)
         button.center.x = view.center.x
         button.setImage(UIImage(named: "signupbar"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1

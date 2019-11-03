@@ -138,7 +138,6 @@ extension CameraViewController{
         if segue.identifier == "toPhotoSelect"{
             let nextView = segue.destination as! PhotoSelectViewController
             nextView.originalimages = originalimages
-            nextView.acountResister = acountResister
             nextView.cameratarget = cameratarget
         }
     }

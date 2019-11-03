@@ -16,6 +16,9 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
      var firstindex:IndexPath? = nil //初期位置
     
+    var spectator = ""//誰がこの投稿詳細画面を見ているか
+    var storename = ""
+    
     var customcolor = CustomColor()
     
     @IBOutlet weak var tableView: UITableView!
@@ -88,7 +91,9 @@ extension Search2ViewController{
     //前の画面で選択されたセルがtopに来る
     func topcell(){
         DispatchQueue.main.async {
-            self.tableView.scrollToRow(at: self.firstindex!, at: UITableView.ScrollPosition.top, animated: false)
+            //sectionは常に0として処理する
+            let indexPath = IndexPath(row: (self.firstindex?.row)!, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.top, animated: false)
         }
     }
     
@@ -108,33 +113,26 @@ extension Search2ViewController{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for:indexPath) as! TableViewCell
         
-        //cellの表示
-        cell.selectionStyle = .none
-        cell.isOpen = isOpens[indexPath.row]
-        cell.acountButton.setBackgroundImage(UIImage(named: "acount3"), for: UIControl.State())
-        cell.acountButton.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
-        cell.goodlabel.text = "\(goods[indexPath.row])"
-        cell.badlabel.text = "\(bads[indexPath.row])"
-        
-        
         //写真の表示
         let tablenumber = indexPath.row
         let photonumber = image?[indexPath.row].count
         cell.setImage(image: image!, tablenumber: tablenumber, photonumber: photonumber!, view: view)
         
-        //コメントを書く
+        //コメント
         cell.commentLabel.text = comment
         cell.commentNumber.text = "\(commentnumbar[indexPath.row])"
         
 
 
+        //お店名の登録
         cell.resevebButton.setTitle(cellTexts[indexPath.row] + "・お店を保存", for: UIControl.State.normal)
         cell.resevebButton.setTitleColor(UIColor.black, for: .normal)
         cell.resevebButton.titleLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 13)
         namerange.append(cellTexts[indexPath.row].count)
         attrText.append(NSMutableAttributedString(string: cell.resevebButton.titleLabel!.text!))
         attrText[indexPath.row].addAttribute(.foregroundColor,
-                                             value: customcolor.selectColor(), range: NSMakeRange(namerange.last! + 1, 5))
+                                             value: customcolor.selectColor(),
+                                             range: NSMakeRange(namerange.last! + 1, 5))
         cell.resevebButton.setAttributedTitle(attrText[indexPath.row], for: .normal)
         
         //何番目のボタンが押されているか
@@ -150,6 +148,23 @@ extension Search2ViewController{
         cell.goodButton.addTarget(self, action: #selector(self.goodbutton), for: .touchUpInside)
         cell.badButton.addTarget(self, action: #selector(self.badButton), for: .touchUpInside)
         cell.commentButton.addTarget(self, action: #selector(self.commentaction), for: .touchUpInside)
+        
+        //編集ボタンの選択
+        if spectator == "本人"{
+            cell.editButton.addTarget(self, action: #selector(self.toPhotoSelect), for: .touchUpInside)
+        }
+        else{
+            cell.editButton.setTitle("", for: .normal)
+        }
+        
+        //その他UI部品の配置
+        cell.selectionStyle = .none
+        cell.isOpen = isOpens[indexPath.row]
+        cell.acountButton.setBackgroundImage(UIImage(named: "acount3"), for: UIControl.State())
+        cell.acountButton.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        cell.goodlabel.text = "\(goods[indexPath.row])"
+        cell.badlabel.text = "\(bads[indexPath.row])"
+        
         return cell
     }
     
@@ -190,13 +205,16 @@ extension Search2ViewController{
     }
     
     @objc func detailaction(){
-        
         performSegue(withIdentifier: "toSearch3", sender: nil)
     }
     
     @objc func commentaction(){
         
         performSegue(withIdentifier: "toReply", sender: nil)
+    }
+    @objc func toPhotoSelect(){
+        
+        performSegue(withIdentifier: "toPhotoSelect", sender: nil)
     }
     
     //保存ボタン
@@ -206,7 +224,7 @@ extension Search2ViewController{
         _ = SweetAlert().showAlert("店を保存しました", subTitle: "", style: AlertStyle.success)
     }
     
-    //GOODボタンから取得する
+    //GOODボタンの処理
     @objc func goodbutton(sender: DOFavoriteButton){
         let indexPath = tableView.indexPath(for: sender.superview!.superview as! UITableViewCell)
         let cell = tableView.cellForRow(at: indexPath!) as! TableViewCell
@@ -220,7 +238,7 @@ extension Search2ViewController{
         cell.goodButton = result.button
     }
     
-    //BADボタンから取得する
+    //BADボタンの処理
     @objc func badButton(sender: DOFavoriteButton){
 
 
@@ -240,7 +258,12 @@ extension Search2ViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toYouserAcount"{
             let nextView = segue.destination as! YouserAcountViewController
-            nextView.spectator = "観覧ユーザ"
+            nextView.spectator = spectator
+        }
+        if segue.identifier == "toPhotoSelect"{
+            let nextView = segue.destination as! PhotoSelectViewController
+            nextView.firstindex = firstindex
+            nextView.storename = storename
         }
     }
 }

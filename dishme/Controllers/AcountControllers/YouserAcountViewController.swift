@@ -66,7 +66,9 @@ class YouserAcountViewController: UIViewController{
     //次の画面で指定したcellを最初に持ってくるindex
     var firstindex:IndexPath? = nil
     
-    var spectator = ""
+    //渡す値
+    var spectator = "本人"
+    var storename = ""
     
     //写真を表示するcollectionview
     var myCollectionView : UICollectionView!
@@ -108,11 +110,12 @@ class YouserAcountViewController: UIViewController{
         if segue.identifier == "toPhotoSelect" {
             let nextVC = segue.destination as! PhotoSelectViewController
             nextVC.firstindex = firstindex
-            nextVC.acountResister = "ユーザ"
         }
         if segue.identifier == "toSearch2" {
             let nextVC = segue.destination as! Search2ViewController
             nextVC.firstindex = firstindex
+            nextVC.spectator = spectator
+            nextVC.storename = storename
         }
     }
     
@@ -233,11 +236,8 @@ extension YouserAcountViewController :UICollectionViewDelegate, UICollectionView
         print("SectionNum:\(indexPath.section)")
         
         firstindex = indexPath
-        if spectator == "観覧ユーザ"{
-           performSegue(withIdentifier: "toSearch2", sender: nil)
-        }else{
-           performSegue(withIdentifier: "toPhotoSelect", sender: nil)
-        }
+        storename = sectionTitle[indexPath.section]
+        performSegue(withIdentifier: "toSearch2", sender: nil)
         
     }
     

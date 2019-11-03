@@ -31,6 +31,8 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
     @IBOutlet var pageControl: FlexiblePageControl!
     let scrollSize: CGFloat = 300
     
+    @IBOutlet var editButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -59,6 +61,9 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
         detailButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         detailButton.setTitle("お店を見る", for: UIControl.State.normal)
         photoBackView.bringSubviewToFront(detailButton)
+        
+        let customcolor = CustomColor()
+        editButton.setTitleColor(customcolor.selectColor(), for: .normal)
 
     }
     
