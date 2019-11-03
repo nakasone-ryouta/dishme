@@ -14,6 +14,8 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
     var isOpen = false
     @IBOutlet weak var label: UILabel!
     
+    @IBOutlet var youserAcountnameLabel: UILabel!
+    @IBOutlet var youserAcountButton: UIButton!
     @IBOutlet weak var acountButton: UIButton!
     @IBOutlet weak var resevebButton: UIButton!
     @IBOutlet weak var commentLabel: UILabel!
@@ -24,7 +26,6 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
     @IBOutlet var commentButton: UIButton!
     @IBOutlet var commentNumber: UILabel!
     
-    @IBOutlet var detailButton: UIButton!
     //pagescroll
     @IBOutlet var photoBackView: UIView!
     private var scrollView: UIScrollView!
@@ -40,6 +41,8 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
         acountButton.layer.masksToBounds = true
         acountButton.layer.cornerRadius = 16
         
+        youserAcountButton.layer.masksToBounds = true
+        youserAcountButton.layer.cornerRadius = 11
         //scrollViewの基本設定
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 375, height: 375))
         scrollView.delegate = self
@@ -53,14 +56,6 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
         pageControl.center = CGPoint(x: scrollView.center.x, y: scrollView.frame.maxY + 16)
         photoBackView.addSubview(pageControl)
         
-
-
-        detailButton.layer.cornerRadius = 18
-        detailButton.titleLabel!.font = UIFont.init(name: "HelveticaNeue-Medium", size: 10)
-        detailButton.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
-        detailButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        detailButton.setTitle("お店を見る", for: UIControl.State.normal)
-        photoBackView.bringSubviewToFront(detailButton)
         
         let customcolor = CustomColor()
         editButton.setTitleColor(customcolor.selectColor(), for: .normal)

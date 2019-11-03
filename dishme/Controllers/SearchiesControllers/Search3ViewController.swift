@@ -445,7 +445,7 @@ extension Search3ViewController:UITableViewDataSource,UITableViewDelegate{
         if indexPath.row == 0{
             performSegue(withIdentifier: "toEditHoliday", sender: nil)
         }
-        else if indexPath.row == 2{
+        if indexPath.row == 2{
             performSegue(withIdentifier: "toSearchMap", sender: nil)
         }
     }

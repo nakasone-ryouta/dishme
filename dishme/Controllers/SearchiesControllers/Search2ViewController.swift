@@ -23,7 +23,21 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var tableView: UITableView!
     
-    var cellTexts = ["中曽根良太",
+    var cellTexts = ["焼肉大地",
+                     "すき家の牛丼",
+                     "ガスト習志野台店",
+                     "焼肉のさかい",
+                     "ぎゅうぎゅう若丸",
+                     "焼肉大地",
+                     "すき家の牛丼",
+                     "ガスト習志野台店",
+                     "焼肉のさかい",
+                     "ぎゅうぎゅう若丸",
+                     "牛若丸",
+                     "継承園",
+                     ]
+    
+    var acountname = ["中曽根良太",
                      "井村彩乃",
                      "米田完",
                      "大塚愛",
@@ -121,7 +135,7 @@ extension Search2ViewController{
         //コメント
         cell.commentLabel.text = comment
         cell.commentNumber.text = "\(commentnumbar[indexPath.row])"
-        
+
 
 
         //お店名の登録
@@ -136,14 +150,13 @@ extension Search2ViewController{
         cell.resevebButton.setAttributedTitle(attrText[indexPath.row], for: .normal)
         
         //何番目のボタンが押されているか
-        cell.detailButton.tag = indexPath.row
         cell.acountButton.tag = indexPath.row
         cell.goodButton.tag = indexPath.row
         cell.badButton.tag = indexPath.row
         
         //アカウント選択
-        cell.detailButton.addTarget(self, action: #selector(self.detailaction), for: .touchUpInside)
-        cell.acountButton.addTarget(self, action: #selector(self.toYouserAcount), for: .touchUpInside)
+        cell.youserAcountButton.addTarget(self, action: #selector(self.toYouserAcount), for: .touchUpInside)
+        cell.acountButton.addTarget(self, action: #selector(self.detailaction), for: .touchUpInside)
         cell.resevebButton.addTarget(self, action: #selector(self.saveacount), for: .touchUpInside)
         cell.goodButton.addTarget(self, action: #selector(self.goodbutton), for: .touchUpInside)
         cell.badButton.addTarget(self, action: #selector(self.badButton), for: .touchUpInside)
@@ -165,6 +178,13 @@ extension Search2ViewController{
         cell.goodlabel.text = "\(goods[indexPath.row])"
         cell.badlabel.text = "\(bads[indexPath.row])"
         
+        //投稿者のアカウント登録
+        cell.youserAcountButton.setImage(UIImage(named: "acount5"), for: UIControl.State())
+        cell.youserAcountButton.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        
+        //ユーザアカウントの名前
+        cell.youserAcountnameLabel.text = "投稿者　" + acountname[indexPath.row]
+        
         return cell
     }
     
@@ -174,7 +194,7 @@ extension Search2ViewController{
         //コメント込みの高さを返す
         if self.isOpens[indexPath.row] == false{
             let commentHeight = cell.commentLabel.frame.size.height
-            openHeights[indexPath.row] = openHeights[indexPath.row] + commentHeight - 85
+            openHeights[indexPath.row] = openHeights[indexPath.row] + commentHeight - 55
         }
         
         self.tableView.beginUpdates()
@@ -216,6 +236,7 @@ extension Search2ViewController{
         
         performSegue(withIdentifier: "toPhotoSelect", sender: nil)
     }
+    
     
     //保存ボタン
     @objc func saveacount(sender: UIButton){

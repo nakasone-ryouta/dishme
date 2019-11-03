@@ -396,12 +396,29 @@ extension SignInViewController{
         signup_name_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
         scrollView2.addSubview(signup_name_textfield)
     }
+    //ここ
+    func phonetextfield_view2(){
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        
+        signup_phone_textfield.delegate = self
+        signup_phone_textfield.frame = CGRect(x: 0, y: height/3.7, width: width/1.5, height: height/16.24)
+        signup_phone_textfield.textAlignment = NSTextAlignment.left
+        signup_phone_textfield.center.x = view.center.x
+        signup_phone_textfield.font = UIFont.systemFont(ofSize: width/22)
+        signup_phone_textfield.placeholder = "Phone Number"
+        signup_phone_textfield.keyboardType = UIKeyboardType.numberPad
+        signup_phone_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
+        scrollView2.addSubview(signup_phone_textfield)
+    }
+    
+    //ここ
     func emailtextfield_view2(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
 
         signup_email_textfield.delegate = self
-        signup_email_textfield.frame = CGRect(x: 0, y: height/3.64, width: width/1.5, height: height/16.24)
+        signup_email_textfield.frame = CGRect(x: 0, y: height/3, width: width/1.5, height: height/16.24)
         signup_email_textfield.textAlignment = NSTextAlignment.left
         signup_email_textfield.center.x = view.center.x
         signup_email_textfield.font = UIFont.systemFont(ofSize: width/22)
@@ -409,31 +426,19 @@ extension SignInViewController{
         signup_email_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
         scrollView2.addSubview(signup_email_textfield)
     }
+    //ここ
     func passwordtextfield_view2(){
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
 
         signup_password_textfield.delegate = self
-        signup_password_textfield.frame = CGRect(x: 0, y: height/2.94, width: width/1.5, height: height/16.24)
+        signup_password_textfield.frame = CGRect(x: 0, y: height/2.5, width: width/1.5, height: height/16.24)
         signup_password_textfield.textAlignment = NSTextAlignment.left
         signup_password_textfield.center.x = view.center.x
         signup_password_textfield.font = UIFont.systemFont(ofSize: width/22)
         signup_password_textfield.placeholder = "Password"
         signup_password_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
         scrollView2.addSubview(signup_password_textfield)
-    }
-    func phonetextfield_view2(){
-        let width = UIScreen.main.bounds.size.width
-        let height = UIScreen.main.bounds.size.height
-        
-        signup_phone_textfield.delegate = self
-        signup_phone_textfield.frame = CGRect(x: 0, y: height/4.75, width: width/1.5, height: height/16.24)
-        signup_phone_textfield.textAlignment = NSTextAlignment.left
-        signup_phone_textfield.center.x = view.center.x
-        signup_phone_textfield.font = UIFont.systemFont(ofSize: width/22)
-        signup_phone_textfield.placeholder = "Phone Number"
-        signup_phone_textfield.addBorderBottom(height: 1.0, color: UIColor.lightGray)
-        scrollView2.addSubview(signup_phone_textfield)
     }
     
     func acountbutton_view2(){
