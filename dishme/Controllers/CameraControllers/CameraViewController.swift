@@ -72,13 +72,15 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 extension CameraViewController{
     func cameraButton() ->UIButton{
         let button = UIButton(type: .custom)
+        let width = view.frame.size.width
+        let height = view.frame.size.height
         button.addTarget(self, action: #selector(takepicture), for: UIControl.Event.touchUpInside)
         button.frame = CGRect(x: 0,
                               y: 0,
-                              width: 81,
-                              height: 81);
-        button.layer.position = CGPoint(x: 187.5,
-                                        y: 680)
+                              width: width/4.62,
+                              height: width/4.62);
+        button.layer.position = CGPoint(x: width / 2,
+                                        y: height / 1.19)
         button.setTitleColor(UIColor.white, for: UIControl.State.normal)
         button.backgroundColor = .white
         button.layer.borderWidth = 10
@@ -92,11 +94,13 @@ extension CameraViewController{
     
     func changecameraButton() ->UIButton{
         let button = UIButton(type: .custom)
+        let width = view.frame.size.width
+        let height = view.frame.size.height
         button.addTarget(self, action: #selector(changecamera), for: UIControl.Event.touchUpInside)
-        button.frame = CGRect(x: 23,
-                              y: 422,
-                              width: 20,
-                              height: 22);
+        button.frame = CGRect(x: width / 16.3,
+                              y: height / 1.92,
+                              width: width/18.75,
+                              height: width/17);
         button.setImage(UIImage(named: "camerachange"), for: UIControl.State())
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
@@ -105,7 +109,9 @@ extension CameraViewController{
     
     func underview() ->UIView{
         let backview = UIView()
-        backview.frame = CGRect(x: 0, y: 462, width: 375, height: 367)
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        backview.frame = CGRect(x: 0, y: 462, width: width, height: width)
         backview.backgroundColor = .white
         return backview
     }
@@ -168,7 +174,9 @@ extension CameraViewController{
 
 extension CameraViewController: UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout{
     func collectionsettings(){
-        collectionView = UICollectionView(frame: CGRect(x: 10, y: 493, width: self.view.frame.size.width, height: 135), collectionViewLayout: UICollectionViewFlowLayout())
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        collectionView = UICollectionView(frame: CGRect(x: width / 37.5, y: height / 1.64, width: self.view.frame.size.width, height: height / 6), collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = UIColor.white
         collectionView.register(CameraCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         
