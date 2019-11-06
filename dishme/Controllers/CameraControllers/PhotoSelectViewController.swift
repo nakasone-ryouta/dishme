@@ -545,6 +545,7 @@ extension PhotoSelectViewController{
         }else{
             _ = SweetAlert().showAlert("写真を保存しました", subTitle: "店名:\(searchstore)", style: AlertStyle.success)
             dismiss(animated: true, completion: nil)
+            dismiss(animated: true, completion: nil)
         }
     }
     
