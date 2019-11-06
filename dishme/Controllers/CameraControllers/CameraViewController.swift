@@ -28,7 +28,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     //ページのスクロール
     var pageMenu: PageMenuView!
-    var pagebackview = UIView() //pageの下に引くview
     
     //メニューのcollectionview
     var collectionView: UICollectionView!
@@ -52,8 +51,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         //カメラのメソッドをUIImageViewに付与
         cameraView = aVC.inSideOutSideCameraSet(cameraView: cameraView)
-        //ページのbackviewのセット
-        pagesettings()
+//        //ページのbackviewのセット
+//        pagesettings()
         
         
         zoomcamera()
@@ -63,6 +62,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         setup()
         libraryRequestAuthorization()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //ページのbackviewのセット
+        pagesettings()
     }
     
 }

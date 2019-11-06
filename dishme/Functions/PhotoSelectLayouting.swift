@@ -34,7 +34,7 @@ class PhotoSelectLayouting {
         
         case 2436:
             print("iPhone X")
-            layout.itemSize = CGSize(width: width, height: 620)
+            layout.itemSize = CGSize(width: width, height: 630)
             collectionView.collectionViewLayout = layout
 
         case 960:
@@ -50,21 +50,21 @@ class PhotoSelectLayouting {
         switch UIScreen.main.nativeBounds.height {
         case 1136:
             print("iPhone 5/5S/5C")
-            label.frame = CGRect(x: 15,y: 410,width: 0, height: 0)
+            label.frame = CGRect(x: 15,y: 310,width: 0, height: 0)
             
         case 1334:
             print("iPhone 6/6S/7/8")
-            label.frame = CGRect(x: 15,y: 490,width: 0, height: 0)
+            label.frame = CGRect(x: 15,y: 390,width: 0, height: 0)
            
             
         case 2208:
             print("iPhone 6+/6S+/7+/8+")
-            label.frame = CGRect(x: 15,y: 520,width: 0, height: 0)
+            label.frame = CGRect(x: 15,y: 420,width: 0, height: 0)
           
             
         case 2436:
             print("iPhone X")
-            label.frame = CGRect(x: 15,y: 560,width: 0, height: 0)
+            label.frame = CGRect(x: 15,y: 470,width: 0, height: 0)
             
         case 960:
             print("iPad Pro(iPhone ver) (9.7-inch)/(10.5-inch)")
@@ -82,17 +82,17 @@ class PhotoSelectLayouting {
             
         case 1334:
             print("iPhone 6/6S/7/8")
-            comment.frame = CGRect(x: 15,y: 460,width: 340, height: 150)
+            comment.frame = CGRect(x: 15,y: 360,width: 340, height: 150)
             
             
         case 2208:
             print("iPhone 6+/6S+/7+/8+")
-            comment.frame = CGRect(x: 15,y: 500,width: 340, height: 150)
+            comment.frame = CGRect(x: 15,y: 400,width: 340, height: 150)
             
             
         case 2436:
             print("iPhone X")
-            comment.frame = CGRect(x: 15,y: 530,width: 340, height: 150)
+            comment.frame = CGRect(x: 15,y: 450,width: 340, height: 150)
             
         case 960:
             print("iPad Pro(iPhone ver) (9.7-inch)/(10.5-inch)")

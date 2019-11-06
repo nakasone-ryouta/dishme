@@ -616,7 +616,6 @@ extension PhotoSelectViewController:FMImageEditorViewControllerDelegate{
         originalimages[pageindex] = photo
         collectionView2.reloadData()
         print("編集おわた")
-        self.dismiss(animated: true, completion: nil)
     }
     func fmPhotoPickerController(_ picker: FMPhotoPickerViewController, didFinishPickingPhotoWith photos: [UIImage]) {
         self.dismiss(animated: true, completion: nil)
