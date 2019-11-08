@@ -43,6 +43,7 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
         
         youserAcountButton.layer.masksToBounds = true
         youserAcountButton.layer.cornerRadius = 11
+        
         //scrollViewの基本設定
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 375, height: 375))
         scrollView.delegate = self

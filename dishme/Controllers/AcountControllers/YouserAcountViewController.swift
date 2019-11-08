@@ -266,8 +266,24 @@ extension YouserAcountViewController :UICollectionViewDelegate, UICollectionView
         view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Section", for: indexPath) as? SectionHeader
         
         if kind == UICollectionView.elementKindSectionHeader {
-            view?.setTitle(title: sectionTitle[indexPath.section])
-            view?.button.addTarget(self, action: #selector(menuadd), for: UIControl.Event.touchUpInside)
+            if spectator == "本人"{
+                view?.setTitle(title: sectionTitle[indexPath.section])
+                view?.button.addTarget(self, action: #selector(menuadd), for: UIControl.Event.touchUpInside)
+            }
+            else{
+                if indexPath.section == 0{
+                    sectionTitle[0] = "訪問数　：1000人"
+                    view?.setTitle(title: sectionTitle[indexPath.section])
+                    view?.titleLabel.frame = CGRect(x: 0, y: 20, width: (view?.frame.size.width)!, height: 20)
+                    view?.titleLabel.textAlignment = .center
+                    view?.button.removeFromSuperview()
+                }else{
+                    view?.setTitle(title: sectionTitle[indexPath.section])
+                    view?.titleLabel.textAlignment = .left
+                    view?.titleLabel.frame = CGRect(x: 15, y: 20, width: 300, height: 20)
+                    view?.button.removeFromSuperview()
+                }
+            }
             return view!
         }
         
