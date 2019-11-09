@@ -508,16 +508,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWE-lP-pTB">
                                 <rect key="frame" x="0.0" y="721" width="375" height="91"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Nd-sE-3Ht">
-                                        <rect key="frame" x="252" y="22" width="115" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="115" id="DaB-RE-RX0"/>
-                                        </constraints>
-                                        <state key="normal" title="Button" image="callbutton"/>
-                                        <connections>
-                                            <action selector="ReservaionButton:" destination="KdK-vi-gZs" eventType="touchUpInside" id="XcU-Hp-8bb"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥6280" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZf-QD-b4J">
                                         <rect key="frame" x="12" y="29" width="225" height="34"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
@@ -530,6 +520,16 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Nd-sE-3Ht">
+                                        <rect key="frame" x="252" y="22" width="115" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="115" id="DaB-RE-RX0"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="callbutton"/>
+                                        <connections>
+                                            <action selector="ReservaionButton:" destination="KdK-vi-gZs" eventType="touchUpInside" id="XcU-Hp-8bb"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -558,6 +558,7 @@
                     <connections>
                         <outlet property="avarageMoneyLabel" destination="mZf-QD-b4J" id="Wfv-q0-lOL"/>
                         <outlet property="blackView" destination="IWE-lP-pTB" id="KQk-EJ-NSk"/>
+                        <outlet property="reserveButton" destination="3Nd-sE-3Ht" id="VNO-OY-1lo"/>
                         <segue destination="N8b-Fx-7we" kind="show" identifier="toSearch4" id="l8R-vB-t3R"/>
                         <segue destination="r9G-19-op4" kind="show" identifier="toSearchMap" id="eW3-se-LyZ"/>
                         <segue destination="M86-fN-2hV" kind="show" identifier="toEditHoliday" id="Xip-1P-dqd"/>

@@ -312,7 +312,7 @@ extension SignInViewController{
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: width/16.3)
         label.adjustsFontSizeToFitWidth = true
         label.sizeToFit()
-        label.center.x = view.center.x
+        label.center.x = view.center.x + 10
         view.addSubview(label)
         
         iconImage(label: label)

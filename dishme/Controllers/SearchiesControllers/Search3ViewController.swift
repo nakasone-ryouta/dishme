@@ -30,6 +30,7 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
     let scrollView = UIScrollView()
     let menuview = UIView()
     @IBOutlet weak var blackView: UIView!
+    @IBOutlet var reserveButton: UIButton!
     
     //メニューのページ
     var pageMenu: PageMenuViewinit!
@@ -121,6 +122,10 @@ class Search3ViewController: UIViewController,ScrollingNavigationControllerDeleg
         pagesettings()
         
         self.view.bringSubviewToFront(blackView)
+        
+        let backImage = UIImage(named: "callbutton")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        reserveButton.setImage(backImage, for: UIControl.State.normal)
+        reserveButton.tintColor = customcolor.selectColor()
     }
     
     // Enable the navbar scrolling
@@ -222,6 +227,7 @@ extension Search3ViewController{
     }
     func setupNavigation(){
         let selectBtn = UIBarButtonItem(title: "保存", style: .done, target: self, action: #selector(savephoto))
+        selectBtn.tintColor = customcolor.selectColor()
         self.navigationItem.rightBarButtonItems = [selectBtn]
     }
     @objc func savephoto(){

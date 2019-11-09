@@ -53,12 +53,10 @@ class TableViewCell: UITableViewCell ,UIScrollViewDelegate{
         
         // pageControlの表示位置とサイズの設定
         pageControl.pageIndicatorTintColor = UIColor.init(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
-        pageControl.currentPageIndicatorTintColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
+        let customcolor = CustomColor()
+        pageControl.currentPageIndicatorTintColor = customcolor.selectColor()
         pageControl.center = CGPoint(x: scrollView.center.x, y: scrollView.frame.maxY + 16)
         photoBackView.addSubview(pageControl)
-        
-        
-        let customcolor = CustomColor()
         editButton.setTitleColor(customcolor.selectColor(), for: .normal)
 
     }

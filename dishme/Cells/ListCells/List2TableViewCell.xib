@@ -53,7 +53,7 @@
                             <constraint firstAttribute="height" constant="28" id="aik-Rd-zk7"/>
                             <constraint firstAttribute="width" secondItem="fhl-8C-SfB" secondAttribute="height" multiplier="107:28" constant="-63" id="pRO-Bw-Jpb"/>
                         </constraints>
-                        <state key="normal" title="Button" image="itemcall"/>
+                        <state key="normal" title="Button" image="callitem"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -81,6 +81,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="itemcall" width="321" height="205"/>
+        <image name="callitem" width="390" height="256"/>
     </resources>
 </document>

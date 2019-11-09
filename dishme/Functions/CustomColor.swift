@@ -11,8 +11,9 @@ import UIKit
 
 class CustomColor {
     let blue = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
+    let orange = UIColor.init(red: 255/255, green: 172/255, blue: 54/255, alpha: 1)
     
     func selectColor()->UIColor{
-        return blue
+        return orange
     }
 }

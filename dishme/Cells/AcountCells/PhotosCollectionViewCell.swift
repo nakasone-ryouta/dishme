@@ -53,7 +53,10 @@ class SectionHeader: UICollectionReusableView {
         self.addSubview(titleLabel)
         
         
-        button.setImage(UIImage(named: "menuadd"), for: UIControl.State())
+        let customcolor = CustomColor()
+        let backImage = UIImage(named: "menuadd")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        button.setImage(backImage, for: UIControl.State.normal)
+        button.tintColor = customcolor.selectColor()
         button.sizeToFit()
         button.frame = CGRect(x: 15, y: 20, width: 22, height: 22)
         self.addSubview(button)
