@@ -460,7 +460,9 @@ extension PhotoSelectViewController{
                               width: width / 18.75,
                               height: width / 14.4);
         button.layer.position = CGPoint(x: view.frame.size.width - 30, y: backview.frame.size.height / 2)
-        button.setImage(UIImage(named: "delete"), for: UIControl.State())
+        let backImage = UIImage(named: "delete")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        button.setImage(backImage, for: UIControl.State.normal)
+        button.tintColor = customcolor.selectColor()
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
         self.backview.addSubview(button)
@@ -476,7 +478,9 @@ extension PhotoSelectViewController{
         button.layer.position = CGPoint(x: 30, y: backview.frame.size.height / 2)
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        button.setImage(UIImage(named: "savephoto"), for: UIControl.State())
+        let backImage = UIImage(named: "savephoto")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        button.setImage(backImage, for: UIControl.State.normal)
+        button.tintColor = customcolor.selectColor()
         button.addTarget(self, action: #selector(savephoto), for: UIControl.Event.touchUpInside)
         
         
@@ -513,7 +517,9 @@ extension PhotoSelectViewController{
         button.layer.position = CGPoint(x: view.frame.size.width / 2, y: backview.frame.size.height / 2)
         button.layer.shadowOpacity = 0.1
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        button.setImage(UIImage(named: "edititem"), for: UIControl.State())
+        let backImage = UIImage(named: "edititem")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        button.setImage(backImage, for: UIControl.State.normal)
+        button.tintColor = customcolor.selectColor()
         button.addTarget(self, action: #selector(filteraciton), for: UIControl.Event.touchUpInside)
         
         

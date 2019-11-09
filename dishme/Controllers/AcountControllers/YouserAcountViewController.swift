@@ -125,6 +125,7 @@ class YouserAcountViewController: UIViewController{
 extension YouserAcountViewController{
     func setupNavigation(){
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.tintColor = customcolor.selectColor()
         self.navigationItem.title = "アカウント"
         
         let button = UIBarButtonItem(image: UIImage(named: "settingitem")?.withRenderingMode(.alwaysOriginal),

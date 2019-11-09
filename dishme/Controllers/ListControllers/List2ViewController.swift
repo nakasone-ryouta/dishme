@@ -261,7 +261,8 @@ extension List2ViewController:PageMenuViewDelegateinit{
         option.menuTitleFont = UIFont.init(name: "HelveticaNeue-Medium", size: 15)!
         option.menuTitleColorSelected = .black
         option.menuIndicatorHeight = 3
-        option.menuIndicatorColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
+        let customcolor = CustomColor()
+        option.menuIndicatorColor = customcolor.selectColor()
 
         return option
     }

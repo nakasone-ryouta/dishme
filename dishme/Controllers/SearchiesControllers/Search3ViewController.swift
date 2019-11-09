@@ -228,6 +228,7 @@ extension Search3ViewController{
     func setupNavigation(){
         let selectBtn = UIBarButtonItem(title: "保存", style: .done, target: self, action: #selector(savephoto))
         selectBtn.tintColor = customcolor.selectColor()
+        self.navigationController?.navigationBar.tintColor = customcolor.selectColor()
         self.navigationItem.rightBarButtonItems = [selectBtn]
     }
     @objc func savephoto(){

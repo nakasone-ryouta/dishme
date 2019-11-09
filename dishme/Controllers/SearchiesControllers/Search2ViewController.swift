@@ -95,7 +95,7 @@ class Search2ViewController: UIViewController, UITableViewDelegate, UITableViewD
 //navigation周り
 extension Search2ViewController{
     func setupNavigation(){
-        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.tintColor = customcolor.selectColor()
     }
 }
 
