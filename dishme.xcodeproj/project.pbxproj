@@ -108,7 +108,6 @@
 		6A40A543232A898C0096CC28 /* Search3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search3ViewController.swift; sourceTree = "<group>"; };
 		6A40A545232A9FD90096CC28 /* PageMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageMenuView.swift; sourceTree = "<group>"; };
 		6A40A547232BD5420096CC28 /* Search4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search4ViewController.swift; sourceTree = "<group>"; };
-		6A505CB3232D6FFE002F2184 /* GPUImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GPUImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A505CCF232DA85B002F2184 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		6A505CF62330147F002F2184 /* UIoverride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIoverride.swift; sourceTree = "<group>"; };
 		6A6AE0462329163C00D776AD /* dishme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dishme.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,7 +159,6 @@
 		3CEAE40F610EA5B15E4FBCC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6A505CB3232D6FFE002F2184 /* GPUImage.framework */,
 				F72C3E1D0235C528C4BCCA1B /* Pods_dishme.framework */,
 			);
 			name = Frameworks;

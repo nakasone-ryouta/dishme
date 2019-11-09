@@ -43,6 +43,7 @@ class SignInViewController: UIViewController {
     var permitimageView = UIImage(named: "permitadd")
     var acounttouch = ""
     
+    let customcolor = CustomColor()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -270,7 +271,8 @@ extension SignInViewController:PageMenuViewDelegateinit{
         option.menuTitleFont = UIFont.init(name: "HelveticaNeue-Bold", size: 15)!
         option.menuTitleColorSelected = .black
         option.menuIndicatorHeight = 3
-        option.menuIndicatorColor = UIColor.init(red: 55/255, green: 151/255, blue: 240/255, alpha: 1)
+        let customcolor = CustomColor()
+        option.menuIndicatorColor = customcolor.selectColor()
         
         return option
     }
@@ -303,13 +305,28 @@ extension SignInViewController{
         let label = UILabel()
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
-        label.frame = CGRect(x: 0, y: height/9.2, width: width , height: height/27)
+        label.frame = CGRect(x: 0, y: height/8.0, width: width , height: height/27)
+        label.text = "DISHME"
         label.textAlignment = NSTextAlignment.center
-        label.text = "WELLCOME TO DISHME"
         label.textColor = UIColor.black
         label.font = UIFont.init(name: "HelveticaNeue-Bold", size: width/16.3)
         label.adjustsFontSizeToFitWidth = true
+        label.sizeToFit()
+        label.center.x = view.center.x
         view.addSubview(label)
+        
+        iconImage(label: label)
+    }
+    
+    func iconImage(label: UILabel){
+        let imageview = UIImageView()
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        imageview.frame = CGRect(x: 0, y: 0, width: 50 , height: 50)
+        imageview.frame.origin.x = label.frame.origin.x - 60
+        imageview.frame.origin.y = label.frame.origin.y - 10
+        imageview.image = UIImage(named: "appicon")
+        view.addSubview(imageview)
     }
     
     func emailtextfield(){
@@ -350,8 +367,9 @@ extension SignInViewController{
         button.addTarget(self, action: #selector(toyouserAcount), for: UIControl.Event.touchUpInside)
         button.frame = CGRect(x: 0, y: height/2.02, width: width/2.04, height: width/9.6)
         button.center.x = view.center.x
-        button.setImage(UIImage(named: "signinbar"), for: UIControl.State())
-        button.layer.shadowOpacity = 0.1
+        let backImage = UIImage(named: "signinbar")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        button.setImage(backImage, for: UIControl.State.normal)
+        button.tintColor = customcolor.selectColor()
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
         scrollView.addSubview(button)
     }
@@ -463,9 +481,9 @@ extension SignInViewController{
         button.addTarget(self, action: #selector(toyouserAcount), for: UIControl.Event.touchUpInside)
         button.frame = CGRect(x: 0, y: height/2.02, width: width/2.04, height: width/9.6)
         button.center.x = view.center.x
-        button.setImage(UIImage(named: "signupbar"), for: UIControl.State())
-        button.layer.shadowOpacity = 0.1
-        button.layer.shadowOffset = CGSize(width: 2, height: 2)
+        let backImage = UIImage(named: "signupbar")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        button.setImage(backImage, for: UIControl.State.normal)
+        button.tintColor = customcolor.selectColor()
         scrollView2.addSubview(button)
     }
     @objc func acountimage_view2(){
